@@ -1,111 +1,157 @@
-/*
-  Monesh Ebooks — Tech Blueprint subscriber reward
-  IMPORTANT: replace GOOGLE_CLIENT_ID and APPS_SCRIPT_URL before publishing.
-*/
-const SUBSCRIBER_CONFIG = {
-  ...window.MONESH_REWARD_CONFIG,
-  YOUTUBE_CHANNEL_HANDLE: "@techblueprint-01"
-};
+\const COUPON_API =
+  "https://script.google.com/macros/s/AKfycbzP9DmdaONAVA23WF21aLvm3OdEKu0BnT3wLbE-okTA-2Jlf4-JckOYWUyJ9XP4wvI/exec";
 
-const verifyButton = document.getElementById("verifyButton");
-const statusBox = document.getElementById("status");
-const couponBox = document.getElementById("couponBox");
-const couponCode = document.getElementById("couponCode");
-const couponDiscount = document.getElementById("couponDiscount");
-const copyButton = document.getElementById("copyButton");
+const YOUTUBE_URL =
+  "https://www.youtube.com/@techblueprint-01";
 
-let tokenClient = null;
 
-function setStatus(message, type="") {
-  statusBox.className = "reward-status" + (type ? " " + type : "");
-  statusBox.textContent = message;
-}
+document.addEventListener("DOMContentLoaded", () => {
 
-function configurationReady() {
-  return !SUBSCRIBER_CONFIG.GOOGLE_CLIENT_ID.startsWith("YOUR_") &&
-         !SUBSCRIBER_CONFIG.APPS_SCRIPT_URL.startsWith("YOUR_");
-}
+  const subscribeButton =
+    document.getElementById("subscribeYoutube");
 
-function startVerification() {
-  if (!configurationReady()) {
-    setStatus("Setup is not finished yet. Add your Google OAuth Client ID and Apps Script Web App URL in js/subscriber.js.", "error");
-    return;
+  const rewardButton =
+    document.getElementById("getCoupon");
+
+  const emailInput =
+    document.getElementById("subscriberEmail");
+
+  const result =
+    document.getElementById("couponResult");
+
+  const couponBox =
+    document.getElementById("couponBox");
+
+
+  if (subscribeButton) {
+
+    subscribeButton.addEventListener("click", () => {
+
+      window.open(
+        YOUTUBE_URL,
+        "_blank"
+      );
+
+    });
+
   }
 
-  if (!window.google || !google.accounts || !google.accounts.oauth2) {
-    setStatus("Google Sign-In is still loading. Please wait a moment and try again.", "error");
-    return;
-  }
 
-  if (!tokenClient) {
-    tokenClient = google.accounts.oauth2.initTokenClient({
-      client_id: SUBSCRIBER_CONFIG.GOOGLE_CLIENT_ID,
-      scope: "https://www.googleapis.com/auth/youtube.readonly",
-      callback: async (tokenResponse) => {
-        if (tokenResponse.error) {
-          setStatus("Google authorization was not completed.", "error");
-          verifyButton.disabled = false;
+  if (rewardButton) {
+
+    rewardButton.addEventListener(
+      "click",
+      async () => {
+
+        const email =
+          emailInput.value.trim();
+
+        if (!email) {
+
+          showResult(
+            "Please enter your email address.",
+            false
+          );
+
           return;
         }
-        await verifySubscription(tokenResponse.access_token);
+
+
+        rewardButton.disabled = true;
+
+        rewardButton.textContent =
+          "Generating coupon...";
+
+
+        try {
+
+          const response =
+            await fetch(COUPON_API, {
+
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "text/plain;charset=utf-8"
+              },
+
+              body: JSON.stringify({
+                action: "generate",
+                email: email
+              })
+
+            });
+
+
+          const data =
+            await response.json();
+
+
+          if (!data.success) {
+
+            showResult(
+              data.message,
+              false
+            );
+
+            return;
+          }
+
+
+          couponBox.textContent =
+            data.coupon;
+
+          couponBox.style.display =
+            "block";
+
+
+          showResult(
+            `You received ${data.discount}% OFF!`,
+            true
+          );
+
+
+          localStorage.setItem(
+            "moneshCoupon",
+            data.coupon
+          );
+
+
+        } catch (error) {
+
+          console.error(error);
+
+          showResult(
+            "Unable to connect to coupon server.",
+            false
+          );
+
+        } finally {
+
+          rewardButton.disabled = false;
+
+          rewardButton.textContent =
+            "Get My Coupon";
+
+        }
+
       }
-    });
+    );
+
   }
 
-  verifyButton.disabled = true;
-  setStatus("Google will ask for permission to view your YouTube account. No password is shared with Monesh Ebooks.");
-  tokenClient.requestAccessToken({prompt: ""});
-}
 
-async function verifySubscription(accessToken) {
-  try {
-    setStatus("Checking your Tech Blueprint subscription…");
+  function showResult(message, success) {
 
-    const body = new URLSearchParams({
-      action: "verifySubscriber",
-      accessToken
-    });
+    if (!result) return;
 
-    const response = await fetch(SUBSCRIBER_CONFIG.APPS_SCRIPT_URL, {
-      method: "POST",
-      body
-    });
+    result.textContent = message;
 
-    const data = await response.json();
+    result.className =
+      success
+        ? "coupon-success"
+        : "coupon-error";
 
-    if (!data.success) {
-      setStatus(data.message || "Subscription could not be verified.", "error");
-      verifyButton.disabled = false;
-      return;
-    }
-
-    couponCode.textContent = data.coupon.code;
-    couponDiscount.textContent = `${data.coupon.discount}% off — one-time use`;
-    couponBox.style.display = "block";
-    setStatus("Subscription verified ✓ Your unique coupon is ready.", "success");
-
-    // Store only the coupon code locally for convenience. The server remains the source of truth.
-    localStorage.setItem("moneshSubscriberCoupon", data.coupon.code);
-    localStorage.setItem("moneshSubscriberCouponDiscount", String(data.coupon.discount));
-
-    verifyButton.disabled = true;
-  } catch (error) {
-    console.error(error);
-    setStatus("Could not contact the reward server. Check your Apps Script URL and deployment.", "error");
-    verifyButton.disabled = false;
   }
-}
 
-copyButton.addEventListener("click", async () => {
-  const code = couponCode.textContent.trim();
-  if (!code || code === "—") return;
-  try {
-    await navigator.clipboard.writeText(code);
-    copyButton.textContent = "Copied ✓";
-    setTimeout(() => copyButton.textContent = "Copy Coupon", 1500);
-  } catch {
-    setStatus("Copy failed. Select the coupon code and copy it manually.", "error");
-  }
 });
-
-verifyButton.addEventListener("click", startVerification);
