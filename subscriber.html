@@ -2,13 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>Tech Blueprint Reward | Monesh Ebooks</title>
+  <title>Get Your Coupon | Monesh Ebooks</title>
 
   <style>
     * {
@@ -18,10 +14,10 @@
     }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f5f7fb;
-      color: #111827;
       min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #07111f, #0d1b2a, #111827);
+      color: white;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -34,11 +30,13 @@
     }
 
     .card {
-      background: white;
-      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
       padding: 35px 28px;
-      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
       text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(15px);
     }
 
     .logo {
@@ -46,12 +44,11 @@
       height: 70px;
       margin: 0 auto 18px;
       border-radius: 18px;
-      background: #111827;
-      color: white;
+      background: linear-gradient(135deg, #2563eb, #06b6d4);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 25px;
+      font-size: 30px;
       font-weight: bold;
     }
 
@@ -61,172 +58,189 @@
     }
 
     .subtitle {
-      color: #6b7280;
+      color: #b8c3d1;
       line-height: 1.6;
       margin-bottom: 25px;
     }
 
     .steps {
       text-align: left;
-      background: #f9fafb;
-      border-radius: 14px;
-      padding: 18px;
-      margin-bottom: 25px;
+      margin: 25px 0;
     }
 
     .step {
       display: flex;
+      align-items: flex-start;
       gap: 12px;
-      margin-bottom: 15px;
+      margin-bottom: 16px;
+      color: #dbe5f0;
       line-height: 1.5;
-    }
-
-    .step:last-child {
-      margin-bottom: 0;
     }
 
     .number {
-      min-width: 28px;
-      height: 28px;
+      min-width: 30px;
+      height: 30px;
       border-radius: 50%;
-      background: #111827;
-      color: white;
+      background: #2563eb;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
       font-weight: bold;
     }
 
-    .youtube-button,
-    .coupon-button {
-      width: 100%;
-      border: none;
-      border-radius: 12px;
-      padding: 14px 18px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
+    .youtube-btn {
       display: block;
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      background: #ff0000;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
       transition: 0.2s;
     }
 
-    .youtube-button {
-      background: #ff0000;
-      color: white;
-      margin-bottom: 18px;
-    }
-
-    .youtube-button:hover {
+    .youtube-btn:hover {
+      transform: translateY(-2px);
       opacity: 0.9;
-      transform: translateY(-1px);
     }
 
-    .email-label {
+    label {
       display: block;
       text-align: left;
-      font-weight: bold;
       margin-bottom: 8px;
+      font-weight: bold;
     }
 
-    #subscriberEmail {
+    input {
       width: 100%;
-      padding: 14px;
-      border: 1px solid #d1d5db;
+      padding: 15px;
       border-radius: 12px;
-      font-size: 16px;
+      border: 1px solid #334155;
       outline: none;
+      background: #0f172a;
+      color: white;
+      font-size: 16px;
       margin-bottom: 14px;
     }
 
-    #subscriberEmail:focus {
-      border-color: #111827;
+    input:focus {
+      border-color: #3b82f6;
     }
 
-    .coupon-button {
-      background: #111827;
+    .coupon-btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #2563eb, #06b6d4);
       color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
     }
 
-    .coupon-button:hover {
-      background: #1f2937;
+    .coupon-btn:hover {
+      transform: translateY(-2px);
     }
 
-    .coupon-button:disabled {
+    .coupon-btn:disabled {
       opacity: 0.6;
       cursor: not-allowed;
+      transform: none;
     }
 
-    #couponResult {
+    .message {
       margin-top: 18px;
-      font-size: 15px;
+      padding: 12px;
+      border-radius: 10px;
+      display: none;
       line-height: 1.5;
     }
 
-    .coupon-success {
-      color: #15803d;
-      font-weight: bold;
+    .success {
+      display: block;
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      color: #86efac;
     }
 
-    .coupon-error {
-      color: #dc2626;
-      font-weight: bold;
+    .error {
+      display: block;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #fca5a5;
     }
 
     .coupon-box {
       display: none;
-      margin-top: 18px;
-      padding: 18px;
-      border: 2px dashed #111827;
-      border-radius: 14px;
-      background: #f9fafb;
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 15px;
+      background: rgba(37, 99, 235, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.4);
     }
 
-    .coupon-title {
-      font-size: 14px;
-      color: #6b7280;
+    .coupon-box.show {
+      display: block;
+    }
+
+    .coupon-label {
+      color: #94a3b8;
+      font-size: 13px;
       margin-bottom: 8px;
     }
 
-    #couponCode {
+    .coupon-code {
       font-size: 25px;
       font-weight: bold;
       letter-spacing: 2px;
       word-break: break-all;
+      color: #67e8f9;
+      margin-bottom: 12px;
     }
 
-    .copy-button {
-      margin-top: 12px;
-      padding: 10px 16px;
+    .copy-btn {
       border: none;
-      border-radius: 8px;
-      background: #e5e7eb;
-      cursor: pointer;
+      padding: 10px 18px;
+      border-radius: 10px;
+      background: white;
+      color: #111827;
       font-weight: bold;
+      cursor: pointer;
     }
 
-    .copy-button:hover {
-      background: #d1d5db;
+    .discount {
+      margin-top: 12px;
+      color: #86efac;
+      font-weight: bold;
     }
 
     .note {
       margin-top: 20px;
-      color: #6b7280;
-      font-size: 13px;
+      color: #64748b;
+      font-size: 12px;
       line-height: 1.5;
     }
 
-    .back {
+    .loading {
       display: inline-block;
-      margin-top: 20px;
-      color: #374151;
-      text-decoration: none;
-      font-size: 14px;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 7px;
     }
 
-    .back:hover {
-      text-decoration: underline;
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     @media (max-width: 480px) {
@@ -237,452 +251,481 @@
       h1 {
         font-size: 24px;
       }
+
+      .coupon-code {
+        font-size: 20px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <div class="card">
+  <div class="card">
 
-      <div class="logo">
-        MB
+    <div class="logo">M</div>
+
+    <h1>Get Your Coupon 🎁</h1>
+
+    <p class="subtitle">
+      Subscribe to Tech Blueprint and get your exclusive
+      <strong>50% OFF</strong> coupon for Monesh Ebooks.
+    </p>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="number">1</div>
+        <div>Click the button below and subscribe to Tech Blueprint.</div>
       </div>
 
-      <h1>Tech Blueprint Reward</h1>
-
-      <p class="subtitle">
-        Subscribe to Tech Blueprint and get your
-        special Monesh Ebooks coupon.
-      </p>
-
-
-      <!-- STEPS -->
-
-      <div class="steps">
-
-        <div class="step">
-          <div class="number">1</div>
-
-          <div>
-            Click the button below and subscribe to
-            <strong>Tech Blueprint</strong>.
-          </div>
-        </div>
-
-
-        <div class="step">
-          <div class="number">2</div>
-
-          <div>
-            Enter your email address.
-          </div>
-        </div>
-
-
-        <div class="step">
-          <div class="number">3</div>
-
-          <div>
-            Click <strong>Get My Coupon</strong>.
-          </div>
-        </div>
-
+      <div class="step">
+        <div class="number">2</div>
+        <div>Enter your email address.</div>
       </div>
 
-
-      <!-- YOUTUBE -->
-
-      <a
-        id="subscribeYoutube"
-        class="youtube-button"
-        href="https://www.youtube.com/@techblueprint-01"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        ▶ Subscribe to Tech Blueprint
-      </a>
-
-
-      <!-- EMAIL -->
-
-      <label
-        class="email-label"
-        for="subscriberEmail"
-      >
-        Your Email
-      </label>
-
-      <input
-        id="subscriberEmail"
-        type="email"
-        placeholder="Enter your email address"
-        autocomplete="email"
-      >
-
-
-      <!-- GET COUPON -->
-
-      <button
-        id="getCoupon"
-        class="coupon-button"
-        type="button"
-      >
-        🎁 Get My Coupon
-      </button>
-
-
-      <!-- RESULT -->
-
-      <div id="couponResult"></div>
-
-
-      <!-- COUPON -->
-
-      <div
-        id="couponBox"
-        class="coupon-box"
-      >
-
-        <div class="coupon-title">
-          Your Coupon Code
-        </div>
-
-        <div id="couponCode">
-          —
-        </div>
-
-        <button
-          id="copyCoupon"
-          class="copy-button"
-          type="button"
-        >
-          Copy Coupon
-        </button>
-
+      <div class="step">
+        <div class="number">3</div>
+        <div>Get your unique coupon code.</div>
       </div>
-
-
-      <p class="note">
-        Your coupon is unique to your email address.
-        Use it at checkout for the available discount.
-      </p>
-
-
-      <a
-        href="index.html"
-        class="back"
-      >
-        ← Back to Monesh Ebooks
-      </a>
 
     </div>
 
+    <a
+      class="youtube-btn"
+      href="https://www.youtube.com/@techblueprint-01"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      ▶ Subscribe to Tech Blueprint
+    </a>
+
+    <form id="couponForm">
+
+      <label for="email">Your Email</label>
+
+      <input
+        type="email"
+        id="email"
+        placeholder="Enter your email"
+        required
+        autocomplete="email"
+      >
+
+      <button
+        type="submit"
+        class="coupon-btn"
+        id="getCouponBtn"
+      >
+        Get My Coupon
+      </button>
+
+    </form>
+
+    <div id="message" class="message"></div>
+
+    <div id="couponBox" class="coupon-box">
+
+      <div class="coupon-label">
+        YOUR COUPON CODE
+      </div>
+
+      <div id="couponCode" class="coupon-code">
+        -
+      </div>
+
+      <button
+        type="button"
+        class="copy-btn"
+        id="copyBtn"
+      >
+        Copy Coupon
+      </button>
+
+      <div class="discount">
+        🎉 50% OFF
+      </div>
+
+    </div>
+
+    <p class="note">
+      Your coupon is generated automatically and can be used according
+      to the coupon rules on Monesh Ebooks.
+    </p>
+
   </div>
 
-
-  <!-- COUPON JAVASCRIPT -->
-
-  <script>
-
-    /*
-      IMPORTANT:
-      Put your deployed Google Apps Script
-      Web App URL below.
-    */
-
-    const COUPON_API =
-      "https://script.google.com/macros/s/AKfycbyaxOZeKXQr021FCioH-iBnLm7nGxurc5aLCCQzqoB1vrPaGDfFipz-FWtU270CN3OS/exec";
+</div>
 
 
-    const YOUTUBE_URL =
-      "https://www.youtube.com/@techblueprint-01";
+<script>
+
+  /* =====================================================
+     MONESH EBOOKS COUPON API
+     ===================================================== */
+
+  const COUPON_API =
+    "https://script.google.com/macros/s/AKfycbyaxOZeKXQr021FCioH-iBnLm7nGxurc5aLCCQzqoB1vrPaGDfFipz-FWtU270CN3OS/exec";
 
 
-    const subscribeButton =
-      document.getElementById("subscribeYoutube");
+  const form = document.getElementById("couponForm");
+  const emailInput = document.getElementById("email");
+  const getCouponBtn = document.getElementById("getCouponBtn");
+
+  const message = document.getElementById("message");
+
+  const couponBox = document.getElementById("couponBox");
+  const couponCode = document.getElementById("couponCode");
+
+  const copyBtn = document.getElementById("copyBtn");
 
 
-    const rewardButton =
-      document.getElementById("getCoupon");
+  /* =====================================================
+     SHOW MESSAGE
+     ===================================================== */
+
+  function showMessage(text, type) {
+
+    message.textContent = text;
+
+    message.className = "message " + type;
+
+  }
 
 
-    const emailInput =
-      document.getElementById("subscriberEmail");
+  /* =====================================================
+     JSONP API REQUEST
+     ===================================================== */
+
+  function callCouponAPI(action, params = {}) {
+
+    return new Promise((resolve, reject) => {
+
+      const callbackName =
+        "moneshCouponCallback_" +
+        Date.now() +
+        "_" +
+        Math.floor(Math.random() * 100000);
 
 
-    const result =
-      document.getElementById("couponResult");
+      const script = document.createElement("script");
 
 
-    const couponBox =
-      document.getElementById("couponBox");
+      const query = new URLSearchParams({
+
+        action: action,
+
+        ...params,
+
+        callback: callbackName,
+
+        _: Date.now()
+
+      });
 
 
-    const couponCode =
-      document.getElementById("couponCode");
+      let finished = false;
 
 
-    const copyButton =
-      document.getElementById("copyCoupon");
+      function cleanup() {
+
+        if (finished) return;
+
+        finished = true;
+
+        delete window[callbackName];
+
+        script.remove();
+
+      }
 
 
-    function showResult(message, success = false) {
+      window[callbackName] = function(data) {
 
-      result.textContent = message;
+        cleanup();
 
-      result.className =
-        success
-          ? "coupon-success"
-          : "coupon-error";
+        resolve(data);
+
+      };
+
+
+      script.onerror = function() {
+
+        cleanup();
+
+        reject(
+          new Error(
+            "Could not connect to the coupon server."
+          )
+        );
+
+      };
+
+
+      script.src =
+        COUPON_API +
+        (COUPON_API.includes("?") ? "&" : "?") +
+        query.toString();
+
+
+      document.body.appendChild(script);
+
+
+      /* 15 second timeout */
+
+      setTimeout(() => {
+
+        if (!finished) {
+
+          cleanup();
+
+          reject(
+            new Error(
+              "Coupon server timed out. Please try again."
+            )
+          );
+
+        }
+
+      }, 15000);
+
+    });
+
+  }
+
+
+  /* =====================================================
+     GET COUPON
+     ===================================================== */
+
+  form.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+
+    const email =
+      emailInput.value.trim().toLowerCase();
+
+
+    /* Validate email */
+
+    if (!email) {
+
+      showMessage(
+        "Please enter your email address.",
+        "error"
+      );
+
+      return;
 
     }
 
 
-    /*
-      Subscribe button
-    */
+    if (!email.includes("@") || !email.includes(".")) {
 
-    subscribeButton.addEventListener(
-      "click",
-      function () {
+      showMessage(
+        "Please enter a valid email address.",
+        "error"
+      );
 
-        window.open(
-          YOUTUBE_URL,
-          "_blank",
-          "noopener,noreferrer"
+      return;
+
+    }
+
+
+    /* Disable button */
+
+    getCouponBtn.disabled = true;
+
+    getCouponBtn.innerHTML =
+      '<span class="loading"></span>Generating...';
+
+
+    message.className = "message";
+
+    couponBox.classList.remove("show");
+
+
+    try {
+
+      const data =
+        await callCouponAPI("generate", {
+          email: email
+        });
+
+
+      console.log("Coupon API response:", data);
+
+
+      if (data && data.success) {
+
+        couponCode.textContent =
+          data.coupon || "COUPON";
+
+
+        couponBox.classList.add("show");
+
+
+        if (data.existing) {
+
+          showMessage(
+            "You already have a coupon. Your existing coupon is shown below.",
+            "success"
+          );
+
+        } else {
+
+          showMessage(
+            "🎉 Coupon created successfully!",
+            "success"
+          );
+
+        }
+
+
+        /* Save coupon locally */
+
+        localStorage.setItem(
+          "moneshCoupon",
+          data.coupon || ""
+        );
+
+        localStorage.setItem(
+          "moneshCouponEmail",
+          email
+        );
+
+
+      } else {
+
+        showMessage(
+          data && data.message
+            ? data.message
+            : "Unable to generate coupon.",
+          "error"
         );
 
       }
-    );
 
+    } catch (error) {
 
-    /*
-      Get coupon
-    */
+      console.error("Coupon error:", error);
 
-    rewardButton.addEventListener(
-      "click",
-      async function () {
 
-        const email =
-          emailInput.value.trim();
+      showMessage(
+        error.message ||
+        "Something went wrong. Please try again.",
+        "error"
+      );
 
+    }
 
-        if (!email) {
 
-          showResult(
-            "Please enter your email address."
-          );
+    /* Enable button */
 
-          emailInput.focus();
+    getCouponBtn.disabled = false;
 
-          return;
-        }
+    getCouponBtn.textContent =
+      "Get My Coupon";
 
+  });
 
-        const emailPattern =
-          /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+  /* =====================================================
+     COPY COUPON
+     ===================================================== */
 
-        if (!emailPattern.test(email)) {
+  copyBtn.addEventListener("click", async function() {
 
-          showResult(
-            "Please enter a valid email address."
-          );
+    const code =
+      couponCode.textContent.trim();
 
-          emailInput.focus();
 
-          return;
-        }
+    if (!code || code === "-") {
 
+      return;
 
-        if (
-          !COUPON_API ||
-          COUPON_API.includes("PASTE_YOUR")
-        ) {
+    }
 
-          showResult(
-            "Coupon system is not configured yet. Add your Apps Script Web App URL."
-          );
 
-          return;
-        }
+    try {
 
+      await navigator.clipboard.writeText(code);
 
-        rewardButton.disabled = true;
+      copyBtn.textContent =
+        "Copied ✓";
 
-        rewardButton.textContent =
-          "Generating...";
 
+      setTimeout(() => {
 
-        try {
+        copyBtn.textContent =
+          "Copy Coupon";
 
-          const url =
-            COUPON_API +
-            "?action=generate&email=" +
-            encodeURIComponent(email);
+      }, 1500);
 
 
-          const response =
-            await fetch(url, {
-              method: "GET",
-              cache: "no-store"
-            });
+    } catch (error) {
 
+      /* Fallback */
 
-          if (!response.ok) {
+      const textarea =
+        document.createElement("textarea");
 
-            throw new Error(
-              "Server returned " +
-              response.status
-            );
+      textarea.value = code;
 
-          }
+      document.body.appendChild(textarea);
 
+      textarea.select();
 
-          const data =
-            await response.json();
+      document.execCommand("copy");
 
+      textarea.remove();
 
-          if (!data.success) {
+      copyBtn.textContent =
+        "Copied ✓";
 
-            showResult(
-              data.message ||
-              "Could not generate coupon."
-            );
 
-            return;
-          }
+      setTimeout(() => {
 
+        copyBtn.textContent =
+          "Copy Coupon";
 
-          /*
-            Display coupon
-          */
+      }, 1500);
 
-          couponCode.textContent =
-            data.coupon;
+    }
 
+  });
 
-          couponBox.style.display =
-            "block";
 
+  /* =====================================================
+     LOAD PREVIOUS COUPON
+     ===================================================== */
 
-          showResult(
-            `${data.discount}% OFF coupon created successfully!`,
-            true
-          );
+  window.addEventListener("DOMContentLoaded", function() {
 
+    const savedCoupon =
+      localStorage.getItem("moneshCoupon");
 
-          /*
-            Save locally
-          */
 
-          localStorage.setItem(
-            "moneshCoupon",
-            data.coupon
-          );
+    if (savedCoupon) {
 
+      couponCode.textContent =
+        savedCoupon;
 
-          localStorage.setItem(
-            "moneshCouponEmail",
-            email
-          );
+      couponBox.classList.add("show");
 
+      showMessage(
+        "Your saved coupon is shown below.",
+        "success"
+      );
 
-          /*
-            Scroll to coupon
-          */
+    }
 
-          couponBox.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-          });
+  });
 
-        }
-
-        catch (error) {
-
-          console.error(
-            "Coupon error:",
-            error
-          );
-
-
-          showResult(
-            "Could not connect to the coupon server. Check your Apps Script Web App URL and deployment."
-          );
-
-        }
-
-        finally {
-
-          rewardButton.disabled =
-            false;
-
-          rewardButton.textContent =
-            "🎁 Get My Coupon";
-
-        }
-
-      }
-    );
-
-
-    /*
-      Copy coupon
-    */
-
-    copyButton.addEventListener(
-      "click",
-      async function () {
-
-        const code =
-          couponCode.textContent.trim();
-
-
-        if (!code || code === "—") {
-          return;
-        }
-
-
-        try {
-
-          await navigator.clipboard.writeText(
-            code
-          );
-
-
-          copyButton.textContent =
-            "Copied ✓";
-
-
-          setTimeout(
-            function () {
-
-              copyButton.textContent =
-                "Copy Coupon";
-
-            },
-            1500
-          );
-
-        }
-
-        catch (error) {
-
-          showResult(
-            "Copy failed. Please copy the coupon manually."
-          );
-
-        }
-
-      }
-    );
-
-  </script>
+</script>
 
 </body>
 </html>
