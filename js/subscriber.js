@@ -4,154 +4,176 @@ const COUPON_API =
 const YOUTUBE_URL =
   "https://www.youtube.com/@techblueprint-01";
 
+const subscribeButton =
+  document.getElementById("subscribeYoutube");
 
-document.addEventListener("DOMContentLoaded", () => {
+const rewardButton =
+  document.getElementById("getCoupon");
 
-  const subscribeButton =
-    document.getElementById("subscribeYoutube");
+const emailInput =
+  document.getElementById("subscriberEmail");
 
-  const rewardButton =
-    document.getElementById("getCoupon");
+const result =
+  document.getElementById("couponResult");
 
-  const emailInput =
-    document.getElementById("subscriberEmail");
-
-  const result =
-    document.getElementById("couponResult");
-
-  const couponBox =
-    document.getElementById("couponBox");
+const couponBox =
+  document.getElementById("couponBox");
 
 
-  if (subscribeButton) {
+function showResult(message, success = false) {
 
-    subscribeButton.addEventListener("click", () => {
+  if (!result) return;
 
-      window.open(
-        YOUTUBE_URL,
-        "_blank"
-      );
+  result.textContent = message;
 
-    });
-
-  }
-
-
-  if (rewardButton) {
-
-    rewardButton.addEventListener(
-      "click",
-      async () => {
-
-        const email =
-          emailInput.value.trim();
-
-        if (!email) {
-
-          showResult(
-            "Please enter your email address.",
-            false
-          );
-
-          return;
-        }
+  result.className =
+    success
+      ? "coupon-success"
+      : "coupon-error";
+}
 
 
-        rewardButton.disabled = true;
+if (subscribeButton) {
 
-        rewardButton.textContent =
-          "Generating coupon...";
+  subscribeButton.addEventListener("click", () => {
 
-
-        try {
-
-          const response =
-            await fetch(COUPON_API, {
-
-              method: "POST",
-
-              headers: {
-                "Content-Type":
-                  "text/plain;charset=utf-8"
-              },
-
-              body: JSON.stringify({
-                action: "generate",
-                email: email
-              })
-
-            });
-
-
-          const data =
-            await response.json();
-
-
-          if (!data.success) {
-
-            showResult(
-              data.message,
-              false
-            );
-
-            return;
-          }
-
-
-          couponBox.textContent =
-            data.coupon;
-
-          couponBox.style.display =
-            "block";
-
-
-          showResult(
-            `You received ${data.discount}% OFF!`,
-            true
-          );
-
-
-          localStorage.setItem(
-            "moneshCoupon",
-            data.coupon
-          );
-
-
-        } catch (error) {
-
-          console.error(error);
-
-          showResult(
-            "Unable to connect to coupon server.",
-            false
-          );
-
-        } finally {
-
-          rewardButton.disabled = false;
-
-          rewardButton.textContent =
-            "Get My Coupon";
-
-        }
-
-      }
+    window.open(
+      YOUTUBE_URL,
+      "_blank",
+      "noopener,noreferrer"
     );
 
-  }
+  });
+
+}
 
 
-  function showResult(message, success) {
+if (rewardButton) {
 
-    if (!result) return;
+  rewardButton.addEventListener("click", async () => {
 
-    result.textContent = message;
+    const email =
+      emailInput.value.trim();
 
-    result.className =
-      success
-        ? "coupon-success"
-        : "coupon-error";
+    if (!email) {
 
-  }
+      showResult(
+        "Please enter your email address."
+      );
 
-});
+      emailInput.focus();
+
+      return;
+    }
+
+
+    if (
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    ) {
+
+      showResult(
+        "Please enter a valid email address."
+      );
+
+      return;
+    }
+
+
+    if (
+      !COUPON_API ||
+      COUPON_API.includes("PASTE_YOUR")
+    ) {
+
+      showResult(
+        "Apps Script URL has not been added yet."
+      );
+
+      return;
+    }
+
+
+    rewardButton.disabled = true;
+
+    rewardButton.textContent =
+      "Generating...";
+
+
+    try {
+
+      const url =
+        COUPON_API +
+        "?action=generate&email=" +
+        encodeURIComponent(email);
+
+
+      const response =
+        await fetch(url);
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          "Server returned " +
+          response.status
+        );
+
+      }
+
+
+      const data =
+        await response.json();
+
+
+      if (!data.success) {
+
+        showResult(
+          data.message ||
+          "Could not generate coupon."
+        );
+
+        return;
+      }
+
+
+      couponBox.textContent =
+        data.coupon;
+
+      couponBox.style.display =
+        "block";
+
+
+      showResult(
+        `${data.discount}% OFF coupon created successfully!`,
+        true
+      );
+
+
+      localStorage.setItem(
+        "moneshCoupon",
+        data.coupon
+      );
+
+
+    } catch (error) {
+
+      console.error(
+        "Coupon error:",
+        error
+      );
+
+      showResult(
+        "Could not connect to the coupon server. Check your Apps Script deployment and URL."
+      );
+
+    } finally {
+
+      rewardButton.disabled = false;
+
+      rewardButton.textContent =
+        "Get My Coupon";
+
+    }
+
+  });
+
+}
