@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -17,12 +15,9 @@
         rel="stylesheet"
         href="css/style.css"
     >
-
 </head>
 
-
 <body>
-
 
 <header class="header">
 
@@ -30,22 +25,16 @@
         href="index.html"
         class="brand"
     >
-
-        <span class="brand-mark">
-            M
-        </span>
-
+        <span class="brand-mark">M</span>
         MONESH EBOOKS
-
     </a>
-
 
     <nav class="nav">
 
         <a href="index.html">
             Home
         </a>
-        
+
         <a href="books.html">
             Books
         </a>
@@ -71,31 +60,34 @@
         Shopping cart.
     </h1>
 
-
     <div id="cartContainer"></div>
-
 
 </div>
 
 </main>
 
 
-<script src="js/data.js"></script>\n<script src="js/rewards-config.js"></script>
+<!-- Website data -->
+<script src="js/data.js"></script>
 
+<!-- Coupon configuration -->
+<script src="js/rewards-config.js"></script>
+
+<!-- Main app -->
 <script src="js/app.js"></script>
 
 
 <script>
 
-const cart =
-    getCart();
-
+const cart = getCart();
 
 const container =
-    document.getElementById(
-        "cartContainer"
-    );
+    document.getElementById("cartContainer");
 
+
+/* =========================================================
+   EMPTY CART
+========================================================= */
 
 if (cart.length === 0) {
 
@@ -120,7 +112,14 @@ if (cart.length === 0) {
 
     `;
 
-} else {
+}
+
+
+/* =========================================================
+   CART
+========================================================= */
+
+else {
 
     let total = 0;
 
@@ -129,14 +128,12 @@ if (cart.length === 0) {
 
     cart.forEach(id => {
 
-        const book =
-            getBook(id);
-
+        const book = getBook(id);
 
         if (!book) return;
 
 
-        total += book.price;
+        total += Number(book.price);
 
 
         html += `
@@ -181,24 +178,63 @@ if (cart.length === 0) {
     });
 
 
+    /* =====================================================
+       CART TOTAL + COUPON
+    ===================================================== */
+
     html += `
 
         <div class="cart-total">
 
             <h2>
-                Total: ₹<span id="cartTotal">${total}</span>
+                Total:
+                ₹<span id="cartTotal">
+                    ${total}
+                </span>
             </h2>
 
+
             <div class="coupon-area">
-                <p class="coupon-label">SUBSCRIBER COUPON</p>
+
+                <p class="coupon-label">
+                    SUBSCRIBER COUPON
+                </p>
+
+
                 <div class="coupon-row">
-                    <input id="couponInput" type="text" placeholder="Enter coupon code" autocomplete="off">
-                    <button id="couponApply" type="button">Apply</button>
+
+                    <input
+                        id="couponInput"
+                        type="text"
+                        placeholder="Enter coupon code"
+                        autocomplete="off"
+                        maxlength="30"
+                    >
+
+                    <button
+                        id="couponApply"
+                        type="button"
+                    >
+                        Apply
+                    </button>
+
                 </div>
-                <div id="couponMessage" class="coupon-message"></div>
-                <a id="checkoutLink" href="payment.html?id=${cart[0]}" class="btn btn-dark">
+
+
+                <div
+                    id="couponMessage"
+                    class="coupon-message"
+                ></div>
+
+
+                <a
+                    id="checkoutLink"
+                    href="payment.html?id=${encodeURIComponent(cart[0])}"
+                    class="btn btn-dark"
+                >
                     Checkout →
                 </a>
+
             </div>
 
         </div>
@@ -208,89 +244,615 @@ if (cart.length === 0) {
 
     container.innerHTML = html;
 
-    const couponInput = document.getElementById("couponInput");
-    const couponApply = document.getElementById("couponApply");
-    const couponMessage = document.getElementById("couponMessage");
-    const cartTotal = document.getElementById("cartTotal");
-    const checkoutLink = document.getElementById("checkoutLink");
 
-    function showCouponMessage(text, ok=false) {
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
+
+    const couponInput =
+        document.getElementById("couponInput");
+
+    const couponApply =
+        document.getElementById("couponApply");
+
+    const couponMessage =
+        document.getElementById("couponMessage");
+
+    const cartTotal =
+        document.getElementById("cartTotal");
+
+    const checkoutLink =
+        document.getElementById("checkoutLink");
+
+
+    /* =====================================================
+       ORIGINAL TOTAL
+    ===================================================== */
+
+    const originalTotal = total;
+
+
+    /* =====================================================
+       MESSAGE
+    ===================================================== */
+
+    function showCouponMessage(
+        text,
+        ok = false
+    ) {
+
         couponMessage.textContent = text;
-        couponMessage.className = "coupon-message" + (ok ? " ok" : " error");
+
+        couponMessage.className =
+            "coupon-message" +
+            (ok ? " ok" : " error");
+
     }
+
+
+    /* =====================================================
+       CHECKOUT LINK
+    ===================================================== */
 
     function setCheckoutCoupon(code) {
-        checkoutLink.href = "payment.html?id=" + encodeURIComponent(cart[0]) +
-            "&coupon=" + encodeURIComponent(code);
+
+        checkoutLink.href =
+            "payment.html?id=" +
+            encodeURIComponent(cart[0]) +
+            "&coupon=" +
+            encodeURIComponent(code);
+
     }
 
-    couponApply.addEventListener("click", async () => {
-        const code = couponInput.value.trim().toUpperCase();
-        if (!code) {
-            showCouponMessage("Enter your subscriber coupon.");
-            return;
-        }
 
-        const cfg = window.MONESH_REWARD_CONFIG || {};
-        if (!cfg.APPS_SCRIPT_URL || cfg.APPS_SCRIPT_URL.startsWith("YOUR_")) {
-            showCouponMessage("Reward system is not configured yet.");
-            return;
-        }
+    /* =====================================================
+       GOOGLE APPS SCRIPT JSONP
+    ===================================================== */
 
-        couponApply.disabled = true;
-        showCouponMessage("Checking coupon…");
+    function checkCoupon(coupon) {
 
-        try {
-            const response = await fetch(cfg.APPS_SCRIPT_URL, {
-                method: "POST",
-                body: new URLSearchParams({
-                    action: "validateCoupon",
-                    code
-                })
-            });
-            const data = await response.json();
+        return new Promise(
+            (resolve, reject) => {
 
-            if (!data.valid) {
-                showCouponMessage(data.message || "Invalid coupon.");
+                const cfg =
+                    window.MONESH_REWARD_CONFIG || {};
+
+
+                const callbackName =
+                    "couponCallback_" +
+                    Date.now() +
+                    "_" +
+                    Math.floor(
+                        Math.random() * 100000
+                    );
+
+
+                const script =
+                    document.createElement("script");
+
+
+                let finished = false;
+
+
+                const timeout =
+                    setTimeout(() => {
+
+                        if (finished) return;
+
+                        finished = true;
+
+                        cleanup();
+
+                        reject(
+                            new Error(
+                                "Coupon request timed out."
+                            )
+                        );
+
+                    }, 15000);
+
+
+                function cleanup() {
+
+                    clearTimeout(timeout);
+
+
+                    if (
+                        script &&
+                        script.parentNode
+                    ) {
+
+                        script.parentNode.removeChild(
+                            script
+                        );
+
+                    }
+
+
+                    try {
+
+                        delete window[
+                            callbackName
+                        ];
+
+                    } catch (error) {
+
+                        window[
+                            callbackName
+                        ] = undefined;
+
+                    }
+
+                }
+
+
+                window[callbackName] =
+                    function(data) {
+
+                        if (finished) return;
+
+                        finished = true;
+
+                        cleanup();
+
+                        resolve(data);
+
+                    };
+
+
+                script.onerror =
+                    function() {
+
+                        if (finished) return;
+
+                        finished = true;
+
+                        cleanup();
+
+                        reject(
+                            new Error(
+                                "Could not connect to coupon server."
+                            )
+                        );
+
+                    };
+
+
+                const url =
+                    cfg.APPS_SCRIPT_URL +
+                    "?action=validateCoupon" +
+                    "&coupon=" +
+                    encodeURIComponent(coupon) +
+                    "&callback=" +
+                    encodeURIComponent(callbackName) +
+                    "&_=" +
+                    Date.now();
+
+
+                script.src = url;
+
+
+                document.body.appendChild(
+                    script
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       APPLY COUPON
+    ===================================================== */
+
+    couponApply.addEventListener(
+        "click",
+        async function() {
+
+            const code =
+                couponInput.value
+                    .trim()
+                    .toUpperCase();
+
+
+            /* Empty */
+
+            if (!code) {
+
+                showCouponMessage(
+                    "Enter your subscriber coupon."
+                );
+
                 return;
+
             }
 
-            const discounted = Math.max(0, total - (total * data.discount / 100));
-            cartTotal.textContent = discounted.toFixed(2).replace(/\.00$/, "");
-            showCouponMessage(`${data.discount}% discount applied ✓`, true);
-            setCheckoutCoupon(data.code);
-            localStorage.setItem("moneshAppliedCoupon", data.code);
-        } catch (error) {
-            console.error(error);
-            showCouponMessage("Could not check the coupon server.");
-        } finally {
-            couponApply.disabled = false;
+
+            /* Configuration */
+
+            const cfg =
+                window.MONESH_REWARD_CONFIG || {};
+
+
+            if (
+                !cfg.APPS_SCRIPT_URL ||
+                cfg.APPS_SCRIPT_URL.includes(
+                    "PASTE_"
+                ) ||
+                cfg.APPS_SCRIPT_URL.includes(
+                    "YOUR_"
+                )
+            ) {
+
+                showCouponMessage(
+                    "Reward system is not configured yet."
+                );
+
+                return;
+
+            }
+
+
+            /* Disable button */
+
+            couponApply.disabled = true;
+
+            couponApply.textContent =
+                "Checking...";
+
+
+            showCouponMessage(
+                "Checking coupon..."
+            );
+
+
+            try {
+
+                const data =
+                    await checkCoupon(code);
+
+
+                console.log(
+                    "Coupon server response:",
+                    data
+                );
+
+
+                /* Server error */
+
+                if (!data || !data.success) {
+
+                    showCouponMessage(
+                        data &&
+                        data.message
+                            ? data.message
+                            : "Coupon server error."
+                    );
+
+                    return;
+
+                }
+
+
+                /* Invalid */
+
+                if (!data.valid) {
+
+                    showCouponMessage(
+                        data.message ||
+                        "Invalid coupon."
+                    );
+
+                    return;
+
+                }
+
+
+                /* Discount */
+
+                const discount =
+                    Number(data.discount) || 0;
+
+
+                const discounted =
+                    Math.max(
+                        0,
+                        originalTotal -
+                        (
+                            originalTotal *
+                            discount /
+                            100
+                        )
+                    );
+
+
+                /* Update total */
+
+                cartTotal.textContent =
+                    discounted
+                        .toFixed(2)
+                        .replace(
+                            /\.00$/,
+                            ""
+                        );
+
+
+                /* Success */
+
+                showCouponMessage(
+                    discount +
+                    "% discount applied ✓",
+                    true
+                );
+
+
+                /* Update checkout */
+
+                const validCoupon =
+                    data.coupon || code;
+
+
+                setCheckoutCoupon(
+                    validCoupon
+                );
+
+
+                /* Save coupon */
+
+                localStorage.setItem(
+                    "moneshAppliedCoupon",
+                    validCoupon
+                );
+
+
+                /* Remember subscriber coupon */
+
+                localStorage.setItem(
+                    "moneshSubscriberCoupon",
+                    validCoupon
+                );
+
+
+                /* Prevent changing after success */
+
+                couponInput.value =
+                    validCoupon;
+
+
+                couponInput.disabled =
+                    true;
+
+
+                couponApply.disabled =
+                    true;
+
+
+                couponApply.textContent =
+                    "Applied ✓";
+
+
+                couponApply.style.opacity =
+                    "0.7";
+
+
+            } catch (error) {
+
+                console.error(
+                    "Coupon error:",
+                    error
+                );
+
+
+                showCouponMessage(
+                    "Could not check the coupon server."
+                );
+
+            } finally {
+
+                if (
+                    !couponInput.disabled
+                ) {
+
+                    couponApply.disabled =
+                        false;
+
+                    couponApply.textContent =
+                        "Apply";
+
+                }
+
+            }
+
         }
-    });
+    );
 
-    const savedCoupon = localStorage.getItem("moneshSubscriberCoupon");
-    if (savedCoupon) couponInput.value = savedCoupon;
 
-    const appliedCoupon = localStorage.getItem("moneshAppliedCoupon");
+    /* =====================================================
+       LOAD SAVED COUPON
+    ===================================================== */
+
+    const savedCoupon =
+        localStorage.getItem(
+            "moneshSubscriberCoupon"
+        );
+
+
+    const appliedCoupon =
+        localStorage.getItem(
+            "moneshAppliedCoupon"
+        );
+
+
     if (appliedCoupon) {
-        couponInput.value = appliedCoupon;
+
+        couponInput.value =
+            appliedCoupon;
+
+    }
+
+    else if (savedCoupon) {
+
+        couponInput.value =
+            savedCoupon;
+
     }
 
 }
+
+
+/* =========================================================
+   COUPON CSS
+========================================================= */
 
 </script>
 
 
 <style>
-.coupon-area{margin-top:25px;text-align:left;max-width:520px;margin-left:auto}
-.coupon-label{font-size:11px;letter-spacing:2px;font-weight:800;color:#777;margin-bottom:8px}
-.coupon-row{display:flex;gap:8px}
-.coupon-row input{flex:1;padding:13px;border:1px solid #ccc;border-radius:7px;text-transform:uppercase}
-.coupon-row button{padding:13px 18px;border:0;border-radius:7px;background:#171717;color:#fff;font-weight:700;cursor:pointer}
-.coupon-message{font-size:13px;margin:10px 0 14px;min-height:18px}
-.coupon-message.ok{color:#087f45}.coupon-message.error{color:#a52a2a}
-@media(max-width:500px){.coupon-row{display:grid;grid-template-columns:1fr}.coupon-row button{width:100%}}
+
+.coupon-area {
+
+    margin-top: 25px;
+
+    text-align: left;
+
+    max-width: 520px;
+
+    margin-left: auto;
+
+}
+
+
+.coupon-label {
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    font-weight: 800;
+
+    color: #777;
+
+    margin-bottom: 8px;
+
+}
+
+
+.coupon-row {
+
+    display: flex;
+
+    gap: 8px;
+
+}
+
+
+.coupon-row input {
+
+    flex: 1;
+
+    padding: 13px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 7px;
+
+    text-transform: uppercase;
+
+    font-size: 14px;
+
+    outline: none;
+
+}
+
+
+.coupon-row input:focus {
+
+    border-color: #171717;
+
+}
+
+
+.coupon-row button {
+
+    padding: 13px 18px;
+
+    border: 0;
+
+    border-radius: 7px;
+
+    background: #171717;
+
+    color: #fff;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+}
+
+
+.coupon-row button:hover {
+
+    opacity: 0.9;
+
+}
+
+
+.coupon-row button:disabled {
+
+    cursor: not-allowed;
+
+}
+
+
+.coupon-message {
+
+    font-size: 13px;
+
+    margin: 10px 0 14px;
+
+    min-height: 18px;
+
+}
+
+
+.coupon-message.ok {
+
+    color: #087f45;
+
+}
+
+
+.coupon-message.error {
+
+    color: #a52a2a;
+
+}
+
+
+@media (max-width: 500px) {
+
+    .coupon-row {
+
+        display: grid;
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .coupon-row button {
+
+        width: 100%;
+
+    }
+
+}
+
 </style>
+
+
 </body>
 
 </html>
