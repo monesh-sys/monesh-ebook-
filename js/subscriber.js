@@ -1,5 +1,5 @@
 const COUPON_API =
-  "https://script.google.com/macros/s/AKfycbyaxOZeKXQr021FCioH-iBnLm7nGxurc5aLCCQzqoB1vrPaGDfFipz-FWtU270CN3OS/exec";
+  "https://script.google.com/macros/s/AKfycbyM-BtpyoxPTmXaKWFa85BN4x2gDcK5abzxWeR0MRGLXkwr07yvSY1FWwJ6_cPWLS0/exec";
 
 const YOUTUBE_URL =
   "https://www.youtube.com/@techblueprint-01";
