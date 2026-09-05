@@ -1,4 +1,4 @@
-\const COUPON_API =
+const COUPON_API =
   "https://script.google.com/macros/s/AKfycbzP9DmdaONAVA23WF21aLvm3OdEKu0BnT3wLbE-okTA-2Jlf4-JckOYWUyJ9XP4wvI/exec";
 
 const YOUTUBE_URL =
