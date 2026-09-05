@@ -1,222 +1,219 @@
-/*******************************************************
+/*************************************************
  * MONESH EBOOKS - COUPON API
- * Tech Blueprint Reward System
- *******************************************************/
+ * Tech Blueprint Reward Coupon System
+ *************************************************/
 
 const CONFIG = {
   SHEET_NAME: "Coupons",
-
   COUPON_PREFIX: "TECH50",
-
   DISCOUNT_PERCENT: 50,
-
   EXPIRY_DAYS: 30
 };
 
 
-/*******************************************************
- * GET REQUEST
- *******************************************************/
+/*************************************************
+ * GET API
+ *************************************************/
 
 function doGet(e) {
-
-  const p = e && e.parameter ? e.parameter : {};
-
-  const action = String(p.action || "").trim();
-
-  let data;
-
-
   try {
+    const p = (e && e.parameter) ? e.parameter : {};
 
+    const action = String(p.action || "").trim();
+
+    // Generate coupon
     if (action === "generate") {
-
-      data = generateCoupon_(p.email);
-
+      const result = generateCoupon_(p.email);
+      return response_(result, p.callback);
     }
 
-    else if (
+    // Validate coupon
+    if (
       action === "validate" ||
       action === "validateCoupon"
     ) {
-
-      data = validateCoupon_(p.coupon);
-
+      const result = validateCoupon_(p.coupon);
+      return response_(result, p.callback);
     }
 
-    else if (
+    // Redeem coupon
+    if (
       action === "redeem" ||
       action === "redeemCoupon"
     ) {
-
-      data = redeemCoupon_(
+      const result = redeemCoupon_(
         p.coupon,
         p.orderId || ""
       );
 
+      return response_(result, p.callback);
     }
 
-    else {
+    // API status
+    return response_({
+      success: true,
+      message: "Monesh Ebooks Coupon API is running."
+    }, p.callback);
 
-      data = {
-        success: true,
-        message: "Monesh Ebooks Coupon API is running."
-      };
+  } catch (error) {
 
-    }
-
-  }
-
-  catch (error) {
-
-    data = {
+    return response_({
       success: false,
-      message: error.message || "Server error."
-    };
-
+      message: error.message
+    });
   }
-
-
-  return response_(data, p.callback);
-
 }
 
 
-/*******************************************************
- * POST REQUEST
- *******************************************************/
+/*************************************************
+ * POST API
+ *************************************************/
 
 function doPost(e) {
-
-  let p = {};
-
   try {
 
-    if (e && e.postData && e.postData.contents) {
+    let data = {};
 
-      const content =
-        e.postData.contents.trim();
+    /*
+     * Handle JSON requests
+     */
+    if (
+      e &&
+      e.postData &&
+      e.postData.contents
+    ) {
 
-      if (content) {
+      const body = String(
+        e.postData.contents
+      ).trim();
 
-        try {
+      if (body.startsWith("{")) {
 
-          p = JSON.parse(content);
+        data = JSON.parse(body);
 
-        }
+      } else {
 
-        catch (jsonError) {
+        /*
+         * Handle application/x-www-form-urlencoded
+         *
+         * Example:
+         * action=validateCoupon&coupon=TECH50-12345678
+         */
 
-          p = e.parameter || {};
-
-        }
-
+        data = e.parameter || {};
       }
 
+    } else {
+
+      data = e.parameter || {};
     }
 
-    else {
 
-      p = e.parameter || {};
-
-    }
-
-  }
-
-  catch (error) {
-
-    return jsonResponse_({
-      success: false,
-      message: "Invalid request."
-    });
-
-  }
+    const action = String(
+      data.action || ""
+    ).trim();
 
 
-  const action =
-    String(p.action || "").trim();
-
-
-  try {
-
-    let data;
-
-
+    /*
+     * Generate coupon
+     */
     if (action === "generate") {
 
-      data = generateCoupon_(p.email);
+      const result = generateCoupon_(
+        data.email
+      );
 
+      return response_(
+        result,
+        data.callback
+      );
     }
 
-    else if (
+
+    /*
+     * Validate coupon
+     */
+    if (
       action === "validate" ||
       action === "validateCoupon"
     ) {
 
-      data = validateCoupon_(p.coupon);
+      const result = validateCoupon_(
+        data.coupon
+      );
 
+      return response_(
+        result,
+        data.callback
+      );
     }
 
-    else if (
+
+    /*
+     * Redeem coupon
+     */
+    if (
       action === "redeem" ||
       action === "redeemCoupon"
     ) {
 
-      data = redeemCoupon_(
-        p.coupon,
-        p.orderId || ""
+      const result = redeemCoupon_(
+        data.coupon,
+        data.orderId || ""
       );
 
-    }
-
-    else {
-
-      data = {
-        success: false,
-        message: "Invalid action."
-      };
-
+      return response_(
+        result,
+        data.callback
+      );
     }
 
 
-    return jsonResponse_(data);
-
-  }
-
-  catch (error) {
-
-    return jsonResponse_({
+    /*
+     * Unknown action
+     */
+    return response_({
       success: false,
-      message: error.message || "Server error."
+      message: "Unknown action: " + action
+    }, data.callback);
+
+
+  } catch (error) {
+
+    return response_({
+      success: false,
+      message: error.message
     });
-
   }
-
 }
 
 
-/*******************************************************
- * SETUP SHEET
- *******************************************************/
+/*************************************************
+ * CREATE / SETUP GOOGLE SHEET
+ *************************************************/
 
 function setupSheets() {
 
   const ss =
     SpreadsheetApp.getActiveSpreadsheet();
 
-
   let sheet =
     ss.getSheetByName(CONFIG.SHEET_NAME);
 
 
+  /*
+   * Create sheet if it doesn't exist
+   */
   if (!sheet) {
 
     sheet =
       ss.insertSheet(CONFIG.SHEET_NAME);
-
   }
 
 
+  /*
+   * Headers
+   */
   const headers = [
     "Email",
     "Coupon",
@@ -229,182 +226,164 @@ function setupSheets() {
   ];
 
 
-  const firstRow =
-    sheet
-      .getRange(1, 1, 1, headers.length)
-      .getValues()[0];
-
-
-  let needsHeaders = false;
-
-
-  for (let i = 0; i < headers.length; i++) {
-
-    if (firstRow[i] !== headers[i]) {
-
-      needsHeaders = true;
-      break;
-
-    }
-
-  }
-
-
-  if (needsHeaders) {
+  /*
+   * Add headers if sheet is empty
+   */
+  if (sheet.getLastRow() === 0) {
 
     sheet
-      .getRange(1, 1, 1, headers.length)
+      .getRange(
+        1,
+        1,
+        1,
+        headers.length
+      )
       .setValues([headers]);
-
   }
 
 
-  sheet
-    .getRange(1, 1, 1, headers.length)
-    .setFontWeight("bold");
-
-
-  return "Coupons sheet is ready.";
-
+  return sheet;
 }
 
 
-/*******************************************************
+/*************************************************
  * GENERATE COUPON
- *******************************************************/
+ *************************************************/
 
 function generateCoupon_(email) {
 
-  email =
-    String(email || "")
-      .trim()
-      .toLowerCase();
+  email = String(
+    email || ""
+  ).trim().toLowerCase();
 
 
+  /*
+   * Validate email
+   */
   if (!email) {
 
     return {
       success: false,
-      message: "Email address is required."
+      message: "Email is required."
     };
-
   }
 
 
-  /* Basic email validation */
+  const emailRegex =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  if (
-    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-  ) {
+
+  if (!emailRegex.test(email)) {
 
     return {
       success: false,
       message: "Please enter a valid email address."
     };
-
   }
 
-
-  const ss =
-    SpreadsheetApp.getActiveSpreadsheet();
-
-
-  let sheet =
-    ss.getSheetByName(CONFIG.SHEET_NAME);
-
-
-  if (!sheet) {
-
-    setupSheets();
-
-    sheet =
-      ss.getSheetByName(CONFIG.SHEET_NAME);
-
-  }
-
-
-  /*
-   * Lock prevents two requests from generating
-   * duplicate coupons at the same time.
-   */
 
   const lock =
     LockService.getScriptLock();
 
 
-  lock.waitLock(10000);
-
-
   try {
 
-    const data =
-      sheet.getDataRange().getValues();
+    /*
+     * Prevent duplicate generation
+     */
+    lock.waitLock(10000);
+
+
+    const sheet =
+      setupSheets();
+
+
+    const lastRow =
+      sheet.getLastRow();
 
 
     /*
-     * Check whether this email already has
-     * a coupon.
+     * Check if email already has a coupon
      */
+    if (lastRow >= 2) {
 
-    for (let i = 1; i < data.length; i++) {
+      const values =
+        sheet
+          .getRange(
+            2,
+            1,
+            lastRow - 1,
+            8
+          )
+          .getValues();
 
-      const rowEmail =
-        String(data[i][0] || "")
+
+      for (
+        let i = 0;
+        i < values.length;
+        i++
+      ) {
+
+        const rowEmail =
+          String(
+            values[i][0] || ""
+          )
           .trim()
           .toLowerCase();
 
 
-      if (rowEmail === email) {
+        if (rowEmail === email) {
 
-        const existingCoupon =
-          String(data[i][1] || "");
-
-
-        const discount =
-          Number(data[i][2]) || CONFIG.DISCOUNT_PERCENT;
+          const coupon =
+            String(
+              values[i][1] || ""
+            ).trim();
 
 
-        const expires =
-          data[i][4];
+          const discount =
+            Number(
+              values[i][2] ||
+              CONFIG.DISCOUNT_PERCENT
+            );
 
 
-        const status =
-          String(data[i][5] || "UNUSED");
+          const expires =
+            values[i][4];
 
 
-        /*
-         * If the old coupon is still valid,
-         * return it.
-         */
+          const status =
+            String(
+              values[i][5] || "UNUSED"
+            ).toUpperCase();
 
-        if (
-          status !== "USED" &&
-          (!expires || new Date(expires) > new Date())
-        ) {
 
-          return {
-            success: true,
-            existing: true,
-            coupon: existingCoupon,
-            discount: discount,
-            expires: expires instanceof Date
-              ? expires.toISOString()
-              : String(expires),
-            message:
-              "You already have a coupon."
-          };
+          /*
+           * If coupon is still active,
+           * return existing coupon.
+           */
+          if (
+            status !== "USED" &&
+            !isExpired_(expires)
+          ) {
 
+            return {
+              success: true,
+              existing: true,
+              coupon: coupon,
+              discount: discount,
+              expires: formatDate_(expires),
+              message:
+                "Your coupon already exists."
+            };
+          }
         }
-
       }
-
     }
 
 
     /*
      * Create new coupon
      */
-
     const coupon =
       createUniqueCoupon_(sheet);
 
@@ -414,16 +393,18 @@ function generateCoupon_(email) {
 
 
     const expires =
-      new Date(
-        created.getTime() +
-        CONFIG.EXPIRY_DAYS *
-        24 *
-        60 *
-        60 *
-        1000
-      );
+      new Date(created);
 
 
+    expires.setDate(
+      expires.getDate() +
+      CONFIG.EXPIRY_DAYS
+    );
+
+
+    /*
+     * Save coupon
+     */
     sheet.appendRow([
       email,
       coupon,
@@ -437,56 +418,43 @@ function generateCoupon_(email) {
 
 
     return {
-
       success: true,
-
       existing: false,
-
       coupon: coupon,
-
       discount:
         CONFIG.DISCOUNT_PERCENT,
-
       expires:
-        expires.toISOString(),
-
+        formatDate_(expires),
       message:
         "Coupon created successfully!"
-
     };
 
+
+  } finally {
+
+    try {
+      lock.releaseLock();
+    } catch (err) {}
   }
-
-  finally {
-
-    lock.releaseLock();
-
-  }
-
 }
 
 
-/*******************************************************
+/*************************************************
  * CREATE UNIQUE COUPON
- *******************************************************/
+ *************************************************/
 
 function createUniqueCoupon_(sheet) {
 
-  const existing =
-    sheet
-      .getRange(
-        2,
-        2,
-        Math.max(sheet.getLastRow() - 1, 1),
-        1
-      )
-      .getValues()
-      .flat();
+  let coupon = "";
+  let exists = true;
 
 
-  for (let attempt = 0; attempt < 20; attempt++) {
+  while (exists) {
 
-    const random =
+    /*
+     * UUID
+     */
+    const uuid =
       Utilities
         .getUuid()
         .replace(/-/g, "")
@@ -494,40 +462,88 @@ function createUniqueCoupon_(sheet) {
         .toUpperCase();
 
 
-    const coupon =
+    coupon =
       CONFIG.COUPON_PREFIX +
       "-" +
-      random;
+      uuid;
 
 
-    if (!existing.includes(coupon)) {
-
-      return coupon;
-
-    }
-
+    exists =
+      couponExists_(sheet, coupon);
   }
 
 
-  throw new Error(
-    "Could not create a unique coupon. Please try again."
-  );
-
+  return coupon;
 }
 
 
-/*******************************************************
+/*************************************************
+ * CHECK COUPON EXISTS
+ *************************************************/
+
+function couponExists_(sheet, coupon) {
+
+  const lastRow =
+    sheet.getLastRow();
+
+
+  if (lastRow < 2) {
+    return false;
+  }
+
+
+  const coupons =
+    sheet
+      .getRange(
+        2,
+        2,
+        lastRow - 1,
+        1
+      )
+      .getValues();
+
+
+  for (
+    let i = 0;
+    i < coupons.length;
+    i++
+  ) {
+
+    if (
+      String(
+        coupons[i][0] || ""
+      )
+      .trim()
+      .toUpperCase() ===
+      coupon.toUpperCase()
+    ) {
+
+      return true;
+    }
+  }
+
+
+  return false;
+}
+
+
+/*************************************************
  * VALIDATE COUPON
- *******************************************************/
+ *************************************************/
 
 function validateCoupon_(coupon) {
 
   coupon =
-    String(coupon || "")
-      .trim()
-      .toUpperCase();
+    String(
+      coupon || ""
+    )
+    .trim()
+    .toUpperCase();
 
 
+  /*
+   * Basic validation
+   */
   if (!coupon) {
 
     return {
@@ -535,151 +551,163 @@ function validateCoupon_(coupon) {
       valid: false,
       message: "Coupon is required."
     };
-
   }
 
 
   const sheet =
-    SpreadsheetApp
-      .getActiveSpreadsheet()
-      .getSheetByName(CONFIG.SHEET_NAME);
+    setupSheets();
 
 
-  if (!sheet) {
+  const lastRow =
+    sheet.getLastRow();
+
+
+  if (lastRow < 2) {
 
     return {
-      success: false,
+      success: true,
       valid: false,
-      message: "Coupons sheet not found."
+      message: "Coupon not found."
     };
-
   }
 
 
-  const data =
-    sheet.getDataRange().getValues();
+  const values =
+    sheet
+      .getRange(
+        2,
+        1,
+        lastRow - 1,
+        8
+      )
+      .getValues();
 
 
-  for (let i = 1; i < data.length; i++) {
+  for (
+    let i = 0;
+    i < values.length;
+    i++
+  ) {
 
     const rowCoupon =
-      String(data[i][1] || "")
-        .trim()
-        .toUpperCase();
+      String(
+        values[i][1] || ""
+      )
+      .trim()
+      .toUpperCase();
 
 
     if (rowCoupon === coupon) {
 
-      const email =
-        String(data[i][0] || "");
-
-
       const discount =
-        Number(data[i][2]) ||
-        CONFIG.DISCOUNT_PERCENT;
+        Number(
+          values[i][2] ||
+          CONFIG.DISCOUNT_PERCENT
+        );
 
 
       const expires =
-        data[i][4];
+        values[i][4];
 
 
       const status =
-        String(data[i][5] || "UNUSED")
-          .toUpperCase();
+        String(
+          values[i][5] || "UNUSED"
+        ).toUpperCase();
 
 
-      /* Already used */
-
+      /*
+       * Already used
+       */
       if (status === "USED") {
 
         return {
           success: true,
           valid: false,
-          message: "This coupon has already been used."
+          used: true,
+          discount: discount,
+          message:
+            "This coupon has already been used."
         };
-
       }
 
 
-      /* Expired */
-
-      if (
-        expires &&
-        new Date(expires).getTime() < Date.now()
-      ) {
+      /*
+       * Expired
+       */
+      if (isExpired_(expires)) {
 
         return {
           success: true,
           valid: false,
-          message: "This coupon has expired."
+          expired: true,
+          discount: discount,
+          message:
+            "This coupon has expired."
         };
-
       }
 
 
+      /*
+       * Valid
+       */
       return {
-
         success: true,
-
         valid: true,
-
         coupon: coupon,
-
-        email: email,
-
         discount: discount,
-
         expires:
-          expires instanceof Date
-            ? expires.toISOString()
-            : String(expires),
-
+          formatDate_(expires),
         message:
           "Coupon is valid."
-
       };
-
     }
-
   }
 
 
+  /*
+   * Coupon not found
+   */
   return {
-
     success: true,
-
     valid: false,
-
-    message: "Invalid coupon code."
-
+    message:
+      "Invalid coupon code."
   };
-
 }
 
 
-/*******************************************************
+/*************************************************
  * REDEEM COUPON
- *******************************************************/
+ *************************************************/
 
-function redeemCoupon_(coupon, orderId) {
+function redeemCoupon_(
+  coupon,
+  orderId
+) {
 
   coupon =
-    String(coupon || "")
-      .trim()
-      .toUpperCase();
+    String(
+      coupon || ""
+    )
+    .trim()
+    .toUpperCase();
 
 
   orderId =
-    String(orderId || "").trim();
+    String(
+      orderId || ""
+    ).trim();
 
 
   if (!coupon) {
 
     return {
       success: false,
-      message: "Coupon is required."
+      redeemed: false,
+      message:
+        "Coupon is required."
     };
-
   }
 
 
@@ -687,202 +715,282 @@ function redeemCoupon_(coupon, orderId) {
     LockService.getScriptLock();
 
 
-  lock.waitLock(10000);
-
-
   try {
 
+    /*
+     * Prevent two users/orders
+     * from redeeming at the same time.
+     */
+    lock.waitLock(10000);
+
+
     const sheet =
-      SpreadsheetApp
-        .getActiveSpreadsheet()
-        .getSheetByName(CONFIG.SHEET_NAME);
+      setupSheets();
 
 
-    if (!sheet) {
+    const lastRow =
+      sheet.getLastRow();
+
+
+    if (lastRow < 2) {
 
       return {
         success: false,
-        message: "Coupons sheet not found."
+        redeemed: false,
+        message:
+          "Coupon not found."
       };
-
     }
 
 
-    const data =
-      sheet.getDataRange().getValues();
+    const values =
+      sheet
+        .getRange(
+          2,
+          1,
+          lastRow - 1,
+          8
+        )
+        .getValues();
 
 
-    for (let i = 1; i < data.length; i++) {
+    for (
+      let i = 0;
+      i < values.length;
+      i++
+    ) {
 
       const rowCoupon =
-        String(data[i][1] || "")
-          .trim()
-          .toUpperCase();
+        String(
+          values[i][1] || ""
+        )
+        .trim()
+        .toUpperCase();
 
 
       if (rowCoupon === coupon) {
 
         const rowNumber =
-          i + 1;
+          i + 2;
 
 
         const status =
-          String(data[i][5] || "UNUSED")
-            .toUpperCase();
-
-
-        /* Already used */
-
-        if (status === "USED") {
-
-          return {
-
-            success: false,
-
-            redeemed: false,
-
-            message:
-              "This coupon has already been used."
-
-          };
-
-        }
+          String(
+            values[i][5] || "UNUSED"
+          ).toUpperCase();
 
 
         const expires =
-          data[i][4];
+          values[i][4];
 
 
-        /* Expired */
+        const discount =
+          Number(
+            values[i][2] ||
+            CONFIG.DISCOUNT_PERCENT
+          );
 
-        if (
-          expires &&
-          new Date(expires).getTime() < Date.now()
-        ) {
 
-          sheet
-            .getRange(rowNumber, 6)
-            .setValue("EXPIRED");
-
+        /*
+         * Already used
+         */
+        if (status === "USED") {
 
           return {
-
-            success: false,
-
+            success: true,
             redeemed: false,
+            alreadyUsed: true,
+            message:
+              "This coupon has already been used."
+          };
+        }
 
+
+        /*
+         * Expired
+         */
+        if (isExpired_(expires)) {
+
+          return {
+            success: true,
+            redeemed: false,
+            expired: true,
             message:
               "This coupon has expired."
-
           };
-
         }
 
 
         /*
          * Mark coupon as USED
          */
+        const usedAt =
+          new Date();
+
 
         sheet
-          .getRange(rowNumber, 6)
+          .getRange(
+            rowNumber,
+            6
+          )
           .setValue("USED");
 
 
         sheet
-          .getRange(rowNumber, 7)
-          .setValue(new Date());
+          .getRange(
+            rowNumber,
+            7
+          )
+          .setValue(usedAt);
 
 
         sheet
-          .getRange(rowNumber, 8)
+          .getRange(
+            rowNumber,
+            8
+          )
           .setValue(orderId);
 
 
         return {
-
           success: true,
-
           redeemed: true,
-
           coupon: coupon,
-
+          discount: discount,
+          orderId: orderId,
           message:
-            "Coupon redeemed successfully."
-
+            "Coupon redeemed successfully!"
         };
-
       }
-
     }
 
 
+    /*
+     * Not found
+     */
     return {
-
       success: false,
-
       redeemed: false,
-
       message:
         "Invalid coupon code."
-
     };
 
+
+  } finally {
+
+    try {
+      lock.releaseLock();
+    } catch (err) {}
   }
-
-  finally {
-
-    lock.releaseLock();
-
-  }
-
 }
 
 
-/*******************************************************
- * JSONP / JSON RESPONSE
- *******************************************************/
+/*************************************************
+ * CHECK EXPIRY
+ *************************************************/
 
-function response_(data, callback) {
+function isExpired_(dateValue) {
+
+  if (!dateValue) {
+    return true;
+  }
+
+
+  const date =
+    new Date(dateValue);
+
+
+  if (isNaN(date.getTime())) {
+    return true;
+  }
+
+
+  return date.getTime() <
+    new Date().getTime();
+}
+
+
+/*************************************************
+ * FORMAT DATE
+ *************************************************/
+
+function formatDate_(dateValue) {
+
+  const date =
+    new Date(dateValue);
+
+
+  if (isNaN(date.getTime())) {
+    return "";
+  }
+
+
+  return date.toISOString();
+}
+
+
+/*************************************************
+ * API RESPONSE
+ *
+ * Supports:
+ *
+ * Normal JSON:
+ * {"success":true}
+ *
+ * JSONP:
+ * callback123({"success":true});
+ *************************************************/
+
+function response_(
+  data,
+  callback
+) {
 
   const json =
     JSON.stringify(data);
 
 
   callback =
-    String(callback || "");
+    String(
+      callback || ""
+    );
 
 
   /*
    * JSONP callback validation
    */
-
   if (
-    /^[A-Za-z_$][A-Za-z0-9_$\.]*$/.test(callback)
+    /^[A-Za-z_$][A-Za-z0-9_$\.]*$/
+      .test(callback)
   ) {
 
     return ContentService
       .createTextOutput(
-        callback + "(" + json + ");"
+        callback +
+        "(" +
+        json +
+        ");"
       )
       .setMimeType(
         ContentService.MimeType.JAVASCRIPT
       );
-
   }
 
 
+  /*
+   * Normal JSON
+   */
   return ContentService
     .createTextOutput(json)
     .setMimeType(
       ContentService.MimeType.JSON
     );
-
 }
 
 
-/*******************************************************
- * NORMAL JSON RESPONSE
- *******************************************************/
+/*************************************************
+ * SIMPLE JSON RESPONSE
+ *************************************************/
 
 function jsonResponse_(data) {
 
@@ -893,5 +1001,4 @@ function jsonResponse_(data) {
     .setMimeType(
       ContentService.MimeType.JSON
     );
-
 }
