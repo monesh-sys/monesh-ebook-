@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Library | Monesh Ebooks</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            background: #f7f7f5;
+
+            color: #171717;
+
+            font-family: Arial, sans-serif;
+        }
+
+
+        .library-container {
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 60px 25px;
+        }
+
+
+        .library-header {
+
+            margin-bottom: 45px;
+        }
+
+
+        .library-header p {
+
+            color: #777;
+
+            font-size: 14px;
+
+            letter-spacing: 2px;
+        }
+
+
+        .library-header h1 {
+
+            font-family: Georgia, serif;
+
+            font-size: 50px;
+
+            font-weight: 500;
+
+            margin: 10px 0;
+        }
+
+
+        .library-header span {
+
+            color: #666;
+        }
+
+
+        .library-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fill,
+                    minmax(220px, 1fr)
+                );
+
+            gap: 30px;
+        }
+
+
+        .book-card {
+
+            background: white;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 8px 30px
+                rgba(0, 0, 0, 0.07);
+
+            transition:
+                transform .2s ease;
+        }
+
+
+        .book-card:hover {
+
+            transform:
+                translateY(-5px);
+        }
+
+
+        .book-cover {
+
+            width: 100%;
+
+            height: 300px;
+
+            object-fit: cover;
+
+            display: block;
+
+            background: #eee;
+        }
+
+
+        .book-content {
+
+            padding: 22px;
+        }
+
+
+        .book-category {
+
+            font-size: 11px;
+
+            letter-spacing: 1.5px;
+
+            color: #777;
+
+            text-transform: uppercase;
+        }
+
+
+        .book-title {
+
+            font-family: Georgia, serif;
+
+            font-size: 24px;
+
+            margin: 8px 0;
+        }
+
+
+        .book-author {
+
+            color: #666;
+
+            font-size: 14px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .book-description {
+
+            color: #666;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            margin-bottom: 20px;
+        }
+
+
+        .read-button {
+
+            display: block;
+
+            width: 100%;
+
+            text-align: center;
+
+            padding: 14px;
+
+            background: #171717;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 6px;
+
+            font-weight: bold;
+
+            transition: .2s;
+        }
+
+
+        .read-button:hover {
+
+            background: #333;
+        }
+
+
+        .empty-library {
+
+            text-align: center;
+
+            background: white;
+
+            padding: 70px 20px;
+
+            border-radius: 10px;
+        }
+
+
+        .empty-library h2 {
+
+            font-family: Georgia, serif;
+
+            font-size: 32px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .empty-library p {
+
+            color: #666;
+
+            margin-bottom: 25px;
+        }
+
+
+        .browse-button {
+
+            display: inline-block;
+
+            background: #171717;
+
+            color: white;
+
+            padding: 14px 25px;
+
+            border-radius: 6px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+
+        .order-info {
+
+            margin-top: 12px;
+
+            font-size: 12px;
+
+            color: #777;
+        }
+
+
+        @media (max-width: 600px) {
+
+            .library-container {
+
+                padding: 40px 15px;
+            }
+
+
+            .library-header h1 {
+
+                font-size: 38px;
+            }
+
+
+            .library-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap: 15px;
+            }
+
+
+            .book-cover {
+
+                height: 230px;
+            }
+
+
+            .book-content {
+
+                padding: 15px;
+            }
+
+
+            .book-title {
+
+                font-size: 19px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="library-container">
+
+
+    <!-- HEADER -->
+
+    <div class="library-header">
+
+        <p>
+            YOUR BOOK COLLECTION
+        </p>
+
+        <h1>
+            My Library
+        </h1>
+
+        <span id="libraryCount">
+            0 books
+        </span>
+
+    </div>
+
+
+
+    <!-- BOOKS -->
+
+    <div
+        id="libraryGrid"
+        class="library-grid"
+    ></div>
+
+
+
+    <!-- EMPTY -->
+
+    <div
+        id="emptyLibrary"
+        class="empty-library"
+        style="display:none;"
+    >
+
+        <h2>
+            Your library is empty.
+        </h2>
+
+        <p>
+            Purchase an ebook and it
+            will appear here.
+        </p>
+
+        <a
+            href="books.html"
+            class="browse-button"
+        >
+
+            Browse Books →
+
+        </a>
+
+    </div>
+
+</div>
+
+
+
+<script src="js/data.js"></script>
+
+
+<script>
+
+
+// ========================================
+// GET LIBRARY
+// ========================================
+
+const libraryIds =
+    JSON.parse(
+        localStorage.getItem(
+            "library"
+        ) || "[]"
+    );
+
+
+// ========================================
+// FIND BOOKS
+// ========================================
+
+const myBooks =
+    books.filter(
+        book =>
+            libraryIds.includes(book.id)
+    );
+
+
+// ========================================
+// ELEMENTS
+// ========================================
+
+const grid =
+    document.getElementById(
+        "libraryGrid"
+    );
+
+
+const empty =
+    document.getElementById(
+        "emptyLibrary"
+    );
+
+
+const count =
+    document.getElementById(
+        "libraryCount"
+    );
+
+
+// ========================================
+// COUNT
+// ========================================
+
+count.textContent =
+
+    myBooks.length +
+
+    (
+        myBooks.length === 1
+            ? " book"
+            : " books"
+    );
+
+
+// ========================================
+// EMPTY LIBRARY
+// ========================================
+
+if (myBooks.length === 0) {
+
+    empty.style.display =
+        "block";
+
+}
+
+
+// ========================================
+// DISPLAY BOOKS
+// ========================================
+
+myBooks.forEach(
+    book => {
+
+
+        const card =
+            document.createElement(
+                "article"
+            );
+
+
+        card.className =
+            "book-card";
+
+
+        card.innerHTML = `
+
+            <img
+                src="${book.cover}"
+                alt="${book.title}"
+                class="book-cover"
+            >
+
+
+            <div class="book-content">
+
+                <div class="book-category">
+
+                    ${book.category}
+
+                </div>
+
+
+                <h2 class="book-title">
+
+                    ${book.title}
+
+                </h2>
+
+
+                <div class="book-author">
+
+                    By ${book.author}
+
+                </div>
+
+
+                <p class="book-description">
+
+                    ${book.description}
+
+                </p>
+
+
+                <a
+    href="reader.html?id=${book.id}"
+    class="read-button"
+>
+    📖 Read Ebook →
+</a>
+
+
+                <div class="order-info">
+
+                    ✓ Purchased
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        grid.appendChild(card);
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

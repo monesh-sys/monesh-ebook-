@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subscriber Reward — Monesh Ebooks</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>
+.reward-page{min-height:78vh;display:grid;place-items:center;padding:55px 20px}
+.reward-card{width:min(680px,100%);background:#fff;border:1px solid #ddd;border-radius:24px;padding:42px;box-shadow:0 25px 70px rgba(0,0,0,.08);text-align:center}
+.reward-badge{display:inline-flex;padding:8px 13px;border-radius:999px;background:#f0eee8;font-size:11px;letter-spacing:2px;font-weight:800}
+.reward-card h1{font-family:Georgia,serif;font-size:clamp(40px,7vw,70px);line-height:.98;margin:20px 0 15px}
+.reward-card h1 span{color:#777}
+.reward-card p{color:#666;line-height:1.7;max-width:540px;margin:0 auto}
+.youtube-button{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:28px;padding:16px 24px;border:0;border-radius:12px;background:#171717;color:#fff;font-weight:800;cursor:pointer;font-size:15px}
+.youtube-button:disabled{opacity:.55;cursor:not-allowed}
+.reward-status{margin-top:22px;padding:16px;border-radius:14px;background:#f7f5ef;color:#555;line-height:1.6}
+.reward-status.success{background:#eef8f1;color:#176b3a}
+.reward-status.error{background:#fff1f1;color:#a52a2a}
+.coupon-box{display:none;margin-top:24px;padding:22px;border:2px dashed #222;border-radius:16px;background:#fafafa}
+.coupon-code{font-family:monospace;font-size:28px;font-weight:900;letter-spacing:2px;margin:8px 0 15px;word-break:break-all}
+.copy-coupon{padding:11px 18px;border:1px solid #ccc;background:#fff;border-radius:9px;cursor:pointer;font-weight:700}
+.reward-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:30px}
+.reward-step{padding:15px 10px;border:1px solid #eee;border-radius:14px;font-size:13px;color:#666}
+.reward-step strong{display:block;color:#171717;margin-bottom:5px}
+@media(max-width:600px){.reward-card{padding:28px 20px}.reward-steps{grid-template-columns:1fr}.coupon-code{font-size:22px}}
+</style>
+</head>
+<body>
+<header class="header">
+<a href="index.html" class="brand"><span class="brand-mark">M</span><span>MONESH <b>EBOOKS</b></span></a>
+<nav class="nav">
+<a href="index.html">Home</a>
+<a href="books.html">Books</a>
+<a href="library.html" class="library-btn">📚 Library</a>
+<a href="cart.html">🛒 Cart</a>
+</nav>
+</header>
+
+<main class="reward-page">
+<section class="reward-card">
+<div class="reward-badge">TECH BLUEPRINT REWARD</div>
+<h1>Subscribe.<br><span>Save on ebooks.</span></h1>
+<p>Subscribe to Tech Blueprint on YouTube, then verify your Google account to receive one unique discount coupon for Monesh Ebooks.</p>
+
+<a id="channelLink" class="youtube-button" href="https://www.youtube.com/@techblueprint-01" target="_blank" rel="noopener">▶ Subscribe to Tech Blueprint</a>
+<button id="verifyButton" class="youtube-button" type="button">✓ Verify Subscription</button>
+
+<div id="status" class="reward-status">First subscribe to the channel, then click “Verify Subscription”.</div>
+
+<div id="couponBox" class="coupon-box">
+<div>YOUR ONE-TIME COUPON</div>
+<div id="couponCode" class="coupon-code">—</div>
+<div id="couponDiscount"></div>
+<button id="copyButton" class="copy-coupon" type="button">Copy Coupon</button>
+</div>
+
+<div class="reward-steps">
+<div class="reward-step"><strong>1. Subscribe</strong>Open Tech Blueprint</div>
+<div class="reward-step"><strong>2. Verify</strong>Use your Google account</div>
+<div class="reward-step"><strong>3. Save</strong>Apply your coupon</div>
+</div>
+</section>
+</main>
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="js/rewards-config.js"></script>\n<script src="js/subscriber.js"></script>
+</body>
+</html>

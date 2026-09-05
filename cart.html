@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Cart — Monesh Ebooks</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <a
+        href="index.html"
+        class="brand"
+    >
+
+        <span class="brand-mark">
+            M
+        </span>
+
+        MONESH EBOOKS
+
+    </a>
+
+
+    <nav class="nav">
+
+        <a href="index.html">
+            Home
+        </a>
+        
+        <a href="books.html">
+            Books
+        </a>
+
+        <a href="library.html">
+            My Library
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="page">
+
+<div class="container">
+
+    <p class="kicker">
+        YOUR CART
+    </p>
+
+    <h1>
+        Shopping cart.
+    </h1>
+
+
+    <div id="cartContainer"></div>
+
+
+</div>
+
+</main>
+
+
+<script src="js/data.js"></script>\n<script src="js/rewards-config.js"></script>
+
+<script src="js/app.js"></script>
+
+
+<script>
+
+const cart =
+    getCart();
+
+
+const container =
+    document.getElementById(
+        "cartContainer"
+    );
+
+
+if (cart.length === 0) {
+
+    container.innerHTML = `
+
+        <div class="empty">
+
+            <h2>
+                Your cart is empty.
+            </h2>
+
+            <br>
+
+            <a
+                href="books.html"
+                class="btn btn-dark"
+            >
+                Browse Books
+            </a>
+
+        </div>
+
+    `;
+
+} else {
+
+    let total = 0;
+
+    let html = "";
+
+
+    cart.forEach(id => {
+
+        const book =
+            getBook(id);
+
+
+        if (!book) return;
+
+
+        total += book.price;
+
+
+        html += `
+
+            <div class="cart-item">
+
+                <img
+                    src="${book.cover}"
+                    alt="${book.title}"
+                >
+
+                <div>
+
+                    <h3>
+                        ${book.title}
+                    </h3>
+
+                    <p>
+                        ${book.author}
+                    </p>
+
+                    <br>
+
+                    <strong>
+                        ₹${book.price}
+                    </strong>
+
+                    <br><br>
+
+                    <button
+                        onclick="removeFromCart(${book.id})"
+                    >
+                        Remove
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
+
+
+    html += `
+
+        <div class="cart-total">
+
+            <h2>
+                Total: ₹<span id="cartTotal">${total}</span>
+            </h2>
+
+            <div class="coupon-area">
+                <p class="coupon-label">SUBSCRIBER COUPON</p>
+                <div class="coupon-row">
+                    <input id="couponInput" type="text" placeholder="Enter coupon code" autocomplete="off">
+                    <button id="couponApply" type="button">Apply</button>
+                </div>
+                <div id="couponMessage" class="coupon-message"></div>
+                <a id="checkoutLink" href="payment.html?id=${cart[0]}" class="btn btn-dark">
+                    Checkout →
+                </a>
+            </div>
+
+        </div>
+
+    `;
+
+
+    container.innerHTML = html;
+
+    const couponInput = document.getElementById("couponInput");
+    const couponApply = document.getElementById("couponApply");
+    const couponMessage = document.getElementById("couponMessage");
+    const cartTotal = document.getElementById("cartTotal");
+    const checkoutLink = document.getElementById("checkoutLink");
+
+    function showCouponMessage(text, ok=false) {
+        couponMessage.textContent = text;
+        couponMessage.className = "coupon-message" + (ok ? " ok" : " error");
+    }
+
+    function setCheckoutCoupon(code) {
+        checkoutLink.href = "payment.html?id=" + encodeURIComponent(cart[0]) +
+            "&coupon=" + encodeURIComponent(code);
+    }
+
+    couponApply.addEventListener("click", async () => {
+        const code = couponInput.value.trim().toUpperCase();
+        if (!code) {
+            showCouponMessage("Enter your subscriber coupon.");
+            return;
+        }
+
+        const cfg = window.MONESH_REWARD_CONFIG || {};
+        if (!cfg.APPS_SCRIPT_URL || cfg.APPS_SCRIPT_URL.startsWith("YOUR_")) {
+            showCouponMessage("Reward system is not configured yet.");
+            return;
+        }
+
+        couponApply.disabled = true;
+        showCouponMessage("Checking coupon…");
+
+        try {
+            const response = await fetch(cfg.APPS_SCRIPT_URL, {
+                method: "POST",
+                body: new URLSearchParams({
+                    action: "validateCoupon",
+                    code
+                })
+            });
+            const data = await response.json();
+
+            if (!data.valid) {
+                showCouponMessage(data.message || "Invalid coupon.");
+                return;
+            }
+
+            const discounted = Math.max(0, total - (total * data.discount / 100));
+            cartTotal.textContent = discounted.toFixed(2).replace(/\.00$/, "");
+            showCouponMessage(`${data.discount}% discount applied ✓`, true);
+            setCheckoutCoupon(data.code);
+            localStorage.setItem("moneshAppliedCoupon", data.code);
+        } catch (error) {
+            console.error(error);
+            showCouponMessage("Could not check the coupon server.");
+        } finally {
+            couponApply.disabled = false;
+        }
+    });
+
+    const savedCoupon = localStorage.getItem("moneshSubscriberCoupon");
+    if (savedCoupon) couponInput.value = savedCoupon;
+
+    const appliedCoupon = localStorage.getItem("moneshAppliedCoupon");
+    if (appliedCoupon) {
+        couponInput.value = appliedCoupon;
+    }
+
+}
+
+</script>
+
+
+<style>
+.coupon-area{margin-top:25px;text-align:left;max-width:520px;margin-left:auto}
+.coupon-label{font-size:11px;letter-spacing:2px;font-weight:800;color:#777;margin-bottom:8px}
+.coupon-row{display:flex;gap:8px}
+.coupon-row input{flex:1;padding:13px;border:1px solid #ccc;border-radius:7px;text-transform:uppercase}
+.coupon-row button{padding:13px 18px;border:0;border-radius:7px;background:#171717;color:#fff;font-weight:700;cursor:pointer}
+.coupon-message{font-size:13px;margin:10px 0 14px;min-height:18px}
+.coupon-message.ok{color:#087f45}.coupon-message.error{color:#a52a2a}
+@media(max-width:500px){.coupon-row{display:grid;grid-template-columns:1fr}.coupon-row button{width:100%}}
+</style>
+</body>
+
+</html>

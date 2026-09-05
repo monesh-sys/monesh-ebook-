@@ -1,0 +1,550 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f5ef;
+    color: #171717;
+}
+
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+
+.header {
+    height: 75px;
+    padding: 0 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #f7f5ef;
+
+    border-bottom: 1px solid #ddd;
+}
+
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+
+.brand-mark {
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+
+    background: #171717;
+    color: white;
+
+    border-radius: 50%;
+}
+
+
+.brand b {
+    color: #777;
+}
+
+
+.nav {
+    display: flex;
+    gap: 28px;
+}
+
+
+.nav a {
+    font-size: 14px;
+    color: #444;
+}
+
+
+.nav a:hover {
+    color: #000;
+}
+
+
+.container {
+    width: min(1150px, 90%);
+    margin: auto;
+}
+
+
+.hero {
+    padding: 100px 0;
+    text-align: center;
+}
+
+
+.kicker {
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: #777;
+    margin-bottom: 18px;
+}
+
+
+.hero h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(45px, 7vw, 85px);
+    font-weight: 500;
+    line-height: 1;
+}
+
+
+.hero p {
+    max-width: 600px;
+    margin: 25px auto;
+    color: #666;
+    line-height: 1.7;
+}
+
+
+.btn {
+    display: inline-block;
+    padding: 14px 24px;
+
+    border-radius: 5px;
+
+    font-weight: 700;
+    font-size: 14px;
+}
+
+
+.btn-dark {
+    background: #171717;
+    color: white;
+}
+
+
+.btn-light {
+    border: 1px solid #ccc;
+}
+
+
+.section {
+    padding: 70px 0;
+}
+
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 35px;
+}
+
+
+.section-heading h2 {
+    font-family: Georgia, serif;
+    font-size: 40px;
+    font-weight: 500;
+}
+
+
+.book-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 30px;
+}
+
+
+.book-card {
+    background: white;
+    border: 1px solid #ddd;
+
+    transition:
+        transform .2s,
+        box-shadow .2s;
+}
+
+
+.book-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.08);
+}
+
+
+.book-card img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+}
+
+
+.book-info {
+    padding: 20px;
+}
+
+
+.category {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #888;
+}
+
+
+.book-info h3 {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    margin: 10px 0;
+}
+
+
+.book-info p {
+    color: #777;
+    font-size: 13px;
+}
+
+
+.book-bottom {
+    margin-top: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.book-bottom button {
+    background: #171717;
+    color: white;
+
+    border: none;
+
+    padding: 9px 15px;
+
+    cursor: pointer;
+
+    border-radius: 4px;
+}
+
+
+.page {
+    padding: 70px 0;
+    min-height: 70vh;
+}
+
+
+.page h1 {
+    font-family: Georgia, serif;
+    font-size: 55px;
+    margin-bottom: 40px;
+}
+
+
+.book-detail {
+    display: grid;
+
+    grid-template-columns:
+        350px 1fr;
+
+    gap: 60px;
+}
+
+
+.book-detail img {
+    width: 100%;
+}
+
+
+.book-detail h1 {
+    margin-bottom: 15px;
+}
+
+
+.book-description {
+    color: #666;
+    line-height: 1.8;
+    margin: 25px 0;
+}
+
+
+.price {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 25px 0;
+}
+
+
+.payment-page {
+    max-width: 900px;
+    margin: auto;
+    padding: 70px 20px;
+}
+
+
+.payment-box {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 40px;
+
+    background: white;
+
+    padding: 40px;
+
+    border: 1px solid #ddd;
+}
+
+
+.payment-book {
+    padding-right: 40px;
+    border-right: 1px solid #ddd;
+}
+
+
+.payment-book h2 {
+    font-family: Georgia, serif;
+    font-size: 35px;
+    margin: 15px 0;
+}
+
+
+.amount {
+    font-size: 35px;
+    font-weight: 700;
+    margin: 20px 0;
+}
+
+
+.qr-box {
+    text-align: center;
+}
+
+
+.qr-box img {
+    width: 270px;
+    height: 270px;
+
+    object-fit: contain;
+
+    margin: 20px auto;
+
+    border: 8px solid white;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.12);
+}
+
+
+.upi-id {
+    background: #f1efe8;
+
+    padding: 13px;
+
+    font-size: 13px;
+
+    border-radius: 5px;
+}
+
+
+.payment-form {
+    margin-top: 25px;
+}
+
+
+.payment-form label {
+    display: block;
+
+    text-align: left;
+
+    font-size: 13px;
+
+    margin-bottom: 8px;
+}
+
+
+.payment-form input {
+    width: 100%;
+
+    padding: 14px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 5px;
+
+    margin-bottom: 15px;
+}
+
+
+.payment-form button {
+    width: 100%;
+
+    padding: 14px;
+
+    background: #171717;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    font-weight: 700;
+}
+
+
+.cart-item {
+    background: white;
+
+    padding: 20px;
+
+    margin-bottom: 15px;
+
+    border: 1px solid #ddd;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+
+.cart-item img {
+    width: 90px;
+    height: 120px;
+
+    object-fit: cover;
+}
+
+
+.cart-total {
+    margin-top: 30px;
+
+    padding: 25px;
+
+    background: white;
+
+    border: 1px solid #ddd;
+
+    text-align: right;
+}
+
+
+.empty {
+    text-align: center;
+
+    padding: 70px 20px;
+
+    color: #777;
+}
+
+
+.footer {
+    padding: 50px 7%;
+
+    border-top: 1px solid #ddd;
+
+    margin-top: 70px;
+
+    color: #777;
+
+    text-align: center;
+}
+
+
+@media(max-width:700px) {
+
+    .header {
+        padding: 0 5%;
+    }
+
+
+    .nav {
+        display: none;
+    }
+
+
+    .hero {
+        padding: 70px 0;
+    }
+
+
+    .book-detail {
+        grid-template-columns: 1fr;
+    }
+
+
+    .payment-box {
+        grid-template-columns: 1fr;
+    }
+
+
+    .payment-book {
+        border-right: none;
+
+        border-bottom: 1px solid #ddd;
+
+        padding-right: 0;
+
+        padding-bottom: 30px;
+    }
+
+
+    .page h1 {
+        font-size: 42px;
+    }
+
+}
+/* =========================
+   SUBSCRIBER REWARD
+========================= */
+.subscriber-promo{
+    padding: 20px 0 70px;
+}
+.subscriber-promo-inner{
+    width:min(1150px,90%);
+    margin:auto;
+    padding:34px;
+    border:1px solid #ddd;
+    border-radius:24px;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:30px;
+    box-shadow:0 15px 45px rgba(0,0,0,.05);
+}
+.subscriber-promo h2{
+    font-family:Georgia,serif;
+    font-size:clamp(30px,4vw,48px);
+    line-height:1;
+    margin:8px 0 14px;
+}
+.subscriber-promo h2 span{color:#777}
+.subscriber-promo p:not(.kicker){color:#666;line-height:1.6}
+@media(max-width:700px){
+    .subscriber-promo-inner{width:92%;padding:25px;display:block}
+    .subscriber-promo .btn{margin-top:20px}
+}

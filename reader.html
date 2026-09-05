@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ebook Reader</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background: #222;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    height: 60px;
+    background: #111;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 15px;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    z-index: 1000;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.back {
+    text-decoration: none;
+    color: white;
+    background: #292929;
+
+    padding: 9px 13px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.title {
+    font-size: 15px;
+    font-weight: 600;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    max-width: 400px;
+}
+
+.controls {
+    display: flex;
+    gap: 5px;
+}
+
+button {
+    border: 1px solid #444;
+    background: #292929;
+    color: white;
+
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.control {
+    width: 38px;
+    height: 35px;
+    font-size: 16px;
+}
+
+button:hover {
+    background: #3d3d3d;
+}
+
+/* =========================
+   PDF AREA
+========================= */
+
+#pdfContainer {
+    position: fixed;
+
+    top: 60px;
+    bottom: 55px;
+    left: 0;
+    right: 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background: #525659;
+
+    padding: 20px;
+
+    text-align: center;
+
+    z-index: 1;
+}
+
+.page {
+    display: block;
+
+    margin: 0 auto 20px auto;
+
+    background: white;
+
+    box-shadow:
+        0 2px 10px
+        rgba(0, 0, 0, .35);
+
+    max-width: 100%;
+
+    user-select: none;
+    -webkit-user-select: none;
+
+    -webkit-touch-callout: none;
+}
+
+/* =========================
+   PROTECTION NOTICE
+========================= */
+
+.protection-notice {
+    position: fixed;
+
+    top: 68px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    background: rgba(0, 0, 0, .75);
+    color: white;
+
+    padding: 7px 15px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    z-index: 2000;
+
+    pointer-events: none;
+
+    letter-spacing: .5px;
+}
+
+/* =========================
+   BLACK PROTECTION SCREEN
+========================= */
+
+#protectedScreen {
+    position: fixed;
+
+    inset: 0;
+
+    background: #000;
+
+    color: white;
+
+    z-index: 99999;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: column;
+
+    text-align: center;
+}
+
+#protectedScreen .lock {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+#protectedScreen h1 {
+    margin: 0 0 10px;
+    font-size: 25px;
+}
+
+#protectedScreen p {
+    color: #aaa;
+    margin: 0;
+    font-size: 14px;
+}
+
+/* =========================
+   BOTTOM BAR
+========================= */
+
+.bottom {
+    position: fixed;
+
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 55px;
+
+    background: #111;
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    z-index: 1000;
+}
+
+.nav {
+    padding: 8px 15px;
+    font-size: 13px;
+}
+
+#pageInfo {
+    min-width: 100px;
+    text-align: center;
+
+    font-size: 13px;
+    color: #ccc;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+#loading {
+    position: fixed;
+
+    inset: 0;
+
+    background: #111;
+    color: white;
+
+    z-index: 5000;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+}
+
+#loading.hidden {
+    display: none;
+}
+
+.spinner {
+    width: 42px;
+    height: 42px;
+
+    border: 4px solid #444;
+    border-top-color: white;
+
+    border-radius: 50%;
+
+    animation: spin .7s linear infinite;
+
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================
+   ERROR
+========================= */
+
+#error {
+    position: fixed;
+
+    inset: 0;
+
+    background: #111;
+    color: white;
+
+    z-index: 6000;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 30px;
+}
+
+.error-box {
+    max-width: 450px;
+}
+
+.error-box h1 {
+    font-family: Georgia, serif;
+}
+
+.error-box p {
+    color: #aaa;
+    line-height: 1.6;
+}
+
+.error-box a {
+    display: inline-block;
+
+    margin-top: 15px;
+
+    padding: 10px 18px;
+
+    background: white;
+    color: #111;
+
+    text-decoration: none;
+
+    border-radius: 6px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .header {
+        height: 55px;
+        padding: 0 8px;
+    }
+
+    #pdfContainer {
+        top: 55px;
+        padding: 10px;
+    }
+
+    .title {
+        max-width: 120px;
+        font-size: 13px;
+    }
+
+    .back {
+        padding: 8px 9px;
+        font-size: 12px;
+    }
+
+    .control {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+    }
+
+    .protection-notice {
+        top: 60px;
+        font-size: 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+    <div class="left">
+
+        <a
+            href="library.html"
+            class="back"
+        >
+            ← Library
+        </a>
+
+        <div
+            id="bookTitle"
+            class="title"
+        >
+            Loading...
+        </div>
+
+    </div>
+
+    <div class="controls">
+
+        <button
+            id="zoomOut"
+            class="control"
+            title="Zoom out"
+        >
+            −
+        </button>
+
+        <button
+            id="zoomIn"
+            class="control"
+            title="Zoom in"
+        >
+            +
+        </button>
+
+        <button
+            id="darkMode"
+            class="control"
+            title="Dark mode"
+        >
+            ☾
+        </button>
+
+        <button
+            id="fullscreen"
+            class="control"
+            title="Fullscreen"
+        >
+            ⛶
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     PROTECTION NOTICE
+========================= -->
+
+<div class="protection-notice">
+    🔒 PROTECTED • © MoneshSys
+</div>
+
+
+<!-- =========================
+     PDF
+========================= -->
+
+<main id="pdfContainer"></main>
+
+
+<!-- =========================
+     BOTTOM
+========================= -->
+
+<div class="bottom">
+
+    <button
+        id="previous"
+        class="nav"
+    >
+        ← Previous
+    </button>
+
+    <div id="pageInfo">
+        Loading...
+    </div>
+
+    <button
+        id="next"
+        class="nav"
+    >
+        Next →
+    </button>
+
+</div>
+
+
+<!-- =========================
+     BLACK PROTECTION SCREEN
+========================= -->
+
+<div id="protectedScreen">
+
+    <div class="lock">
+        🔒
+    </div>
+
+    <h1>
+        Protected Content
+    </h1>
+
+    <p>
+        Ebook content is hidden for security.
+    </p>
+
+</div>
+
+
+<!-- =========================
+     LOADING
+========================= -->
+
+<div id="loading">
+
+    <div class="spinner"></div>
+
+    <div>
+        Opening ebook...
+    </div>
+
+</div>
+
+
+<!-- =========================
+     ERROR
+========================= -->
+
+<div id="error">
+
+    <div class="error-box">
+
+        <h1>
+            Unable to open ebook
+        </h1>
+
+        <p id="errorMessage">
+            Something went wrong.
+        </p>
+
+        <a href="library.html">
+            Back to Library
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     BOOK DATA
+========================= -->
+
+<script src="js/data.js"></script>
+
+
+<!-- =========================
+     PDF.JS
+========================= -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<script>
+
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+
+/* =====================================================
+   GET BOOK ID
+===================================================== */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const bookId =
+    Number(
+        params.get("id")
+    );
+
+
+/* =====================================================
+   FIND BOOK
+===================================================== */
+
+const book =
+    books.find(
+        item =>
+            Number(item.id) === bookId
+    );
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const container =
+    document.getElementById(
+        "pdfContainer"
+    );
+
+const bookTitle =
+    document.getElementById(
+        "bookTitle"
+    );
+
+const loading =
+    document.getElementById(
+        "loading"
+    );
+
+const error =
+    document.getElementById(
+        "error"
+    );
+
+const errorMessage =
+    document.getElementById(
+        "errorMessage"
+    );
+
+const pageInfo =
+    document.getElementById(
+        "pageInfo"
+    );
+
+const previous =
+    document.getElementById(
+        "previous"
+    );
+
+const next =
+    document.getElementById(
+        "next"
+    );
+
+const zoomIn =
+    document.getElementById(
+        "zoomIn"
+    );
+
+const zoomOut =
+    document.getElementById(
+        "zoomOut"
+    );
+
+const darkMode =
+    document.getElementById(
+        "darkMode"
+    );
+
+const fullscreen =
+    document.getElementById(
+        "fullscreen"
+    );
+
+const protectedScreen =
+    document.getElementById(
+        "protectedScreen"
+    );
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let pdf = null;
+
+let currentPage = 1;
+
+let totalPages = 0;
+
+let scale = 1.3;
+
+
+/* =====================================================
+   PROTECTION STATE
+===================================================== */
+
+let protectedMode = false;
+
+
+/* =====================================================
+   CHECK BOOK
+===================================================== */
+
+if (!book) {
+
+    showError(
+        "Book not found."
+    );
+
+} else {
+
+    bookTitle.textContent =
+        book.title;
+
+    openPDF();
+}
+
+
+/* =====================================================
+   OPEN PDF
+===================================================== */
+
+async function openPDF() {
+
+    try {
+
+        pdf =
+            await pdfjsLib.getDocument(
+                book.pdf
+            ).promise;
+
+        totalPages =
+            pdf.numPages;
+
+        loading.classList.add(
+            "hidden"
+        );
+
+        await renderPage(1);
+
+        pageInfo.textContent =
+            "1 / " + totalPages;
+
+
+        const savedPage =
+            Number(
+                localStorage.getItem(
+                    "pdf-page-" +
+                    book.id
+                )
+            );
+
+
+        if (
+            savedPage &&
+            savedPage >= 1 &&
+            savedPage <= totalPages
+        ) {
+
+            currentPage =
+                savedPage;
+
+            await renderPage(
+                currentPage
+            );
+
+        }
+
+    } catch (err) {
+
+        console.error(err);
+
+        showError(
+            "Could not open the PDF. Check that the PDF exists in your books folder."
+        );
+
+    }
+}
+
+
+/* =====================================================
+   WATERMARK
+===================================================== */
+
+function addWatermark(
+    ctx,
+    canvas
+) {
+
+    const width =
+        canvas.width;
+
+    const height =
+        canvas.height;
+
+
+    ctx.save();
+
+
+    /*
+       Repeated diagonal watermark
+    */
+
+    ctx.globalAlpha =
+        0.18;
+
+    ctx.fillStyle =
+        "#555";
+
+    ctx.font =
+        "bold 28px Arial";
+
+    ctx.textAlign =
+        "center";
+
+    ctx.textBaseline =
+        "middle";
+
+
+    ctx.translate(
+        width / 2,
+        height / 2
+    );
+
+    ctx.rotate(
+        -Math.PI / 5
+    );
+
+
+    const spacingX = 420;
+    const spacingY = 180;
+
+
+    for (
+        let y = -height * 2;
+        y < height * 2;
+        y += spacingY
+    ) {
+
+        for (
+            let x = -width * 2;
+            x < width * 2;
+            x += spacingX
+        ) {
+
+            ctx.fillText(
+                "© MONESHSYS • PROTECTED EBOOK",
+                x,
+                y
+            );
+
+        }
+
+    }
+
+
+    ctx.restore();
+
+
+    /*
+       Center protection stamp
+    */
+
+    ctx.save();
+
+    ctx.globalAlpha =
+        0.20;
+
+    ctx.fillStyle =
+        "#444";
+
+    ctx.font =
+        "bold 34px Arial";
+
+    ctx.textAlign =
+        "center";
+
+    ctx.textBaseline =
+        "middle";
+
+    ctx.fillText(
+        "🔒 MONESHSYS • PROTECTED",
+        width / 2,
+        height / 2
+    );
+
+    ctx.restore();
+
+
+    /*
+       Bottom copyright
+    */
+
+    ctx.save();
+
+    ctx.globalAlpha =
+        0.55;
+
+    ctx.fillStyle =
+        "#555";
+
+    ctx.font =
+        "bold 16px Arial";
+
+    ctx.textAlign =
+        "center";
+
+    ctx.fillText(
+        "© MoneshSys • Unauthorized copying prohibited",
+        width / 2,
+        height - 30
+    );
+
+    ctx.restore();
+
+}
+
+
+/* =====================================================
+   RENDER PAGE
+===================================================== */
+
+async function renderPage(
+    pageNumber
+) {
+
+    if (!pdf) {
+        return;
+    }
+
+
+    const page =
+        await pdf.getPage(
+            pageNumber
+        );
+
+
+    const viewport =
+        page.getViewport({
+            scale: scale
+        });
+
+
+    const canvas =
+        document.createElement(
+            "canvas"
+        );
+
+
+    const context =
+        canvas.getContext(
+            "2d"
+        );
+
+
+    canvas.className =
+        "page";
+
+
+    canvas.width =
+        viewport.width;
+
+
+    canvas.height =
+        viewport.height;
+
+
+    /*
+       Clear old page
+    */
+
+    container.innerHTML =
+        "";
+
+
+    container.appendChild(
+        canvas
+    );
+
+
+    /*
+       Render PDF
+    */
+
+    await page.render({
+
+        canvasContext:
+            context,
+
+        viewport:
+            viewport
+
+    }).promise;
+
+
+    /*
+       IMPORTANT:
+       Watermark becomes part
+       of the actual canvas pixels.
+    */
+
+    addWatermark(
+        context,
+        canvas
+    );
+
+
+    currentPage =
+        pageNumber;
+
+
+    pageInfo.textContent =
+        currentPage +
+        " / " +
+        totalPages;
+
+
+    localStorage.setItem(
+        "pdf-page-" +
+        book.id,
+        currentPage
+    );
+
+
+    previous.disabled =
+        currentPage <= 1;
+
+
+    next.disabled =
+        currentPage >= totalPages;
+
+}
+
+
+/* =====================================================
+   NEXT
+===================================================== */
+
+next.addEventListener(
+    "click",
+    function() {
+
+        if (
+            currentPage <
+            totalPages
+        ) {
+
+            renderPage(
+                currentPage + 1
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   PREVIOUS
+===================================================== */
+
+previous.addEventListener(
+    "click",
+    function() {
+
+        if (
+            currentPage > 1
+        ) {
+
+            renderPage(
+                currentPage - 1
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ZOOM IN
+===================================================== */
+
+zoomIn.addEventListener(
+    "click",
+    function() {
+
+        if (
+            scale < 2.5
+        ) {
+
+            scale += 0.2;
+
+            renderPage(
+                currentPage
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ZOOM OUT
+===================================================== */
+
+zoomOut.addEventListener(
+    "click",
+    function() {
+
+        if (
+            scale > 0.7
+        ) {
+
+            scale -= 0.2;
+
+            renderPage(
+                currentPage
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+let dark = false;
+
+darkMode.addEventListener(
+    "click",
+    function() {
+
+        dark =
+            !dark;
+
+
+        if (dark) {
+
+            document.body.style.background =
+                "#181818";
+
+            container.style.background =
+                "#181818";
+
+            darkMode.textContent =
+                "☀";
+
+        } else {
+
+            document.body.style.background =
+                "#222";
+
+            container.style.background =
+                "#525659";
+
+            darkMode.textContent =
+                "☾";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   FULLSCREEN
+===================================================== */
+
+fullscreen.addEventListener(
+    "click",
+    async function() {
+
+        try {
+
+            if (
+                !document.fullscreenElement
+            ) {
+
+                await document.documentElement
+                    .requestFullscreen();
+
+            } else {
+
+                await document.exitFullscreen();
+
+            }
+
+        } catch (err) {
+
+            console.log(err);
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   PAGE KEYBOARD NAVIGATION
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "ArrowRight"
+        ) {
+
+            if (
+                currentPage <
+                totalPages
+            ) {
+
+                renderPage(
+                    currentPage + 1
+                );
+
+            }
+
+        }
+
+
+        if (
+            event.key === "ArrowLeft"
+        ) {
+
+            if (
+                currentPage > 1
+            ) {
+
+                renderPage(
+                    currentPage - 1
+                );
+
+            }
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   PROTECTED SCREEN
+===================================================== */
+
+function showProtectedScreen() {
+
+    protectedMode = true;
+
+    protectedScreen.style.display =
+        "flex";
+
+    container.style.visibility =
+        "hidden";
+
+    document.querySelector(
+        ".bottom"
+    ).style.visibility =
+        "hidden";
+
+    document.querySelector(
+        ".header"
+    ).style.visibility =
+        "hidden";
+
+}
+
+
+/* =====================================================
+   RESTORE SCREEN
+===================================================== */
+
+function hideProtectedScreen() {
+
+    protectedMode = false;
+
+    protectedScreen.style.display =
+        "none";
+
+    container.style.visibility =
+        "visible";
+
+    document.querySelector(
+        ".bottom"
+    ).style.visibility =
+        "visible";
+
+    document.querySelector(
+        ".header"
+    ).style.visibility =
+        "visible";
+
+}
+
+
+/* =====================================================
+   WINDOW BLUR PROTECTION
+===================================================== */
+
+window.addEventListener(
+    "blur",
+    function() {
+
+        /*
+         * Hide the PDF when browser/window
+         * loses focus.
+         */
+
+        showProtectedScreen();
+
+    }
+);
+
+
+/* =====================================================
+   VISIBILITY PROTECTION
+===================================================== */
+
+document.addEventListener(
+    "visibilitychange",
+    function() {
+
+        if (
+            document.hidden
+        ) {
+
+            showProtectedScreen();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   FOCUS RESTORE
+===================================================== */
+
+window.addEventListener(
+    "focus",
+    function() {
+
+        setTimeout(
+            function() {
+
+                if (
+                    !document.hidden
+                ) {
+
+                    hideProtectedScreen();
+
+                }
+
+            },
+            150
+        );
+
+    }
+);
+
+
+/* =====================================================
+   PRINT PROTECTION
+===================================================== */
+
+window.addEventListener(
+    "beforeprint",
+    function() {
+
+        showProtectedScreen();
+
+    }
+);
+
+
+window.addEventListener(
+    "afterprint",
+    function() {
+
+        hideProtectedScreen();
+
+    }
+);
+
+
+/* =====================================================
+   RIGHT CLICK PROTECTION
+===================================================== */
+
+document.addEventListener(
+    "contextmenu",
+    function(event) {
+
+        event.preventDefault();
+
+    }
+);
+
+
+/* =====================================================
+   COPY / SELECT / DRAG PROTECTION
+===================================================== */
+
+document.addEventListener(
+    "copy",
+    function(event) {
+
+        event.preventDefault();
+
+    }
+);
+
+
+document.addEventListener(
+    "cut",
+    function(event) {
+
+        event.preventDefault();
+
+    }
+);
+
+
+document.addEventListener(
+    "selectstart",
+    function(event) {
+
+        event.preventDefault();
+
+    }
+);
+
+
+document.addEventListener(
+    "dragstart",
+    function(event) {
+
+        event.preventDefault();
+
+    }
+);
+
+
+/* =====================================================
+   KEYBOARD PROTECTION
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        const key =
+            event.key.toLowerCase();
+
+
+        /*
+         * Ctrl / CMD
+         */
+
+        if (
+            event.ctrlKey ||
+            event.metaKey
+        ) {
+
+            /*
+             * Save
+             */
+
+            if (key === "s") {
+
+                event.preventDefault();
+
+            }
+
+
+            /*
+             * Print
+             */
+
+            if (key === "p") {
+
+                event.preventDefault();
+
+            }
+
+
+            /*
+             * Copy
+             */
+
+            if (key === "c") {
+
+                event.preventDefault();
+
+            }
+
+
+            /*
+             * Cut
+             */
+
+            if (key === "x") {
+
+                event.preventDefault();
+
+            }
+
+
+            /*
+             * Select all
+             */
+
+            if (key === "a") {
+
+                event.preventDefault();
+
+            }
+
+
+            /*
+             * View source
+             */
+
+            if (key === "u") {
+
+                event.preventDefault();
+
+            }
+
+        }
+
+
+        /*
+         * F12
+         */
+
+        if (
+            event.key === "F12"
+        ) {
+
+            event.preventDefault();
+
+        }
+
+
+        /*
+         * Developer tools
+         */
+
+        if (
+            (event.ctrlKey ||
+             event.metaKey) &&
+            event.shiftKey &&
+            (
+                key === "i" ||
+                key === "j" ||
+                key === "c"
+            )
+        ) {
+
+            event.preventDefault();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SHOW ERROR
+===================================================== */
+
+function showError(
+    message
+) {
+
+    loading.classList.add(
+        "hidden"
+    );
+
+
+    errorMessage.textContent =
+        message;
+
+
+    error.style.display =
+        "flex";
+
+}
+
+</script>
+
+</body>
+</html>

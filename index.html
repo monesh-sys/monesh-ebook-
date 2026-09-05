@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#0b0b0d">
+
+    <title>Monesh Ebooks</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        /* =========================
+           RESET
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            background: #f5f5f3;
+            color: #111;
+
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            height: 74px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 5%;
+
+            background:
+                rgba(255,255,255,0.9);
+
+            backdrop-filter:
+                blur(20px);
+
+            -webkit-backdrop-filter:
+                blur(20px);
+
+            border-bottom:
+                1px solid rgba(0,0,0,0.07);
+        }
+
+
+        /* =========================
+           BRAND
+        ========================= */
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            flex-shrink: 0;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+        }
+
+
+        .brand-mark {
+
+            width: 42px;
+
+            height: 42px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 13px;
+
+            background: #111;
+
+            color: white;
+
+            font-size: 20px;
+
+            font-weight: 900;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,0.18);
+        }
+
+
+        .brand b {
+            font-weight: 950;
+        }
+
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        .nav {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            overflow-x: auto;
+
+            scrollbar-width: none;
+        }
+
+
+        .nav::-webkit-scrollbar {
+            display: none;
+        }
+
+
+        .nav a {
+
+            white-space: nowrap;
+
+            padding: 10px 14px;
+
+            border-radius: 11px;
+
+            color: #666;
+
+            font-size: 13px;
+
+            font-weight: 750;
+
+            transition:
+                0.25s;
+        }
+
+
+        .nav a:hover {
+
+            background: #111;
+
+            color: white;
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        /* Library button */
+
+        .library-btn {
+
+            background: #111;
+
+            color: white !important;
+
+            box-shadow:
+                0 7px 18px
+                rgba(0,0,0,0.16);
+        }
+
+
+        .library-btn:hover {
+
+            background: #292929 !important;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+
+            position: relative;
+
+            min-height: 690px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            overflow: hidden;
+
+            text-align: center;
+
+            background:
+
+                radial-gradient(
+                    circle at 85% 15%,
+                    #dededb,
+                    transparent 27%
+                ),
+
+                radial-gradient(
+                    circle at 10% 85%,
+                    #e7e7e4,
+                    transparent 30%
+                ),
+
+                #f5f5f3;
+        }
+
+
+        /* Background circle */
+
+        .hero::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 500px;
+
+            height: 500px;
+
+            right: -190px;
+
+            top: 80px;
+
+            border-radius: 50%;
+
+            background: #111;
+
+            opacity: .035;
+        }
+
+
+        /* Background ring */
+
+        .hero::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 300px;
+
+            height: 300px;
+
+            left: -170px;
+
+            bottom: -160px;
+
+            border:
+                60px solid #111;
+
+            border-radius: 50%;
+
+            opacity: .035;
+        }
+
+
+        /* =========================
+           HERO CONTENT
+        ========================= */
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 2;
+
+            width:
+                min(1150px, 90%);
+
+            margin:
+                0 auto;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        /* =========================
+           BADGE
+        ========================= */
+
+        .kicker {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-bottom: 22px;
+
+            padding: 9px 15px;
+
+            border-radius: 100px;
+
+            background: #111;
+
+            color: white;
+
+            font-size: 10px;
+
+            font-weight: 900;
+
+            letter-spacing: 2px;
+
+            box-shadow:
+                0 8px 20px
+                rgba(0,0,0,.12);
+        }
+
+
+        .kicker::before {
+
+            content: "✦";
+
+            font-size: 11px;
+        }
+
+
+        /* =========================
+           HERO TITLE
+        ========================= */
+
+        .hero h1 {
+
+            width: 100%;
+
+            max-width: 1050px;
+
+            margin:
+                0 auto;
+
+            text-align: center;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size:
+                clamp(50px, 8vw, 100px);
+
+            line-height:
+                .92;
+
+            letter-spacing:
+                -5px;
+
+            font-weight:
+                900;
+        }
+
+
+        .hero h1 span {
+
+            display: block;
+
+            color: #777;
+        }
+
+
+        /* =========================
+           DESCRIPTION
+        ========================= */
+
+        .hero-description {
+
+            max-width: 610px;
+
+            margin:
+                30px auto 0;
+
+            color: #666;
+
+            font-size: 17px;
+
+            line-height: 1.7;
+
+            text-align: center;
+        }
+
+
+        /* =========================
+           HERO BUTTONS
+        ========================= */
+
+        .hero-buttons {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            margin-top: 32px;
+        }
+
+
+        .btn {
+
+            min-height: 54px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding:
+                0 25px;
+
+            border-radius: 14px;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            transition:
+                .25s;
+        }
+
+
+        .btn-dark {
+
+            background: #111;
+
+            color: white;
+
+            box-shadow:
+                0 12px 30px
+                rgba(0,0,0,.18);
+        }
+
+
+        .btn-light {
+
+            background:
+                rgba(255,255,255,.9);
+
+            color: #111;
+
+            border:
+                1px solid #ddd;
+        }
+
+
+        .btn:hover {
+
+            transform:
+                translateY(-4px);
+
+            box-shadow:
+                0 15px 30px
+                rgba(0,0,0,.14);
+        }
+
+
+        /* =========================
+           HERO STATS
+        ========================= */
+
+        .hero-stats {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 45px;
+
+            margin-top: 55px;
+        }
+
+
+        .stat {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            text-align: left;
+        }
+
+
+        .stat-icon {
+
+            width: 40px;
+
+            height: 40px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background: white;
+
+            border:
+                1px solid #e5e5e5;
+
+            font-size: 17px;
+        }
+
+
+        .stat strong {
+
+            display: block;
+
+            font-size: 12px;
+
+            font-weight: 850;
+        }
+
+
+        .stat small {
+
+            display: block;
+
+            margin-top: 2px;
+
+            color: #999;
+
+            font-size: 10px;
+        }
+
+
+        /* =========================
+           FEATURED SECTION
+        ========================= */
+
+        .section {
+
+            padding:
+                95px 0;
+
+            background: white;
+        }
+
+
+        .container {
+
+            width:
+                min(1150px, 90%);
+
+            margin:
+                auto;
+        }
+
+
+        .section-heading {
+
+            display: flex;
+
+            align-items: end;
+
+            justify-content:
+                space-between;
+
+            margin-bottom:
+                35px;
+        }
+
+
+        .section-heading .kicker {
+
+            margin-bottom:
+                9px;
+
+            background:
+                #f1f1ef;
+
+            color:
+                #111;
+
+            box-shadow:
+                none;
+        }
+
+
+        .section-heading h2 {
+
+            font-size:
+                clamp(30px, 5vw, 48px);
+
+            letter-spacing:
+                -2px;
+
+            font-weight:
+                900;
+        }
+
+
+        .view-all {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            color: #666;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            transition:
+                .2s;
+        }
+
+
+        .view-all:hover {
+
+            color: #111;
+
+            transform:
+                translateX(3px);
+        }
+
+
+        /* =========================
+           BOOK GRID
+        ========================= */
+
+        .book-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 22px;
+        }
+
+
+        .book-grid > * {
+
+            min-width: 0;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            transition:
+                transform .3s ease,
+                box-shadow .3s ease;
+        }
+
+
+        .book-grid > *:hover {
+
+            transform:
+                translateY(-8px);
+
+            box-shadow:
+                0 20px 45px
+                rgba(0,0,0,.12);
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+
+            padding:
+                40px 20px;
+
+            background:
+                #0b0b0d;
+
+            color:
+                #777;
+
+            text-align:
+                center;
+
+            font-size:
+                12px;
+        }
+
+
+        /* =========================
+           TABLET
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .header {
+
+                padding:
+                    0 25px;
+            }
+
+
+            .hero {
+
+                min-height:
+                    620px;
+            }
+
+
+            .hero h1 {
+
+                font-size:
+                    70px;
+
+                letter-spacing:
+                    -4px;
+            }
+
+
+            .book-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .header {
+
+                height:
+                    65px;
+
+                padding:
+                    0 12px;
+
+                gap:
+                    8px;
+            }
+
+
+            .brand {
+
+                font-size:
+                    10px;
+
+                gap:
+                    7px;
+            }
+
+
+            .brand-mark {
+
+                width:
+                    35px;
+
+                height:
+                    35px;
+
+                border-radius:
+                    10px;
+
+                font-size:
+                    17px;
+            }
+
+
+            .nav {
+
+                flex:
+                    1;
+
+                justify-content:
+                    flex-end;
+
+                gap:
+                    2px;
+            }
+
+
+            .nav a {
+
+                padding:
+                    8px 9px;
+
+                font-size:
+                    10px;
+            }
+
+
+            .library-btn {
+
+                padding:
+                    8px 10px !important;
+            }
+
+
+            /* HERO */
+
+            .hero {
+
+                min-height:
+                    650px;
+
+                text-align:
+                    center;
+            }
+
+
+            .hero-content {
+
+                width:
+                    91%;
+
+                align-items:
+                    center;
+            }
+
+
+            .kicker {
+
+                font-size:
+                    8px;
+
+                padding:
+                    7px 11px;
+
+                margin-bottom:
+                    18px;
+            }
+
+
+            .hero h1 {
+
+                max-width:
+                    100%;
+
+                font-size:
+                    clamp(45px, 14vw, 65px);
+
+                line-height:
+                    .95;
+
+                letter-spacing:
+                    -3px;
+            }
+
+
+            .hero-description {
+
+                max-width:
+                    420px;
+
+                margin-top:
+                    22px;
+
+                font-size:
+                    14px;
+
+                line-height:
+                    1.65;
+            }
+
+
+            .hero-buttons {
+
+                width:
+                    100%;
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    stretch;
+
+                margin-top:
+                    27px;
+            }
+
+
+            .btn {
+
+                width:
+                    100%;
+
+                min-height:
+                    50px;
+            }
+
+
+            /* STATS */
+
+            .hero-stats {
+
+                width:
+                    100%;
+
+                gap:
+                    8px;
+
+                margin-top:
+                    38px;
+
+                justify-content:
+                    space-between;
+            }
+
+
+            .stat {
+
+                gap:
+                    5px;
+            }
+
+
+            .stat-icon {
+
+                width:
+                    31px;
+
+                height:
+                    31px;
+
+                border-radius:
+                    9px;
+
+                font-size:
+                    13px;
+            }
+
+
+            .stat strong {
+
+                font-size:
+                    9px;
+            }
+
+
+            .stat small {
+
+                font-size:
+                    7px;
+            }
+
+
+            /* BOOK SECTION */
+
+            .section {
+
+                padding:
+                    65px 0;
+            }
+
+
+            .container {
+
+                width:
+                    92%;
+            }
+
+
+            .section-heading {
+
+                margin-bottom:
+                    25px;
+            }
+
+
+            .section-heading h2 {
+
+                font-size:
+                    30px;
+
+                letter-spacing:
+                    -1.5px;
+            }
+
+
+            .section-heading .kicker {
+
+                font-size:
+                    8px;
+            }
+
+
+            .view-all {
+
+                font-size:
+                    11px;
+            }
+
+
+            .book-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap:
+                    12px;
+            }
+
+
+            .book-grid > * {
+
+                border-radius:
+                    15px;
+            }
+
+        }
+
+
+        /* =========================
+           VERY SMALL PHONES
+        ========================= */
+
+        @media (max-width: 380px) {
+
+            .brand span:last-child {
+
+                display:
+                    none;
+            }
+
+
+            .nav a {
+
+                padding:
+                    7px;
+
+                font-size:
+                    9px;
+            }
+
+
+            .hero h1 {
+
+                font-size:
+                    44px;
+
+                letter-spacing:
+                    -2.5px;
+            }
+
+
+            .hero-stats {
+
+                gap:
+                    5px;
+            }
+
+
+            .stat strong {
+
+                font-size:
+                    8px;
+            }
+
+
+            .stat small {
+
+                font-size:
+                    6px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+
+    <a
+        href="index.html"
+        class="brand"
+    >
+
+        <span class="brand-mark">
+            M
+        </span>
+
+        <span>
+            MONESH <b>EBOOKS</b>
+        </span>
+
+    </a>
+
+
+    <nav class="nav">
+
+
+        <a href="index.html">
+            Home
+        </a>
+
+
+        <a href="books.html">
+            Books
+        </a>
+
+
+        <a
+            href="library.html"
+            class="library-btn"
+        >
+            📚 Library
+        </a>
+
+
+        <a href="cart.html">
+            🛒 Cart
+        </a>
+
+
+    </nav>
+
+
+</header>
+
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+
+    <div class="hero-content">
+
+
+        <div class="kicker">
+            MONESH EBOOKS
+        </div>
+
+
+        <h1>
+
+            Discover your
+
+            <span>
+                next favorite book.
+            </span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            Explore exciting stories,
+            programming books, educational
+            guides and more — all in one
+            beautiful digital library.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+
+            <a
+                href="books.html"
+                class="btn btn-dark"
+            >
+                Explore Books →
+            </a>
+
+
+            <a
+                href="library.html"
+                class="btn btn-light"
+            >
+                📚 My Library
+            </a>
+
+
+        </div>
+
+
+        <div class="hero-stats">
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    📚
+                </div>
+
+                <div>
+
+                    <strong>
+                        Digital Books
+                    </strong>
+
+                    <small>
+                        Read anywhere
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    ⚡
+                </div>
+
+                <div>
+
+                    <strong>
+                        Instant Access
+                    </strong>
+
+                    <small>
+                        Start reading fast
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🔒
+                </div>
+
+                <div>
+
+                    <strong>
+                        Protected
+                    </strong>
+
+                    <small>
+                        Secure reading
+                    </small>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================
+     TECH BLUEPRINT REWARD
+========================= -->
+<section class="subscriber-promo">
+    <div class="subscriber-promo-inner">
+        <div>
+            <p class="kicker">EXCLUSIVE REWARD</p>
+            <h2>Subscribe to Tech Blueprint.<br><span>Get 50% off an ebook.</span></h2>
+            <p>Verify your YouTube subscription and receive one unique coupon.</p>
+        </div>
+        <a href="subscriber.html" class="btn btn-dark">Get My Coupon →</a>
+    </div>
+</section>
+
+<!-- =========================
+     FEATURED BOOKS
+========================= -->
+
+<section
+    class="section"
+    id="featured"
+>
+
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+
+            <div>
+
+                <p class="kicker">
+                    FEATURED BOOKS
+                </p>
+
+                <h2>
+                    Popular books
+                </h2>
+
+            </div>
+
+
+            <a
+                href="books.html"
+                class="view-all"
+            >
+                View all →
+            </a>
+
+
+        </div>
+
+
+        <div
+            class="book-grid"
+            id="featuredBooks"
+        ></div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+    © 2026 Monesh Ebooks
+
+    <br><br>
+
+    Read. Learn. Explore.
+
+</footer>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script src="js/data.js"></script>
+
+<script src="js/app.js"></script>
+
+
+<script>
+
+    const featured =
+        document.getElementById(
+            "featuredBooks"
+        );
+
+
+    if (
+        typeof books !== "undefined" &&
+        typeof createBookCard === "function"
+    ) {
+
+        books
+            .slice(0, 4)
+            .forEach(book => {
+
+                featured.innerHTML +=
+                    createBookCard(book);
+
+            });
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

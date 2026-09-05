@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Book — Monesh Ebooks</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <a
+        href="index.html"
+        class="brand"
+    >
+
+        <span class="brand-mark">
+            M
+        </span>
+
+        MONESH EBOOKS
+
+    </a>
+
+
+    <nav class="nav">
+
+        <a href="books.html">
+            Books
+        </a>
+
+        <a href="cart.html">
+            Cart (<span class="cart-count">0</span>)
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="page">
+
+<div class="container">
+
+    <div
+        class="book-detail"
+        id="bookDetail"
+    ></div>
+
+</div>
+
+</main>
+
+
+<script src="js/data.js"></script>
+
+<script src="js/app.js"></script>
+
+
+<script>
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const id =
+    params.get("id") || 1;
+
+
+const book =
+    getBook(id);
+
+
+const container =
+    document.getElementById(
+        "bookDetail"
+    );
+
+
+if (book) {
+
+    container.innerHTML = `
+
+        <div>
+
+            <img
+                src="${book.cover}"
+                alt="${book.title}"
+            >
+
+        </div>
+
+
+        <div>
+
+            <p class="kicker">
+                ${book.category}
+            </p>
+
+            <h1>
+                ${book.title}
+            </h1>
+
+            <p>
+                By ${book.author}
+            </p>
+
+            <div class="price">
+                ₹${book.price}
+            </div>
+
+            <p class="book-description">
+                ${book.description}
+            </p>
+
+            <p>
+                ${book.pages} pages ·
+                Rating ${book.rating}/5
+            </p>
+
+            <br>
+
+            <a
+                href="payment.html?id=${book.id}"
+                class="btn btn-dark"
+            >
+                Buy Now — ₹${book.price}
+            </a>
+
+            <button
+                class="btn btn-light"
+                onclick="addToCart(${book.id})"
+            >
+                Add to Cart
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+</script>
+
+
+</body>
+
+</html>
