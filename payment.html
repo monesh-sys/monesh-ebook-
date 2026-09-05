@@ -23,385 +23,327 @@
             box-sizing: border-box;
         }
 
-
         body {
             margin: 0;
-
             background: #f7f7f5;
-
             color: #171717;
-
             font-family: Arial, sans-serif;
         }
 
-
         .payment-container {
             max-width: 1000px;
-
             margin: 60px auto;
-
             padding: 20px;
         }
 
-
         .payment-title {
             text-align: center;
-
             margin-bottom: 35px;
         }
 
-
         .payment-title h1 {
             font-family: Georgia, serif;
-
             font-size: 45px;
-
             font-weight: 500;
-
             margin: 10px 0;
         }
-
 
         .payment-title p {
             color: #666;
         }
 
-
         .payment-card {
-
             display: grid;
-
             grid-template-columns: 1fr 1fr;
-
             gap: 40px;
-
             background: white;
-
             padding: 40px;
-
             border-radius: 12px;
-
-            box-shadow:
-                0 10px 40px
-                rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
         }
-
 
         .book-section {
             border-right: 1px solid #ddd;
-
             padding-right: 40px;
         }
 
-
         .book-cover {
-
             width: 180px;
-
             height: 250px;
-
             object-fit: cover;
-
             border-radius: 6px;
-
             display: block;
-
             margin-bottom: 25px;
-
             background: #eee;
         }
 
-
         .book-section h2 {
-
             font-family: Georgia, serif;
-
             font-size: 32px;
-
             margin: 10px 0;
         }
 
-
         .author {
-
             color: #666;
-
             margin-bottom: 20px;
         }
 
-
         .price {
-
             font-size: 35px;
-
             font-weight: bold;
-
             margin: 20px 0;
         }
 
+        .original-price {
+            color: #888;
+            font-size: 18px;
+            text-decoration: line-through;
+            margin-right: 8px;
+            font-weight: normal;
+        }
+
+        .discount-badge {
+            display: inline-block;
+            background: #e9f7ef;
+            color: #087f45;
+            padding: 5px 9px;
+            border-radius: 5px;
+            font-size: 13px;
+            font-weight: bold;
+            vertical-align: middle;
+        }
 
         .description {
-
             color: #666;
-
             line-height: 1.7;
         }
 
-
         .qr-section {
-
             text-align: center;
         }
 
-
         .qr-section h2 {
-
             font-family: Georgia, serif;
-
             font-size: 28px;
-
             margin-top: 0;
         }
 
-
         #upiQr {
-
             width: 280px;
-
             height: 280px;
-
             margin: 25px auto;
-
             display: flex;
-
             justify-content: center;
-
             align-items: center;
-
             background: white;
         }
 
-
         #upiQr img {
-
             width: 280px;
-
             height: 280px;
         }
 
-
         .upi-box {
-
             background: #f0eee8;
-
             border-radius: 8px;
-
             padding: 15px;
-
             margin-bottom: 20px;
         }
 
-
         .upi-box span {
-
             display: block;
-
             color: #666;
-
             font-size: 14px;
-
             margin-bottom: 5px;
         }
 
-
         .upi-box strong {
-
             font-size: 17px;
         }
 
-
         .instructions {
-
             color: #666;
-
             line-height: 1.6;
-
             margin-bottom: 25px;
         }
 
-
-        .payment-form {
-
+        .coupon-box-checkout {
+            margin: 22px 0;
             text-align: left;
+            padding: 17px;
+            background: #f7f5ef;
+            border-radius: 10px;
         }
 
-
-        .payment-form label {
-
+        .coupon-box-checkout label {
             display: block;
-
-            font-weight: bold;
-
+            font-weight: 700;
+            font-size: 13px;
             margin-bottom: 8px;
         }
 
-
-        .payment-form input {
-
-            width: 100%;
-
-            padding: 15px;
-
-            border: 1px solid #ccc;
-
-            border-radius: 7px;
-
-            font-size: 15px;
-
-            outline: none;
-
-            margin-bottom: 15px;
+        .coupon-input-row {
+            display: flex;
+            gap: 8px;
         }
 
+        .coupon-input-row input {
+            flex: 1;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            text-transform: uppercase;
+            font-size: 14px;
+            outline: none;
+        }
 
-        .payment-form input:focus {
-
+        .coupon-input-row input:focus {
             border-color: #111;
         }
 
-
-        .pay-button {
-
-            width: 100%;
-
-            padding: 16px;
-
+        .coupon-input-row button {
+            padding: 13px 16px;
             background: #171717;
-
-            color: white;
-
-            border: none;
-
+            color: #fff;
+            border: 0;
             border-radius: 7px;
-
-            font-size: 16px;
-
-            font-weight: bold;
-
+            font-weight: 700;
             cursor: pointer;
         }
 
+        .coupon-input-row button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #checkoutCouponMessage {
+            font-size: 13px;
+            margin-top: 9px;
+            min-height: 18px;
+        }
+
+        .payment-form {
+            text-align: left;
+        }
+
+        .payment-form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .payment-form input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+            outline: none;
+            margin-bottom: 15px;
+        }
+
+        .payment-form input:focus {
+            border-color: #111;
+        }
+
+        .pay-button {
+            width: 100%;
+            padding: 16px;
+            background: #171717;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
         .pay-button:hover {
-
             background: #333;
         }
 
+        .pay-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
 
         .message {
-
             margin-top: 20px;
-
             line-height: 1.7;
-
             color: #087f45;
         }
 
-
         .library-button {
-
             display: none;
-
             width: 100%;
-
             margin-top: 15px;
-
             padding: 15px;
-
             background: #087f45;
-
             color: white;
-
             text-decoration: none;
-
             border-radius: 7px;
-
             font-weight: bold;
         }
 
-
         .back {
-
             display: inline-block;
-
             margin-top: 25px;
-
             color: #555;
-
             text-decoration: none;
         }
 
-
         .warning {
-
             background: #fff7d6;
-
             border: 1px solid #ead99a;
-
             color: #665a25;
-
             padding: 14px;
-
             border-radius: 7px;
-
             font-size: 13px;
-
             line-height: 1.5;
-
             margin-top: 25px;
         }
-
 
         @media (max-width: 750px) {
 
             .payment-card {
-
                 grid-template-columns: 1fr;
-
                 padding: 25px;
             }
 
-
             .book-section {
-
                 border-right: none;
-
                 border-bottom: 1px solid #ddd;
-
                 padding-right: 0;
-
                 padding-bottom: 30px;
             }
 
-
             .payment-title h1 {
-
                 font-size: 35px;
+            }
+
+        }
+
+        @media (max-width: 500px) {
+
+            .coupon-input-row {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            .coupon-input-row button {
+                width: 100%;
+            }
+
+            #upiQr,
+            #upiQr img {
+                width: 250px;
+                height: 250px;
             }
 
         }
 
     </style>
 
-<style>
-.coupon-box-checkout{margin:22px 0;text-align:left;padding:17px;background:#f7f5ef;border-radius:10px}
-.coupon-box-checkout label{display:block;font-weight:700;font-size:13px;margin-bottom:8px}
-.coupon-input-row{display:flex;gap:8px}
-.coupon-input-row input{flex:1;padding:13px;border:1px solid #ccc;border-radius:7px;text-transform:uppercase}
-.coupon-input-row button{padding:13px 16px;background:#171717;color:#fff;border:0;border-radius:7px;font-weight:700;cursor:pointer}
-#checkoutCouponMessage{font-size:13px;margin-top:9px;min-height:18px}
-@media(max-width:500px){.coupon-input-row{display:grid;grid-template-columns:1fr}.coupon-input-row button{width:100%}}
-</style>
 </head>
 
 
@@ -410,6 +352,10 @@
 
 <div class="payment-container">
 
+
+    <!-- ==========================================
+         TITLE
+    =========================================== -->
 
     <div class="payment-title">
 
@@ -428,13 +374,18 @@
     </div>
 
 
+    <!-- ==========================================
+         PAYMENT CARD
+    =========================================== -->
+
     <div class="payment-card">
 
 
-        <!-- BOOK INFORMATION -->
+        <!-- ======================================
+             BOOK INFORMATION
+        ======================================= -->
 
         <section class="book-section">
-
 
             <img
                 id="bookCover"
@@ -459,8 +410,20 @@
 
             <div class="price">
 
-                ₹<span id="bookPrice">
-                    0
+                <span
+                    id="originalPrice"
+                    class="original-price"
+                    style="display:none;"
+                >
+                </span>
+
+                ₹<span id="bookPrice">0</span>
+
+                <span
+                    id="discountBadge"
+                    class="discount-badge"
+                    style="display:none;"
+                >
                 </span>
 
             </div>
@@ -496,8 +459,9 @@
         </section>
 
 
-
-        <!-- PAYMENT -->
+        <!-- ======================================
+             PAYMENT SECTION
+        ======================================= -->
 
         <section class="qr-section">
 
@@ -513,7 +477,7 @@
             </p>
 
 
-            <!-- QR -->
+            <!-- QR CODE -->
 
             <div id="upiQr"></div>
 
@@ -547,20 +511,48 @@
             </div>
 
 
-
-            <!-- SUBSCRIBER COUPON -->
+            <!-- ==================================
+                 COUPON
+            =================================== -->
 
             <div class="coupon-box-checkout">
-                <label for="checkoutCoupon">Subscriber coupon</label>
+
+                <label for="checkoutCoupon">
+                    Subscriber coupon
+                </label>
+
+
                 <div class="coupon-input-row">
-                    <input id="checkoutCoupon" type="text" placeholder="Enter coupon code" autocomplete="off">
-                    <button id="applyCheckoutCoupon" type="button">Apply</button>
+
+                    <input
+                        id="checkoutCoupon"
+                        type="text"
+                        placeholder="Enter coupon code"
+                        autocomplete="off"
+                        maxlength="30"
+                    >
+
+
+                    <button
+                        id="applyCheckoutCoupon"
+                        type="button"
+                    >
+                        Apply
+                    </button>
+
                 </div>
-                <div id="checkoutCouponMessage"></div>
+
+
+                <div
+                    id="checkoutCouponMessage"
+                ></div>
+
             </div>
 
 
-            <!-- PAYMENT FORM -->
+            <!-- ==================================
+                 PAYMENT FORM
+            =================================== -->
 
             <form
                 id="paymentForm"
@@ -569,7 +561,8 @@
 
                 <label for="utr">
 
-                    Payment Reference / UTR / UPI Transaction ID
+                    Payment Reference / UTR /
+                    UPI Transaction ID
 
                 </label>
 
@@ -588,11 +581,8 @@
                     type="submit"
                     class="pay-button"
                 >
-
                     I Have Paid →
-
                 </button>
-
 
             </form>
 
@@ -605,16 +595,14 @@
             ></div>
 
 
-            <!-- LIBRARY BUTTON -->
+            <!-- LIBRARY -->
 
             <a
                 href="library.html"
                 id="libraryButton"
                 class="library-button"
             >
-
                 📚 Go to My Library
-
             </a>
 
 
@@ -625,243 +613,1186 @@
 </div>
 
 
-
-<!-- QR LIBRARY -->
+<!-- ==========================================
+     QR CODE LIBRARY
+=========================================== -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 
-<!-- BOOK DATA -->
+<!-- ==========================================
+     WEBSITE DATA
+=========================================== -->
 
 <script src="js/rewards-config.js"></script>
+
 <script src="js/data.js"></script>
 
 
 <script>
 
-// ========================================
-// MONESH EBOOKS CHECKOUT + COUPON
-// ========================================
 
-const cfg = window.MONESH_REWARD_CONFIG || {};
-const urlParams = new URLSearchParams(window.location.search);
-const bookId = Number(urlParams.get("id"));
-const requestedCoupon = (urlParams.get("coupon") || localStorage.getItem("moneshAppliedCoupon") || "").trim().toUpperCase();
 
-const book = books.find(item => item.id === bookId);
+// ======================================================
+// MONESH EBOOKS PAYMENT + COUPON SYSTEM
+// ======================================================
+
+
+// ------------------------------------------------------
+// CONFIG
+// ------------------------------------------------------
+
+const cfg =
+    window.MONESH_REWARD_CONFIG || {};
+
+
+// ------------------------------------------------------
+// URL PARAMETERS
+// ------------------------------------------------------
+
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const bookId =
+    Number(
+        urlParams.get("id")
+    );
+
+
+const requestedCoupon =
+    (
+        urlParams.get("coupon") ||
+        localStorage.getItem(
+            "moneshAppliedCoupon"
+        ) ||
+        ""
+    )
+    .trim()
+    .toUpperCase();
+
+
+// ------------------------------------------------------
+// FIND BOOK
+// ------------------------------------------------------
+
+const book =
+    books.find(
+        item => item.id === bookId
+    );
+
+
+// ------------------------------------------------------
+// VARIABLES
+// ------------------------------------------------------
 
 let finalAmount = 0;
+
 let appliedCoupon = "";
+
 let appliedDiscount = 0;
 
-const bookCover = document.getElementById("bookCover");
-const bookTitle = document.getElementById("bookTitle");
-const bookAuthor = document.getElementById("bookAuthor");
-const bookPrice = document.getElementById("bookPrice");
-const qrAmount = document.getElementById("qrAmount");
-const bookDescription = document.getElementById("bookDescription");
-const qrContainer = document.getElementById("upiQr");
-const couponInput = document.getElementById("checkoutCoupon");
-const couponApply = document.getElementById("applyCheckoutCoupon");
-const couponMessage = document.getElementById("checkoutCouponMessage");
 
-function couponMessageShow(text, ok=false) {
-    couponMessage.textContent = text;
-    couponMessage.style.color = ok ? "#087f45" : "#a52a2a";
+// ------------------------------------------------------
+// ELEMENTS
+// ------------------------------------------------------
+
+const bookCover =
+    document.getElementById(
+        "bookCover"
+    );
+
+
+const bookTitle =
+    document.getElementById(
+        "bookTitle"
+    );
+
+
+const bookAuthor =
+    document.getElementById(
+        "bookAuthor"
+    );
+
+
+const bookPrice =
+    document.getElementById(
+        "bookPrice"
+    );
+
+
+const originalPrice =
+    document.getElementById(
+        "originalPrice"
+    );
+
+
+const discountBadge =
+    document.getElementById(
+        "discountBadge"
+    );
+
+
+const qrAmount =
+    document.getElementById(
+        "qrAmount"
+    );
+
+
+const bookDescription =
+    document.getElementById(
+        "bookDescription"
+    );
+
+
+const qrContainer =
+    document.getElementById(
+        "upiQr"
+    );
+
+
+const couponInput =
+    document.getElementById(
+        "checkoutCoupon"
+    );
+
+
+const couponApply =
+    document.getElementById(
+        "applyCheckoutCoupon"
+    );
+
+
+const couponMessage =
+    document.getElementById(
+        "checkoutCouponMessage"
+    );
+
+
+const paymentForm =
+    document.getElementById(
+        "paymentForm"
+    );
+
+
+const utrInput =
+    document.getElementById(
+        "utr"
+    );
+
+
+const submitButton =
+    document.querySelector(
+        ".pay-button"
+    );
+
+
+// ======================================================
+// MESSAGE
+// ======================================================
+
+function couponMessageShow(
+    text,
+    ok = false
+) {
+
+    couponMessage.textContent =
+        text;
+
+    couponMessage.style.color =
+        ok
+            ? "#087f45"
+            : "#a52a2a";
+
 }
 
-function renderQr(amount) {
-    qrContainer.innerHTML = "";
+
+// ======================================================
+// JSONP REQUEST
+// ======================================================
+
+function apiJsonp(
+    action,
+    params = {}
+) {
+
+    return new Promise(
+        (resolve, reject) => {
+
+            if (
+                !cfg.APPS_SCRIPT_URL
+            ) {
+
+                reject(
+                    new Error(
+                        "Apps Script URL missing."
+                    )
+                );
+
+                return;
+
+            }
+
+
+            const callbackName =
+                "moneshCallback_" +
+                Date.now() +
+                "_" +
+                Math.floor(
+                    Math.random() * 100000
+                );
+
+
+            const script =
+                document.createElement(
+                    "script"
+                );
+
+
+            let completed = false;
+
+
+            const timeout =
+                setTimeout(
+                    () => {
+
+                        if (
+                            completed
+                        ) return;
+
+
+                        completed = true;
+
+                        cleanup();
+
+
+                        reject(
+                            new Error(
+                                "Request timed out."
+                            )
+                        );
+
+                    },
+                    15000
+                );
+
+
+            function cleanup() {
+
+                clearTimeout(
+                    timeout
+                );
+
+
+                if (
+                    script.parentNode
+                ) {
+
+                    script.parentNode
+                        .removeChild(
+                            script
+                        );
+
+                }
+
+
+                try {
+
+                    delete window[
+                        callbackName
+                    ];
+
+                } catch (error) {
+
+                    window[
+                        callbackName
+                    ] = undefined;
+
+                }
+
+            }
+
+
+            window[
+                callbackName
+            ] = function(data) {
+
+                if (
+                    completed
+                ) return;
+
+
+                completed = true;
+
+                cleanup();
+
+                resolve(data);
+
+            };
+
+
+            script.onerror =
+                function() {
+
+                    if (
+                        completed
+                    ) return;
+
+
+                    completed = true;
+
+                    cleanup();
+
+
+                    reject(
+                        new Error(
+                            "Could not connect to coupon server."
+                        )
+                    );
+
+                };
+
+
+            let url =
+                cfg.APPS_SCRIPT_URL +
+                "?action=" +
+                encodeURIComponent(
+                    action
+                ) +
+                "&callback=" +
+                encodeURIComponent(
+                    callbackName
+                );
+
+
+            Object.keys(
+                params
+            ).forEach(
+                key => {
+
+                    url +=
+                        "&" +
+                        encodeURIComponent(
+                            key
+                        ) +
+                        "=" +
+                        encodeURIComponent(
+                            params[key]
+                        );
+
+                }
+            );
+
+
+            url +=
+                "&_=" +
+                Date.now();
+
+
+            script.src =
+                url;
+
+
+            document.body.appendChild(
+                script
+            );
+
+        }
+    );
+
+}
+
+
+// ======================================================
+// RENDER QR
+// ======================================================
+
+function renderQr(
+    amount
+) {
+
+    qrContainer.innerHTML =
+        "";
+
+
     const upiLink =
         "upi://pay" +
-        "?pa=" + encodeURIComponent("7338789676@fam") +
-        "&pn=" + encodeURIComponent("Monesh Ebooks") +
-        "&am=" + encodeURIComponent(amount.toFixed(2)) +
+        "?pa=" +
+        encodeURIComponent(
+            "7338789676@fam"
+        ) +
+        "&pn=" +
+        encodeURIComponent(
+            "Monesh Ebooks"
+        ) +
+        "&am=" +
+        encodeURIComponent(
+            amount.toFixed(2)
+        ) +
         "&cu=INR";
 
-    new QRCode(qrContainer, {
-        text: upiLink,
-        width: 280,
-        height: 280,
-        correctLevel: QRCode.CorrectLevel.H
-    });
+
+    new QRCode(
+        qrContainer,
+        {
+            text: upiLink,
+
+            width: 280,
+
+            height: 280,
+
+            correctLevel:
+                QRCode.CorrectLevel.H
+        }
+    );
+
 }
+
+
+// ======================================================
+// RENDER AMOUNT
+// ======================================================
 
 function renderAmount() {
-    finalAmount = Math.max(0, book.price - (book.price * appliedDiscount / 100));
-    bookPrice.textContent = finalAmount.toFixed(2).replace(/\.00$/, "");
-    qrAmount.textContent = finalAmount.toFixed(2).replace(/\.00$/, "");
-    renderQr(finalAmount);
+
+    if (!book) return;
+
+
+    const original =
+        Number(book.price) || 0;
+
+
+    finalAmount =
+        Math.max(
+            0,
+            original -
+            (
+                original *
+                appliedDiscount /
+                100
+            )
+        );
+
+
+    bookPrice.textContent =
+        finalAmount
+            .toFixed(2)
+            .replace(
+                /\.00$/,
+                ""
+            );
+
+
+    qrAmount.textContent =
+        finalAmount
+            .toFixed(2)
+            .replace(
+                /\.00$/,
+                ""
+            );
+
+
+    if (
+        appliedDiscount > 0
+    ) {
+
+        originalPrice.textContent =
+            "₹" +
+            original
+                .toFixed(2)
+                .replace(
+                    /\.00$/,
+                    ""
+                );
+
+
+        originalPrice.style.display =
+            "inline";
+
+
+        discountBadge.textContent =
+            appliedDiscount +
+            "% OFF";
+
+
+        discountBadge.style.display =
+            "inline-block";
+
+    }
+
+    else {
+
+        originalPrice.style.display =
+            "none";
+
+
+        discountBadge.style.display =
+            "none";
+
+    }
+
+
+    renderQr(
+        finalAmount
+    );
+
 }
 
-async function validateAndApplyCoupon(code) {
-    code = String(code || "").trim().toUpperCase();
+
+// ======================================================
+// VALIDATE + APPLY COUPON
+// ======================================================
+
+async function validateAndApplyCoupon(
+    code
+) {
+
+    code =
+        String(
+            code || ""
+        )
+        .trim()
+        .toUpperCase();
+
 
     if (!code) {
+
         appliedCoupon = "";
+
         appliedDiscount = 0;
+
         renderAmount();
-        couponMessageShow("Enter a coupon code.");
+
+        couponMessageShow(
+            "Enter a coupon code."
+        );
+
         return false;
+
     }
 
-    if (!cfg.APPS_SCRIPT_URL || cfg.APPS_SCRIPT_URL.startsWith("YOUR_")) {
-        couponMessageShow("Coupon server is not configured.");
+
+    if (
+        !cfg.APPS_SCRIPT_URL ||
+        cfg.APPS_SCRIPT_URL.includes(
+            "PASTE_"
+        ) ||
+        cfg.APPS_SCRIPT_URL.includes(
+            "YOUR_"
+        )
+    ) {
+
+        couponMessageShow(
+            "Coupon server is not configured."
+        );
+
         return false;
+
     }
 
-    couponApply.disabled = true;
-    couponMessageShow("Checking coupon…");
+
+    couponApply.disabled =
+        true;
+
+
+    couponMessageShow(
+        "Checking coupon..."
+    );
+
 
     try {
-        const response = await fetch(cfg.APPS_SCRIPT_URL, {
-            method: "POST",
-            body: new URLSearchParams({
-                action: "validateCoupon",
-                code
-            })
-        });
 
-        const data = await response.json();
+        const data =
+            await apiJsonp(
+                "validateCoupon",
+                {
+                    coupon: code
+                }
+            );
 
-        if (!data.valid) {
+
+        console.log(
+            "Coupon validation:",
+            data
+        );
+
+
+        if (
+            !data ||
+            !data.success
+        ) {
+
             appliedCoupon = "";
+
             appliedDiscount = 0;
+
             renderAmount();
-            couponMessageShow(data.message || "Invalid coupon.");
+
+            couponMessageShow(
+                data &&
+                data.message
+                    ? data.message
+                    : "Coupon server error."
+            );
+
             return false;
+
         }
 
-        appliedCoupon = data.code;
-        appliedDiscount = Number(data.discount) || 0;
+
+        if (
+            !data.valid
+        ) {
+
+            appliedCoupon = "";
+
+            appliedDiscount = 0;
+
+            renderAmount();
+
+            couponMessageShow(
+                data.message ||
+                "Invalid coupon."
+            );
+
+            return false;
+
+        }
+
+
+        appliedCoupon =
+            data.coupon ||
+            code;
+
+
+        appliedDiscount =
+            Number(
+                data.discount
+            ) || 0;
+
+
         renderAmount();
 
-        localStorage.setItem("moneshAppliedCoupon", appliedCoupon);
-        couponMessageShow(`${appliedDiscount}% discount applied ✓`, true);
+
+        localStorage.setItem(
+            "moneshAppliedCoupon",
+            appliedCoupon
+        );
+
+
+        couponInput.value =
+            appliedCoupon;
+
+
+        couponMessageShow(
+            appliedDiscount +
+            "% discount applied ✓",
+            true
+        );
+
+
         return true;
-    } catch (error) {
-        console.error(error);
-        couponMessageShow("Could not contact the coupon server.");
-        return false;
-    } finally {
-        couponApply.disabled = false;
+
     }
+
+    catch (error) {
+
+        console.error(
+            "Coupon validation error:",
+            error
+        );
+
+
+        couponMessageShow(
+            "Could not check the coupon server."
+        );
+
+
+        return false;
+
+    }
+
+    finally {
+
+        couponApply.disabled =
+            false;
+
+    }
+
 }
 
+
+// ======================================================
+// BOOK LOAD
+// ======================================================
+
 if (!book) {
+
     document.body.innerHTML = `
-        <div style="text-align:center;padding:100px 20px;font-family:Arial">
-            <h1>Book not found</h1>
-            <a href="books.html">Back to Books</a>
-        </div>`;
-} else {
-    bookCover.src = book.cover;
-    bookCover.alt = book.title;
-    bookTitle.textContent = book.title;
-    bookAuthor.textContent = "By " + book.author;
-    bookDescription.textContent = book.description;
+
+        <div
+            style="
+                text-align:center;
+                padding:100px 20px;
+                font-family:Arial;
+            "
+        >
+
+            <h1>
+                Book not found
+            </h1>
+
+            <a href="books.html">
+                Back to Books
+            </a>
+
+        </div>
+
+    `;
+
+}
+
+else {
+
+    bookCover.src =
+        book.cover;
+
+
+    bookCover.alt =
+        book.title;
+
+
+    bookTitle.textContent =
+        book.title;
+
+
+    bookAuthor.textContent =
+        "By " +
+        book.author;
+
+
+    bookDescription.textContent =
+        book.description;
+
 
     renderAmount();
 
-    if (requestedCoupon) {
-        couponInput.value = requestedCoupon;
-        validateAndApplyCoupon(requestedCoupon);
+
+    // ----------------------------------------------
+    // AUTOMATIC COUPON FROM CART
+    // ----------------------------------------------
+
+    if (
+        requestedCoupon
+    ) {
+
+        couponInput.value =
+            requestedCoupon;
+
+
+        validateAndApplyCoupon(
+            requestedCoupon
+        );
+
     }
+
 }
 
-couponApply.addEventListener("click", () => {
-    validateAndApplyCoupon(couponInput.value);
-});
 
-document.getElementById("paymentForm").addEventListener("submit", async function(event) {
-    event.preventDefault();
+// ======================================================
+// APPLY BUTTON
+// ======================================================
 
-    const utr = document.getElementById("utr").value.trim();
+couponApply.addEventListener(
+    "click",
+    function() {
 
-    if (utr.length < 6) {
-        alert("Please enter your UPI transaction ID.");
-        return;
+        validateAndApplyCoupon(
+            couponInput.value
+        );
+
     }
+);
 
-    const submitButton = document.querySelector(".pay-button");
-    submitButton.disabled = true;
-    submitButton.textContent = "Submitting…";
-    const orderId = "ORDER-" + Date.now();
 
-    if (appliedCoupon) {
-        if (!cfg.APPS_SCRIPT_URL || cfg.APPS_SCRIPT_URL.startsWith("YOUR_")) {
-            alert("Coupon server is not configured.");
-            submitButton.disabled = false;
-            submitButton.textContent = "I Have Paid →";
-            return;
+// ======================================================
+// ENTER KEY
+// ======================================================
+
+couponInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            event.preventDefault();
+
+            validateAndApplyCoupon(
+                couponInput.value
+            );
+
         }
 
-        try {
-            const response = await fetch(cfg.APPS_SCRIPT_URL, {
-                method: "POST",
-                body: new URLSearchParams({
-                    action: "redeemCoupon",
-                    code: appliedCoupon,
-                    orderId
-                })
-            });
+    }
+);
 
-            const redemption = await response.json();
 
-            if (!redemption.redeemed) {
-                alert(redemption.message || "Coupon could not be redeemed. Please check it again.");
-                submitButton.disabled = false;
-                submitButton.textContent = "I Have Paid →";
+// ======================================================
+// PAYMENT SUBMISSION
+// ======================================================
+
+paymentForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const utr =
+            utrInput.value.trim();
+
+
+        if (
+            utr.length < 6
+        ) {
+
+            alert(
+                "Please enter your UPI transaction ID."
+            );
+
+            return;
+
+        }
+
+
+        submitButton.disabled =
+            true;
+
+
+        submitButton.textContent =
+            "Submitting...";
+
+
+        const orderId =
+            "ORDER-" +
+            Date.now();
+
+
+        // ==================================================
+        // REDEEM COUPON
+        // ==================================================
+
+        if (
+            appliedCoupon
+        ) {
+
+            if (
+                !cfg.APPS_SCRIPT_URL ||
+                cfg.APPS_SCRIPT_URL.includes(
+                    "PASTE_"
+                ) ||
+                cfg.APPS_SCRIPT_URL.includes(
+                    "YOUR_"
+                )
+            ) {
+
+                alert(
+                    "Coupon server is not configured."
+                );
+
+
+                submitButton.disabled =
+                    false;
+
+
+                submitButton.textContent =
+                    "I Have Paid →";
+
+
                 return;
+
             }
-        } catch (error) {
-            console.error(error);
-            alert("Could not verify the coupon server. Your payment was not recorded by this page.");
-            submitButton.disabled = false;
-            submitButton.textContent = "I Have Paid →";
-            return;
+
+
+            try {
+
+                const redemption =
+                    await apiJsonp(
+                        "redeemCoupon",
+                        {
+                            coupon:
+                                appliedCoupon,
+
+                            orderId:
+                                orderId
+                        }
+                    );
+
+
+                console.log(
+                    "Coupon redemption:",
+                    redemption
+                );
+
+
+                if (
+                    !redemption ||
+                    !redemption.success
+                ) {
+
+                    alert(
+                        redemption &&
+                        redemption.message
+                            ? redemption.message
+                            : "Coupon redemption failed."
+                    );
+
+
+                    submitButton.disabled =
+                        false;
+
+
+                    submitButton.textContent =
+                        "I Have Paid →";
+
+
+                    return;
+
+                }
+
+
+                if (
+                    !redemption.redeemed
+                ) {
+
+                    alert(
+                        redemption.message ||
+                        "This coupon cannot be used."
+                    );
+
+
+                    submitButton.disabled =
+                        false;
+
+
+                    submitButton.textContent =
+                        "I Have Paid →";
+
+
+                    return;
+
+                }
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Coupon redemption error:",
+                    error
+                );
+
+
+                alert(
+                    "Could not verify the coupon server. Please try again."
+                );
+
+
+                submitButton.disabled =
+                    false;
+
+
+                submitButton.textContent =
+                    "I Have Paid →";
+
+
+                return;
+
+            }
+
         }
+
+
+        // ==================================================
+        // ADD BOOK TO LIBRARY
+        // ==================================================
+
+        let library =
+            JSON.parse(
+                localStorage.getItem(
+                    "library"
+                ) || "[]"
+            );
+
+
+        if (
+            !library.includes(
+                book.id
+            )
+        ) {
+
+            library.push(
+                book.id
+            );
+
+        }
+
+
+        localStorage.setItem(
+            "library",
+            JSON.stringify(
+                library
+            )
+        );
+
+
+        // ==================================================
+        // SAVE PAYMENT
+        // ==================================================
+
+        let payments =
+            JSON.parse(
+                localStorage.getItem(
+                    "payments"
+                ) || "[]"
+            );
+
+
+        const order = {
+
+            orderId:
+                orderId,
+
+            bookId:
+                book.id,
+
+            bookTitle:
+                book.title,
+
+            originalAmount:
+                Number(book.price),
+
+            discountPercent:
+                appliedDiscount,
+
+            amount:
+                finalAmount,
+
+            coupon:
+                appliedCoupon ||
+                null,
+
+            utr:
+                utr,
+
+            upiId:
+                "7338789676@fam",
+
+            date:
+                new Date()
+                    .toISOString(),
+
+            status:
+                "demo-approved"
+
+        };
+
+
+        payments.push(
+            order
+        );
+
+
+        localStorage.setItem(
+            "payments",
+            JSON.stringify(
+                payments
+            )
+        );
+
+
+        // ==================================================
+        // SUCCESS MESSAGE
+        // ==================================================
+
+        document.getElementById(
+            "message"
+        ).innerHTML = `
+
+            <strong>
+                Payment reference submitted ✓
+            </strong>
+
+            <br><br>
+
+            Order ID:
+            ${order.orderId}
+
+            <br>
+
+            Amount:
+            ₹${order.amount
+                .toFixed(2)
+                .replace(
+                    /\.00$/,
+                    ""
+                )}
+
+            ${
+                order.coupon
+                    ? `
+                        <br>
+                        Coupon:
+                        ${order.coupon}
+                        (${order.discountPercent}% off)
+                    `
+                    : ""
+            }
+
+            <br><br>
+
+            📚 Your book has been
+            added to My Library.
+
+        `;
+
+
+        // ==================================================
+        // SHOW LIBRARY
+        // ==================================================
+
+        document.getElementById(
+            "libraryButton"
+        ).style.display =
+            "block";
+
+
+        utrInput.disabled =
+            true;
+
+
+        submitButton.textContent =
+            "Payment Submitted ✓";
+
+
+        localStorage.removeItem(
+            "moneshAppliedCoupon"
+        );
+
+
+        couponInput.disabled =
+            true;
+
+
+        couponApply.disabled =
+            true;
+
     }
-
-    let library = JSON.parse(localStorage.getItem("library") || "[]");
-    if (!library.includes(book.id)) library.push(book.id);
-    localStorage.setItem("library", JSON.stringify(library));
-
-    let payments = JSON.parse(localStorage.getItem("payments") || "[]");
-
-    const order = {
-        orderId,
-        bookId: book.id,
-        bookTitle: book.title,
-        originalAmount: book.price,
-        discountPercent: appliedDiscount,
-        amount: finalAmount,
-        coupon: appliedCoupon || null,
-        utr,
-        upiId: "7338789676@fam",
-        date: new Date().toISOString(),
-        status: "demo-approved"
-    };
-
-    payments.push(order);
-    localStorage.setItem("payments", JSON.stringify(payments));
-
-    document.getElementById("message").innerHTML = `
-        <strong>Payment reference submitted ✓</strong>
-        <br><br>
-        Order ID: ${order.orderId}
-        <br>
-        Amount: ₹${order.amount}
-        ${order.coupon ? `<br>Coupon: ${order.coupon} (${order.discountPercent}% off)` : ""}
-        <br><br>
-        📚 Your book has been added to My Library.
-    `;
-
-    document.getElementById("libraryButton").style.display = "block";
-    document.getElementById("utr").disabled = true;
-    submitButton.textContent = "Payment Submitted ✓";
-    localStorage.removeItem("moneshAppliedCoupon");
-});
+);
 
 </script>
 
