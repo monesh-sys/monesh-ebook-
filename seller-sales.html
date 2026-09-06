@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Seller Sales | Monesh Ebooks</title>
+
+<link rel="stylesheet" href="css/seller.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+<aside class="sidebar">
+
+    <div class="side-logo">
+        Monesh <span>Ebooks</span>
+    </div>
+
+    <a href="seller-dashboard.html">🏠 Dashboard</a>
+    <a href="seller-upload.html">➕ Upload Book</a>
+    <a href="seller-books.html">📚 My Books</a>
+
+    <a href="seller-sales.html" class="active">
+        🛒 Sales
+    </a>
+
+    <a href="seller-earnings.html">
+        💰 Earnings
+    </a>
+
+    <button onclick="sellerLogout()">
+        🚪 Logout
+    </button>
+
+</aside>
+
+
+<main class="dashboard">
+
+    <h1>Sales</h1>
+
+    <p class="page-description">
+        Track your ebook purchases.
+    </p>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Book</th>
+                    <th>Amount</th>
+                    <th>Commission</th>
+                    <th>You Earned</th>
+                    <th>Date</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="salesTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</main>
+
+</div>
+
+<script src="js/seller.js"></script>
+
+</body>
+</html>
