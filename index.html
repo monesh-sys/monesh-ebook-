@@ -5,9 +5,15 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <meta name="theme-color" content="#0b0b0d">
+    <meta
+        name="theme-color"
+        content="#0b0b0d"
+    >
 
     <meta
         name="description"
@@ -16,14 +22,12 @@
 
     <title>Monesh Ebooks</title>
 
-    <link rel="stylesheet" href="css/style.css">
-
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
 
     <style>
-
-        /* =========================
-           RESET
-        ========================= */
 
         * {
             margin: 0;
@@ -45,7 +49,6 @@
 
             background: #f5f5f3;
             color: #111;
-
             overflow-x: hidden;
         }
 
@@ -54,25 +57,18 @@
             color: inherit;
         }
 
-
         /* =========================
            HEADER
         ========================= */
 
         .header {
-
             position: sticky;
-
             top: 0;
-
             z-index: 1000;
-
             min-height: 74px;
 
             display: flex;
-
             align-items: center;
-
             gap: 12px;
 
             padding: 0 5%;
@@ -80,59 +76,39 @@
             background:
                 rgba(255,255,255,0.9);
 
-            backdrop-filter:
-                blur(20px);
-
-            -webkit-backdrop-filter:
-                blur(20px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
 
             border-bottom:
                 1px solid rgba(0,0,0,0.07);
         }
 
-
-        /* =========================
-           BRAND
-        ========================= */
-
         .brand {
-
             display: flex;
-
             align-items: center;
-
             gap: 11px;
 
             flex-shrink: 0;
 
             font-size: 14px;
-
             font-weight: 800;
-
             letter-spacing: 1px;
         }
 
-
         .brand-mark {
-
             width: 42px;
-
             height: 42px;
 
             display: flex;
-
             align-items: center;
-
             justify-content: center;
 
             border-radius: 13px;
 
             background: #111;
-
             color: white;
 
             font-size: 20px;
-
             font-weight: 900;
 
             box-shadow:
@@ -140,36 +116,28 @@
                 rgba(0,0,0,0.18);
         }
 
-
         .brand b {
             font-weight: 950;
         }
-
 
         /* =========================
            SEARCH BUTTON
         ========================= */
 
         .search-toggle {
-
             width: 42px;
-
             height: 42px;
 
             flex-shrink: 0;
 
             display: flex;
-
             align-items: center;
-
             justify-content: center;
 
             border: none;
-
             border-radius: 12px;
 
             background: transparent;
-
             color: #111;
 
             cursor: pointer;
@@ -179,68 +147,47 @@
                 transform .25s;
         }
 
-
         .search-toggle:hover {
-
             background: #eee;
-
-            transform:
-                translateY(-2px);
+            transform: translateY(-2px);
         }
-
 
         .search-toggle:active {
-
-            transform:
-                scale(.94);
+            transform: scale(.94);
         }
 
-
         .search-toggle svg {
-
             width: 21px;
-
             height: 21px;
 
             fill: none;
-
             stroke: currentColor;
-
             stroke-width: 2;
 
             stroke-linecap: round;
-
             stroke-linejoin: round;
         }
 
-
         /* =========================
-           NAVIGATION
+           NAV
         ========================= */
 
         .nav {
-
             margin-left: auto;
 
             display: flex;
-
             align-items: center;
-
             gap: 5px;
 
             overflow-x: auto;
-
             scrollbar-width: none;
         }
-
 
         .nav::-webkit-scrollbar {
             display: none;
         }
 
-
         .nav a {
-
             white-space: nowrap;
 
             padding: 10px 14px;
@@ -250,31 +197,19 @@
             color: #666;
 
             font-size: 13px;
-
             font-weight: 750;
 
-            transition:
-                0.25s;
+            transition: .25s;
         }
-
 
         .nav a:hover {
-
             background: #111;
-
             color: white;
-
-            transform:
-                translateY(-2px);
+            transform: translateY(-2px);
         }
 
-
-        /* Library button */
-
         .library-btn {
-
             background: #111;
-
             color: white !important;
 
             box-shadow:
@@ -282,27 +217,26 @@
                 rgba(0,0,0,0.16);
         }
 
-
         .library-btn:hover {
-
             background: #292929 !important;
         }
 
+        .sell-btn {
+            color: #111 !important;
+            font-weight: 900 !important;
+        }
 
         /* =========================
            SEARCH PANEL
         ========================= */
 
         .search-panel {
-
             position: fixed;
 
             top: 74px;
-
             left: 0;
 
             width: 100%;
-
             z-index: 999;
 
             padding: 0 5%;
@@ -310,17 +244,13 @@
             background:
                 rgba(245,245,243,.97);
 
-            backdrop-filter:
-                blur(20px);
-
-            -webkit-backdrop-filter:
-                blur(20px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
 
             border-bottom:
                 1px solid rgba(0,0,0,.08);
 
             max-height: 0;
-
             overflow: hidden;
 
             opacity: 0;
@@ -331,37 +261,24 @@
                 padding .35s ease;
         }
 
-
         .search-panel.active {
-
             max-height: 650px;
-
             opacity: 1;
 
             padding:
                 18px 5% 25px;
         }
 
-
         .search-inner {
-
             width:
                 min(850px, 100%);
 
             margin: auto;
         }
 
-
-        /* =========================
-           SEARCH BOX
-        ========================= */
-
         .search-box {
-
             display: flex;
-
             align-items: center;
-
             gap: 10px;
 
             background: white;
@@ -371,21 +288,14 @@
 
             border-radius: 14px;
 
-            padding:
-                0 12px;
+            padding: 0 12px;
 
             box-shadow:
                 0 10px 30px
                 rgba(0,0,0,.06);
-
-            transition:
-                border .2s,
-                box-shadow .2s;
         }
 
-
         .search-box:focus-within {
-
             border-color: #111;
 
             box-shadow:
@@ -393,57 +303,41 @@
                 rgba(0,0,0,.06);
         }
 
-
         .search-box > svg {
-
             width: 20px;
-
             height: 20px;
 
             flex-shrink: 0;
 
             fill: none;
-
             stroke: #777;
-
             stroke-width: 2;
 
             stroke-linecap: round;
-
             stroke-linejoin: round;
         }
 
-
         #bookSearchInput {
-
             flex: 1;
-
             min-width: 0;
 
             border: none;
-
             outline: none;
 
             background: transparent;
 
-            padding:
-                16px 0;
+            padding: 16px 0;
 
             font-size: 15px;
-
             color: #111;
         }
-
 
         #bookSearchInput::placeholder {
             color: #999;
         }
 
-
         .search-close {
-
             width: 35px;
-
             height: 35px;
 
             flex-shrink: 0;
@@ -455,32 +349,23 @@
             border-radius: 10px;
 
             font-size: 23px;
-
             line-height: 1;
 
             color: #555;
 
             cursor: pointer;
-
-            transition:
-                .2s;
         }
-
 
         .search-close:hover {
-
             background: #111;
-
             color: white;
         }
-
 
         /* =========================
            SEARCH RESULTS
         ========================= */
 
         .search-results {
-
             margin-top: 14px;
 
             max-height: 470px;
@@ -490,17 +375,12 @@
             padding-right: 3px;
         }
 
-
         .search-result {
-
             display: flex;
-
             align-items: center;
-
             gap: 14px;
 
             margin-bottom: 9px;
-
             padding: 11px;
 
             background: white;
@@ -515,22 +395,16 @@
                 box-shadow .2s;
         }
 
-
         .search-result:hover {
-
-            transform:
-                translateY(-2px);
+            transform: translateY(-2px);
 
             box-shadow:
                 0 10px 25px
                 rgba(0,0,0,.08);
         }
 
-
         .search-result-cover {
-
             width: 48px;
-
             height: 68px;
 
             object-fit: cover;
@@ -542,31 +416,21 @@
             flex-shrink: 0;
         }
 
-
         .search-result-info {
-
             min-width: 0;
-
             flex: 1;
         }
 
-
         .search-result-title {
-
             font-size: 15px;
-
             font-weight: 850;
 
             white-space: nowrap;
-
             overflow: hidden;
-
             text-overflow: ellipsis;
         }
 
-
         .search-result-author {
-
             margin-top: 5px;
 
             color: #777;
@@ -574,27 +438,19 @@
             font-size: 12px;
         }
 
-
         .search-result-price {
-
             margin-top: 6px;
 
             font-size: 12px;
-
             font-weight: 800;
         }
 
-
         .search-result-arrow {
-
             width: 32px;
-
             height: 32px;
 
             display: flex;
-
             align-items: center;
-
             justify-content: center;
 
             flex-shrink: 0;
@@ -606,9 +462,7 @@
             font-size: 14px;
         }
 
-
         .search-message {
-
             padding: 25px;
 
             text-align: center;
@@ -625,21 +479,17 @@
             font-size: 14px;
         }
 
-
         /* =========================
            HERO
         ========================= */
 
         .hero {
-
             position: relative;
 
             min-height: 690px;
 
             display: flex;
-
             align-items: center;
-
             justify-content: center;
 
             overflow: hidden;
@@ -663,45 +513,32 @@
                 #f5f5f3;
         }
 
-
-        /* Background circle */
-
         .hero::before {
-
             content: "";
 
             position: absolute;
 
             width: 500px;
-
             height: 500px;
 
             right: -190px;
-
             top: 80px;
 
             border-radius: 50%;
 
             background: #111;
-
             opacity: .035;
         }
 
-
-        /* Background ring */
-
         .hero::after {
-
             content: "";
 
             position: absolute;
 
             width: 300px;
-
             height: 300px;
 
             left: -170px;
-
             bottom: -160px;
 
             border:
@@ -712,43 +549,25 @@
             opacity: .035;
         }
 
-
-        /* =========================
-           HERO CONTENT
-        ========================= */
-
         .hero-content {
-
             position: relative;
-
             z-index: 2;
 
             width:
                 min(1150px, 90%);
 
-            margin:
-                0 auto;
+            margin: 0 auto;
 
             display: flex;
-
             flex-direction: column;
 
             align-items: center;
-
             justify-content: center;
         }
 
-
-        /* =========================
-           BADGE
-        ========================= */
-
         .kicker {
-
             display: inline-flex;
-
             align-items: center;
-
             gap: 7px;
 
             margin-bottom: 22px;
@@ -758,11 +577,9 @@
             border-radius: 100px;
 
             background: #111;
-
             color: white;
 
             font-size: 10px;
-
             font-weight: 900;
 
             letter-spacing: 2px;
@@ -772,27 +589,16 @@
                 rgba(0,0,0,.12);
         }
 
-
         .kicker::before {
-
             content: "✦";
-
             font-size: 11px;
         }
 
-
-        /* =========================
-           HERO TITLE
-        ========================= */
-
         .hero h1 {
-
             width: 100%;
-
             max-width: 1050px;
 
-            margin:
-                0 auto;
+            margin: 0 auto;
 
             text-align: center;
 
@@ -804,56 +610,34 @@
             font-size:
                 clamp(50px, 8vw, 100px);
 
-            line-height:
-                .92;
+            line-height: .92;
 
-            letter-spacing:
-                -5px;
+            letter-spacing: -5px;
 
-            font-weight:
-                900;
+            font-weight: 900;
         }
 
-
         .hero h1 span {
-
             display: block;
-
             color: #777;
         }
 
-
-        /* =========================
-           DESCRIPTION
-        ========================= */
-
         .hero-description {
-
             max-width: 610px;
 
-            margin:
-                30px auto 0;
+            margin: 30px auto 0;
 
             color: #666;
 
             font-size: 17px;
-
             line-height: 1.7;
 
             text-align: center;
         }
 
-
-        /* =========================
-           HERO BUTTONS
-        ========================= */
-
         .hero-buttons {
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
 
             gap: 12px;
@@ -861,35 +645,25 @@
             margin-top: 32px;
         }
 
-
         .btn {
-
             min-height: 54px;
 
             display: inline-flex;
-
             align-items: center;
-
             justify-content: center;
 
-            padding:
-                0 25px;
+            padding: 0 25px;
 
             border-radius: 14px;
 
             font-size: 14px;
-
             font-weight: 800;
 
-            transition:
-                .25s;
+            transition: .25s;
         }
 
-
         .btn-dark {
-
             background: #111;
-
             color: white;
 
             box-shadow:
@@ -897,9 +671,7 @@
                 rgba(0,0,0,.18);
         }
 
-
         .btn-light {
-
             background:
                 rgba(255,255,255,.9);
 
@@ -909,28 +681,21 @@
                 1px solid #ddd;
         }
 
-
         .btn:hover {
-
-            transform:
-                translateY(-4px);
+            transform: translateY(-4px);
 
             box-shadow:
                 0 15px 30px
                 rgba(0,0,0,.14);
         }
 
-
         /* =========================
-           HERO STATS
+           STATS
         ========================= */
 
         .hero-stats {
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
 
             gap: 45px;
@@ -938,11 +703,8 @@
             margin-top: 55px;
         }
 
-
         .stat {
-
             display: flex;
-
             align-items: center;
 
             gap: 10px;
@@ -950,17 +712,12 @@
             text-align: left;
         }
 
-
         .stat-icon {
-
             width: 40px;
-
             height: 40px;
 
             display: flex;
-
             align-items: center;
-
             justify-content: center;
 
             border-radius: 11px;
@@ -973,19 +730,14 @@
             font-size: 17px;
         }
 
-
         .stat strong {
-
             display: block;
 
             font-size: 12px;
-
             font-weight: 850;
         }
 
-
         .stat small {
-
             display: block;
 
             margin-top: 2px;
@@ -995,56 +747,42 @@
             font-size: 10px;
         }
 
-
         /* =========================
-           SUBSCRIBER PROMO
+           SUBSCRIBER
         ========================= */
 
         .subscriber-promo {
+            padding: 55px 0;
 
-            padding:
-                55px 0;
-
-            background:
-                #111;
-
+            background: #111;
             color: white;
         }
 
-
         .subscriber-promo-inner {
-
             width:
                 min(1150px, 90%);
 
             margin: auto;
 
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
 
             gap: 30px;
         }
 
-
         .subscriber-promo .kicker {
-
             margin-bottom: 12px;
 
             padding: 7px 12px;
 
             background: white;
-
             color: #111;
 
             box-shadow: none;
         }
 
-
         .subscriber-promo h2 {
-
             font-size:
                 clamp(28px, 4vw, 45px);
 
@@ -1053,15 +791,11 @@
             letter-spacing: -2px;
         }
 
-
         .subscriber-promo h2 span {
-
             color: #aaa;
         }
 
-
         .subscriber-promo-inner > div > p:last-child {
-
             margin-top: 15px;
 
             color: #aaa;
@@ -1069,87 +803,56 @@
             font-size: 14px;
         }
 
-
         .subscriber-promo .btn-dark {
-
             background: white;
-
             color: #111;
 
             flex-shrink: 0;
         }
 
-
         /* =========================
-           FEATURED SECTION
+           SECTION
         ========================= */
 
         .section {
-
-            padding:
-                95px 0;
-
+            padding: 95px 0;
             background: white;
         }
 
-
         .container {
-
             width:
                 min(1150px, 90%);
 
-            margin:
-                auto;
+            margin: auto;
         }
-
 
         .section-heading {
-
             display: flex;
-
             align-items: end;
+            justify-content: space-between;
 
-            justify-content:
-                space-between;
-
-            margin-bottom:
-                35px;
+            margin-bottom: 35px;
         }
-
 
         .section-heading .kicker {
+            margin-bottom: 9px;
 
-            margin-bottom:
-                9px;
+            background: #f1f1ef;
+            color: #111;
 
-            background:
-                #f1f1ef;
-
-            color:
-                #111;
-
-            box-shadow:
-                none;
+            box-shadow: none;
         }
 
-
         .section-heading h2 {
-
             font-size:
                 clamp(30px, 5vw, 48px);
 
-            letter-spacing:
-                -2px;
-
-            font-weight:
-                900;
+            letter-spacing: -2px;
+            font-weight: 900;
         }
 
-
         .view-all {
-
             display: inline-flex;
-
             align-items: center;
 
             gap: 5px;
@@ -1157,29 +860,21 @@
             color: #666;
 
             font-size: 13px;
-
             font-weight: 800;
 
-            transition:
-                .2s;
+            transition: .2s;
         }
-
 
         .view-all:hover {
-
             color: #111;
-
-            transform:
-                translateX(3px);
+            transform: translateX(3px);
         }
-
 
         /* =========================
            BOOK GRID
         ========================= */
 
         .book-grid {
-
             display: grid;
 
             grid-template-columns:
@@ -1188,9 +883,7 @@
             gap: 22px;
         }
 
-
         .book-grid > * {
-
             min-width: 0;
 
             border-radius: 20px;
@@ -1202,40 +895,28 @@
                 box-shadow .3s ease;
         }
 
-
         .book-grid > *:hover {
-
-            transform:
-                translateY(-8px);
+            transform: translateY(-8px);
 
             box-shadow:
                 0 20px 45px
                 rgba(0,0,0,.12);
         }
 
-
         /* =========================
            FOOTER
         ========================= */
 
         .footer {
+            padding: 40px 20px;
 
-            padding:
-                40px 20px;
+            background: #0b0b0d;
+            color: #777;
 
-            background:
-                #0b0b0d;
+            text-align: center;
 
-            color:
-                #777;
-
-            text-align:
-                center;
-
-            font-size:
-                12px;
+            font-size: 12px;
         }
-
 
         /* =========================
            TABLET
@@ -1244,47 +925,29 @@
         @media (max-width: 900px) {
 
             .header {
-
-                padding:
-                    0 25px;
+                padding: 0 25px;
             }
-
 
             .hero {
-
-                min-height:
-                    620px;
+                min-height: 620px;
             }
-
 
             .hero h1 {
-
-                font-size:
-                    70px;
-
-                letter-spacing:
-                    -4px;
+                font-size: 70px;
+                letter-spacing: -4px;
             }
 
-
             .book-grid {
-
                 grid-template-columns:
                     repeat(2, 1fr);
             }
 
-
             .subscriber-promo-inner {
-
-                align-items:
-                    flex-start;
-
-                flex-direction:
-                    column;
+                align-items: flex-start;
+                flex-direction: column;
             }
 
         }
-
 
         /* =========================
            MOBILE
@@ -1293,469 +956,246 @@
         @media (max-width: 600px) {
 
             .header {
-
-                min-height:
-                    65px;
-
-                padding:
-                    0 12px;
-
-                gap:
-                    6px;
+                min-height: 65px;
+                padding: 0 12px;
+                gap: 6px;
             }
-
 
             .brand {
-
-                font-size:
-                    10px;
-
-                gap:
-                    7px;
+                font-size: 10px;
+                gap: 7px;
             }
-
 
             .brand-mark {
+                width: 35px;
+                height: 35px;
 
-                width:
-                    35px;
-
-                height:
-                    35px;
-
-                border-radius:
-                    10px;
-
-                font-size:
-                    17px;
+                border-radius: 10px;
+                font-size: 17px;
             }
-
 
             .search-toggle {
-
-                width:
-                    36px;
-
-                height:
-                    36px;
+                width: 36px;
+                height: 36px;
             }
-
 
             .search-toggle svg {
-
-                width:
-                    19px;
-
-                height:
-                    19px;
+                width: 19px;
+                height: 19px;
             }
-
 
             .nav {
-
-                flex:
-                    1;
-
-                justify-content:
-                    flex-end;
-
-                gap:
-                    2px;
+                flex: 1;
+                justify-content: flex-end;
+                gap: 2px;
             }
-
 
             .nav a {
-
-                padding:
-                    8px 9px;
-
-                font-size:
-                    10px;
+                padding: 8px 9px;
+                font-size: 10px;
             }
-
 
             .library-btn {
-
-                padding:
-                    8px 10px !important;
+                padding: 8px 10px !important;
             }
-
-
-            /* SEARCH */
 
             .search-panel {
-
-                top:
-                    65px;
-
-                padding:
-                    0 12px;
+                top: 65px;
+                padding: 0 12px;
             }
-
 
             .search-panel.active {
-
-                padding:
-                    12px 12px 20px;
+                padding: 12px 12px 20px;
             }
-
 
             .search-box {
-
-                border-radius:
-                    12px;
+                border-radius: 12px;
             }
-
 
             #bookSearchInput {
-
-                padding:
-                    14px 0;
-
-                font-size:
-                    14px;
+                padding: 14px 0;
+                font-size: 14px;
             }
-
 
             .search-result {
-
-                gap:
-                    10px;
+                gap: 10px;
             }
-
 
             .search-result-cover {
-
-                width:
-                    42px;
-
-                height:
-                    60px;
+                width: 42px;
+                height: 60px;
             }
-
 
             .search-result-title {
-
-                font-size:
-                    13px;
+                font-size: 13px;
             }
-
 
             .search-result-author {
-
-                font-size:
-                    10px;
+                font-size: 10px;
             }
-
 
             .search-result-price {
-
-                font-size:
-                    10px;
+                font-size: 10px;
             }
-
-
-            /* HERO */
 
             .hero {
-
-                min-height:
-                    650px;
-
-                text-align:
-                    center;
+                min-height: 650px;
             }
-
 
             .hero-content {
-
-                width:
-                    91%;
-
-                align-items:
-                    center;
+                width: 91%;
             }
-
 
             .kicker {
-
-                font-size:
-                    8px;
-
-                padding:
-                    7px 11px;
-
-                margin-bottom:
-                    18px;
+                font-size: 8px;
+                padding: 7px 11px;
+                margin-bottom: 18px;
             }
 
-
             .hero h1 {
-
-                max-width:
-                    100%;
+                max-width: 100%;
 
                 font-size:
                     clamp(45px, 14vw, 65px);
 
-                line-height:
-                    .95;
-
-                letter-spacing:
-                    -3px;
+                line-height: .95;
+                letter-spacing: -3px;
             }
-
 
             .hero-description {
+                max-width: 420px;
 
-                max-width:
-                    420px;
+                margin-top: 22px;
 
-                margin-top:
-                    22px;
-
-                font-size:
-                    14px;
-
-                line-height:
-                    1.65;
+                font-size: 14px;
+                line-height: 1.65;
             }
-
 
             .hero-buttons {
+                width: 100%;
 
-                width:
-                    100%;
+                flex-direction: column;
+                align-items: stretch;
 
-                flex-direction:
-                    column;
-
-                align-items:
-                    stretch;
-
-                margin-top:
-                    27px;
+                margin-top: 27px;
             }
-
 
             .btn {
-
-                width:
-                    100%;
-
-                min-height:
-                    50px;
+                width: 100%;
+                min-height: 50px;
             }
-
-
-            /* STATS */
 
             .hero-stats {
+                width: 100%;
 
-                width:
-                    100%;
+                gap: 8px;
+                margin-top: 38px;
 
-                gap:
-                    8px;
-
-                margin-top:
-                    38px;
-
-                justify-content:
-                    space-between;
+                justify-content: space-between;
             }
-
 
             .stat {
-
-                gap:
-                    5px;
+                gap: 5px;
             }
-
 
             .stat-icon {
+                width: 31px;
+                height: 31px;
 
-                width:
-                    31px;
-
-                height:
-                    31px;
-
-                border-radius:
-                    9px;
-
-                font-size:
-                    13px;
+                border-radius: 9px;
+                font-size: 13px;
             }
-
 
             .stat strong {
-
-                font-size:
-                    9px;
+                font-size: 9px;
             }
-
 
             .stat small {
-
-                font-size:
-                    7px;
+                font-size: 7px;
             }
-
-
-            /* SUBSCRIBER */
 
             .subscriber-promo {
-
-                padding:
-                    45px 0;
+                padding: 45px 0;
             }
-
 
             .subscriber-promo-inner {
-
-                width:
-                    92%;
-
-                gap:
-                    25px;
+                width: 92%;
+                gap: 25px;
             }
-
 
             .subscriber-promo h2 {
-
-                font-size:
-                    30px;
+                font-size: 30px;
             }
-
 
             .subscriber-promo-inner > div > p:last-child {
-
-                font-size:
-                    12px;
-
-                line-height:
-                    1.6;
+                font-size: 12px;
+                line-height: 1.6;
             }
-
-
-            /* BOOK SECTION */
 
             .section {
-
-                padding:
-                    65px 0;
+                padding: 65px 0;
             }
-
 
             .container {
-
-                width:
-                    92%;
+                width: 92%;
             }
-
 
             .section-heading {
-
-                margin-bottom:
-                    25px;
+                margin-bottom: 25px;
             }
-
 
             .section-heading h2 {
-
-                font-size:
-                    30px;
-
-                letter-spacing:
-                    -1.5px;
+                font-size: 30px;
+                letter-spacing: -1.5px;
             }
-
 
             .section-heading .kicker {
-
-                font-size:
-                    8px;
+                font-size: 8px;
             }
-
 
             .view-all {
-
-                font-size:
-                    11px;
+                font-size: 11px;
             }
 
-
             .book-grid {
-
                 grid-template-columns:
                     repeat(2, 1fr);
 
-                gap:
-                    12px;
+                gap: 12px;
             }
 
-
             .book-grid > * {
-
-                border-radius:
-                    15px;
+                border-radius: 15px;
             }
 
         }
 
-
-        /* =========================
-           VERY SMALL PHONES
-        ========================= */
-
         @media (max-width: 380px) {
 
             .brand span:last-child {
-
-                display:
-                    none;
+                display: none;
             }
-
 
             .nav a {
-
-                padding:
-                    7px;
-
-                font-size:
-                    9px;
+                padding: 7px;
+                font-size: 9px;
             }
-
 
             .hero h1 {
-
-                font-size:
-                    44px;
-
-                letter-spacing:
-                    -2.5px;
+                font-size: 44px;
+                letter-spacing: -2.5px;
             }
-
 
             .hero-stats {
-
-                gap:
-                    5px;
+                gap: 5px;
             }
-
 
             .stat strong {
-
-                font-size:
-                    8px;
+                font-size: 8px;
             }
 
-
             .stat small {
-
-                font-size:
-                    6px;
+                font-size: 6px;
             }
 
         }
@@ -1764,16 +1204,13 @@
 
 </head>
 
-
 <body>
-
 
 <!-- =========================
      HEADER
 ========================= -->
 
 <header class="header">
-
 
     <a
         href="index.html"
@@ -1790,8 +1227,6 @@
 
     </a>
 
-
-    <!-- SEARCH BUTTON -->
 
     <button
         type="button"
@@ -1827,15 +1262,16 @@
             Home
         </a>
 
-
         <a href="books.html">
             Books
         </a>
 
-        <a href="seller.html" class="sell-btn">
-    Sell Your Ebook
-</a>
-
+        <a
+            href="seller.html"
+            class="sell-btn"
+        >
+            Sell Your Ebook
+        </a>
 
         <a
             href="library.html"
@@ -1844,13 +1280,11 @@
             📚 Library
         </a>
 
-
         <a href="cart.html">
             🛒 Cart
         </a>
 
     </nav>
-
 
 </header>
 
@@ -1867,9 +1301,7 @@
 
     <div class="search-inner">
 
-
         <div class="search-box">
-
 
             <svg viewBox="0 0 24 24">
 
@@ -1888,7 +1320,6 @@
 
             </svg>
 
-
             <input
                 type="search"
                 id="bookSearchInput"
@@ -1896,7 +1327,6 @@
                 autocomplete="off"
                 spellcheck="false"
             >
-
 
             <button
                 type="button"
@@ -1907,20 +1337,16 @@
                 ×
             </button>
 
-
         </div>
-
 
         <div
             class="search-results"
             id="searchResults"
         ></div>
 
-
     </div>
 
 </div>
-
 
 
 <!-- =========================
@@ -1929,14 +1355,11 @@
 
 <section class="hero">
 
-
     <div class="hero-content">
-
 
         <div class="kicker">
             MONESH EBOOKS
         </div>
-
 
         <h1>
 
@@ -1948,7 +1371,6 @@
 
         </h1>
 
-
         <p class="hero-description">
 
             Explore exciting stories,
@@ -1958,9 +1380,7 @@
 
         </p>
 
-
         <div class="hero-buttons">
-
 
             <a
                 href="books.html"
@@ -1969,7 +1389,6 @@
                 Explore Books →
             </a>
 
-
             <a
                 href="library.html"
                 class="btn btn-light"
@@ -1977,12 +1396,9 @@
                 📚 My Library
             </a>
 
-
         </div>
 
-
         <div class="hero-stats">
-
 
             <div class="stat">
 
@@ -2004,7 +1420,6 @@
 
             </div>
 
-
             <div class="stat">
 
                 <div class="stat-icon">
@@ -2024,7 +1439,6 @@
                 </div>
 
             </div>
-
 
             <div class="stat">
 
@@ -2046,33 +1460,26 @@
 
             </div>
 
-
         </div>
 
-
     </div>
-
 
 </section>
 
 
-
 <!-- =========================
-     TECH BLUEPRINT REWARD
+     SUBSCRIBER PROMO
 ========================= -->
 
 <section class="subscriber-promo">
 
-
     <div class="subscriber-promo-inner">
-
 
         <div>
 
             <p class="kicker">
                 EXCLUSIVE REWARD
             </p>
-
 
             <h2>
 
@@ -2086,14 +1493,12 @@
 
             </h2>
 
-
             <p>
                 Verify your YouTube subscription
                 and receive one unique coupon.
             </p>
 
         </div>
-
 
         <a
             href="subscriber.html"
@@ -2102,12 +1507,9 @@
             Get My Coupon →
         </a>
 
-
     </div>
 
-
 </section>
-
 
 
 <!-- =========================
@@ -2119,12 +1521,9 @@
     id="featured"
 >
 
-
     <div class="container">
 
-
         <div class="section-heading">
-
 
             <div>
 
@@ -2132,13 +1531,11 @@
                     FEATURED BOOKS
                 </p>
 
-
                 <h2>
                     Popular books
                 </h2>
 
             </div>
-
 
             <a
                 href="books.html"
@@ -2147,21 +1544,16 @@
                 View all →
             </a>
 
-
         </div>
-
 
         <div
             class="book-grid"
             id="featuredBooks"
         ></div>
 
-
     </div>
 
-
 </section>
-
 
 
 <!-- =========================
@@ -2179,9 +1571,8 @@
 </footer>
 
 
-
 <!-- =========================
-     DATA + APP
+     ORIGINAL BOOK DATA
 ========================= -->
 
 <script src="js/data.js"></script>
@@ -2189,12 +1580,180 @@
 <script src="js/app.js"></script>
 
 
-
 <!-- =========================
-     FEATURED BOOKS
+     APPROVED BOOK SYSTEM
 ========================= -->
 
 <script>
+
+(function () {
+
+    /*
+     * Original books come from js/data.js.
+     *
+     * Seller books come from:
+     *
+     * localStorage:
+     * monesh_seller_books
+     *
+     * Only books with:
+     *
+     * status === "approved"
+     *
+     * are shown.
+     */
+
+
+    function getApprovedSellerBooks() {
+
+        let sellerBooks = [];
+
+
+        try {
+
+            sellerBooks =
+                JSON.parse(
+                    localStorage.getItem(
+                        "monesh_seller_books"
+                    ) || "[]"
+                );
+
+        } catch (error) {
+
+            console.error(
+                "Unable to read seller books:",
+                error
+            );
+
+            sellerBooks = [];
+
+        }
+
+
+        if (!Array.isArray(sellerBooks)) {
+
+            return [];
+
+        }
+
+
+        return sellerBooks
+
+            .filter(function (book) {
+
+                return (
+                    String(book.status || "")
+                        .toLowerCase()
+                        === "approved"
+                );
+
+            })
+
+            .map(function (book) {
+
+                return {
+
+                    id:
+                        book.id ||
+                        ("seller-" +
+                         Date.now() +
+                         "-" +
+                         Math.random()
+                            .toString(36)
+                            .slice(2, 8)),
+
+                    title:
+                        book.title ||
+                        "Untitled Ebook",
+
+                    author:
+                        book.author ||
+                        book.sellerName ||
+                        "Unknown Author",
+
+                    category:
+                        book.category ||
+                        book.genre ||
+                        "Ebook",
+
+                    price:
+                        Number(book.price) || 0,
+
+                    rating:
+                        Number(book.rating) || 0,
+
+                    description:
+                        book.description || "",
+
+                    cover:
+                        book.cover ||
+                        book.coverUrl ||
+                        "assets/programming.jpg",
+
+                    pdf:
+                        book.pdf ||
+                        book.pdfUrl ||
+                        book.pdfName ||
+                        "",
+
+                    pages:
+                        Number(book.pages) || 0,
+
+                    sellerId:
+                        book.sellerId ||
+                        "",
+
+                    sellerName:
+                        book.sellerName ||
+                        "",
+
+                    sellerBook:
+                        true,
+
+                    status:
+                        "approved"
+
+                };
+
+            });
+
+    }
+
+
+    function getAllBooks() {
+
+        const originalBooks =
+            Array.isArray(window.books)
+                ? window.books
+                : [];
+
+
+        const sellerBooks =
+            getApprovedSellerBooks();
+
+
+        return [
+            ...originalBooks,
+            ...sellerBooks
+        ];
+
+    }
+
+
+    /*
+     * Make the combined books available
+     * globally.
+     *
+     * The search system below will use this.
+     */
+
+    window.getMoneshEbooks =
+        getAllBooks;
+
+
+    /* =========================
+       DISPLAY FEATURED BOOKS
+    ========================= */
 
     const featured =
         document.getElementById(
@@ -2203,33 +1762,74 @@
 
 
     if (
-        typeof books !== "undefined" &&
+        featured &&
         typeof createBookCard === "function"
     ) {
 
-        books
-            .slice(0, 4)
-            .forEach(book => {
+        const allBooks =
+            getAllBooks();
 
-                featured.innerHTML +=
-                    createBookCard(book);
 
-            });
+        featured.innerHTML = "";
+
+
+        if (!allBooks.length) {
+
+            featured.innerHTML = `
+
+                <div
+                    style="
+                        grid-column:1/-1;
+                        padding:50px;
+                        text-align:center;
+                        color:#777;
+                    "
+                >
+
+                    📚 No books available yet.
+
+                </div>
+
+            `;
+
+        } else {
+
+            allBooks
+                .slice(0, 4)
+                .forEach(function (book) {
+
+                    try {
+
+                        featured.innerHTML +=
+                            createBookCard(book);
+
+                    } catch (error) {
+
+                        console.error(
+                            "Book card error:",
+                            error
+                        );
+
+                    }
+
+                });
+
+        }
 
     }
+
+})();
 
 </script>
 
 
-
 <!-- =========================
-     SEARCH JAVASCRIPT
+     SEARCH SYSTEM
 ========================= -->
 
 <script>
 
 (function () {
-
 
     const searchToggle =
         document.getElementById(
@@ -2262,31 +1862,64 @@
 
 
     /* =========================
-       GET BOOK DATA
+       GET ALL BOOKS
     ========================= */
 
     function getBooks() {
 
         if (
-            typeof books !== "undefined" &&
-            Array.isArray(books)
+            typeof window.getMoneshEbooks ===
+            "function"
         ) {
 
-            return books;
+            return window.getMoneshEbooks();
 
         }
 
 
-        if (
+        const originalBooks =
             Array.isArray(window.books)
-        ) {
+                ? window.books
+                : [];
 
-            return window.books;
+
+        let sellerBooks = [];
+
+
+        try {
+
+            sellerBooks =
+                JSON.parse(
+                    localStorage.getItem(
+                        "monesh_seller_books"
+                    ) || "[]"
+                );
+
+        } catch (error) {
+
+            sellerBooks = [];
 
         }
 
 
-        return [];
+        const approved =
+            sellerBooks
+                .filter(function (book) {
+
+                    return (
+                        String(
+                            book.status || ""
+                        ).toLowerCase()
+                        === "approved"
+                    );
+
+                });
+
+
+        return [
+            ...originalBooks,
+            ...approved
+        ];
 
     }
 
@@ -2300,7 +1933,10 @@
         return String(value || "")
             .toLowerCase()
             .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
+            .replace(
+                /[\u0300-\u036f]/g,
+                ""
+            )
             .trim();
 
     }
@@ -2313,11 +1949,26 @@
     function escapeHTML(value) {
 
         return String(value || "")
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
 
     }
 
@@ -2326,16 +1977,22 @@
        SEARCH SCORE
     ========================= */
 
-    function scoreBook(book, query) {
+    function scoreBook(
+        book,
+        query
+    ) {
 
         const title =
             normalize(book.title);
 
+
         const author =
             normalize(book.author);
 
+
         const description =
             normalize(book.description);
+
 
         const category =
             normalize(
@@ -2357,8 +2014,6 @@
         let score = 0;
 
 
-        /* Exact title */
-
         if (title === query) {
 
             score += 1000;
@@ -2366,51 +2021,33 @@
         }
 
 
-        /* Title begins with search */
-
-        if (
-            title.startsWith(query)
-        ) {
+        if (title.startsWith(query)) {
 
             score += 500;
 
         }
 
 
-        /* Title contains search */
-
-        if (
-            title.includes(query)
-        ) {
+        if (title.includes(query)) {
 
             score += 350;
 
         }
 
 
-        /* Author */
-
-        if (
-            author.includes(query)
-        ) {
+        if (author.includes(query)) {
 
             score += 250;
 
         }
 
 
-        /* Category */
-
-        if (
-            category.includes(query)
-        ) {
+        if (category.includes(query)) {
 
             score += 150;
 
         }
 
-
-        /* Description */
 
         if (
             description.includes(query)
@@ -2421,14 +2058,13 @@
         }
 
 
-        /* Individual words */
-
         const words =
-            query.split(/\s+/)
+            query
+                .split(/\s+/)
                 .filter(Boolean);
 
 
-        words.forEach(word => {
+        words.forEach(function (word) {
 
             if (
                 title.includes(word)
@@ -2468,8 +2104,6 @@
         });
 
 
-        /* Any match */
-
         if (
             combined.includes(query)
         ) {
@@ -2494,13 +2128,14 @@
             "active"
         );
 
+
         searchPanel.setAttribute(
             "aria-hidden",
             "false"
         );
 
 
-        setTimeout(() => {
+        setTimeout(function () {
 
             searchInput.focus();
 
@@ -2519,12 +2154,15 @@
             "active"
         );
 
+
         searchPanel.setAttribute(
             "aria-hidden",
             "true"
         );
 
+
         searchInput.value = "";
+
 
         searchResults.innerHTML = "";
 
@@ -2535,11 +2173,11 @@
        RENDER RESULTS
     ========================= */
 
-    function renderResults(results) {
+    function renderResults(
+        results
+    ) {
 
-        if (
-            !results.length
-        ) {
+        if (!results.length) {
 
             searchResults.innerHTML = `
 
@@ -2550,7 +2188,8 @@
                     <br>
 
                     <small>
-                        Try another title, author or keyword.
+                        Try another title,
+                        author or keyword.
                     </small>
 
                 </div>
@@ -2565,9 +2204,10 @@
         searchResults.innerHTML =
 
             results
-                .slice(0, 10)
-                .map(book => {
 
+                .slice(0, 10)
+
+                .map(function (book) {
 
                     const title =
                         escapeHTML(
@@ -2586,7 +2226,7 @@
                     const cover =
                         escapeHTML(
                             book.cover ||
-                            ""
+                            "assets/programming.jpg"
                         );
 
 
@@ -2613,7 +2253,7 @@
                     return `
 
                         <a
-                            href="payment.html?id=${id}"
+                            href="book.html?id=${id}"
                             class="search-result"
                         >
 
@@ -2622,27 +2262,38 @@
                                 alt="${title}"
                                 class="search-result-cover"
                                 loading="lazy"
+                                onerror="
+                                    this.src='assets/programming.jpg';
+                                "
                             >
 
 
-                            <div class="search-result-info">
+                            <div
+                                class="search-result-info"
+                            >
 
                                 <div
-                                    class="search-result-title"
+                                    class="
+                                        search-result-title
+                                    "
                                 >
                                     ${title}
                                 </div>
 
 
                                 <div
-                                    class="search-result-author"
+                                    class="
+                                        search-result-author
+                                    "
                                 >
                                     By ${author}
                                 </div>
 
 
                                 <div
-                                    class="search-result-price"
+                                    class="
+                                        search-result-price
+                                    "
                                 >
                                     ${price}
                                 </div>
@@ -2650,7 +2301,11 @@
                             </div>
 
 
-                            <div class="search-result-arrow">
+                            <div
+                                class="
+                                    search-result-arrow
+                                "
+                            >
                                 →
                             </div>
 
@@ -2659,6 +2314,7 @@
                     `;
 
                 })
+
                 .join("");
 
     }
@@ -2668,7 +2324,9 @@
        PERFORM SEARCH
     ========================= */
 
-    function performSearch(value) {
+    function performSearch(
+        value
+    ) {
 
         const query =
             normalize(value);
@@ -2693,7 +2351,7 @@
 
                 <div class="search-message">
 
-                    Loading books...
+                    📚 No books available.
 
                 </div>
 
@@ -2708,33 +2366,45 @@
 
             allBooks
 
-                .map(book => ({
+                .map(function (book) {
 
-                    book: book,
+                    return {
 
-                    score:
-                        scoreBook(
-                            book,
-                            query
-                        )
+                        book: book,
 
-                }))
+                        score:
+                            scoreBook(
+                                book,
+                                query
+                            )
 
-                .filter(
-                    item =>
-                        item.score > 0
-                )
+                    };
 
-                .sort(
-                    (a, b) =>
+                })
+
+
+                .filter(function (item) {
+
+                    return item.score > 0;
+
+                })
+
+
+                .sort(function (a, b) {
+
+                    return (
                         b.score -
                         a.score
-                )
+                    );
 
-                .map(
-                    item =>
-                        item.book
-                );
+                })
+
+
+                .map(function (item) {
+
+                    return item.book;
+
+                });
 
 
         renderResults(results);
@@ -2743,7 +2413,7 @@
 
 
     /* =========================
-       EVENTS
+       SEARCH BUTTON
     ========================= */
 
     searchToggle.addEventListener(
@@ -2768,11 +2438,19 @@
     );
 
 
+    /* =========================
+       CLOSE BUTTON
+    ========================= */
+
     searchClose.addEventListener(
         "click",
         closeSearch
     );
 
+
+    /* =========================
+       LIVE SEARCH
+    ========================= */
 
     searchInput.addEventListener(
         "input",
@@ -2787,7 +2465,7 @@
 
 
     /* =========================
-       ESCAPE
+       KEYBOARD
     ========================= */
 
     document.addEventListener(
@@ -2806,12 +2484,11 @@
             }
 
 
-            /* CTRL + K */
-
             if (
-                (event.ctrlKey ||
-                 event.metaKey) &&
-
+                (
+                    event.ctrlKey ||
+                    event.metaKey
+                ) &&
                 event.key.toLowerCase() === "k"
             ) {
 
@@ -2844,7 +2521,7 @@
             }
 
 
-            const clickedInsideSearch =
+            const clickedInside =
                 searchPanel.contains(
                     event.target
                 );
@@ -2857,7 +2534,7 @@
 
 
             if (
-                !clickedInsideSearch &&
+                !clickedInside &&
                 !clickedButton
             ) {
 
