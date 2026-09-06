@@ -59,7 +59,7 @@
             background: white;
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, .08);
         }
 
         .book-section {
@@ -128,6 +128,8 @@
             margin-top: 0;
         }
 
+        /* Desktop QR */
+
         #upiQr {
             width: 280px;
             height: 280px;
@@ -141,6 +143,40 @@
         #upiQr img {
             width: 280px;
             height: 280px;
+        }
+
+        /* Mobile payment */
+
+        .mobile-payment-title,
+        #mobileUpiPayment {
+            display: none;
+        }
+
+        .upi-pay-button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            background: #171717;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .upi-pay-button:hover {
+            background: #333;
+        }
+
+        .upi-pay-button:active {
+            transform: scale(.98);
+        }
+
+        .mobile-upi-note {
+            color: #777;
+            font-size: 13px;
+            margin-top: 10px;
         }
 
         .upi-box {
@@ -212,7 +248,7 @@
         }
 
         .coupon-input-row button:disabled {
-            opacity: 0.6;
+            opacity: .6;
             cursor: not-allowed;
         }
 
@@ -263,7 +299,7 @@
         }
 
         .pay-button:disabled {
-            opacity: 0.6;
+            opacity: .6;
             cursor: not-allowed;
         }
 
@@ -303,7 +339,16 @@
             margin-top: 25px;
         }
 
+        /* ============================
+           MOBILE
+        ============================ */
+
         @media (max-width: 750px) {
+
+            .payment-container {
+                margin: 25px auto;
+                padding: 15px;
+            }
 
             .payment-card {
                 grid-template-columns: 1fr;
@@ -321,6 +366,31 @@
                 font-size: 35px;
             }
 
+            /* Hide desktop title */
+
+            .desktop-payment-title {
+                display: none;
+            }
+
+            /* Show mobile title */
+
+            .mobile-payment-title {
+                display: inline;
+            }
+
+            /* Hide QR */
+
+            #upiQr {
+                display: none;
+            }
+
+            /* Show mobile UPI button */
+
+            #mobileUpiPayment {
+                display: block;
+                margin: 25px 0;
+            }
+
         }
 
         @media (max-width: 500px) {
@@ -334,10 +404,12 @@
                 width: 100%;
             }
 
-            #upiQr,
-            #upiQr img {
-                width: 250px;
-                height: 250px;
+            .payment-title h1 {
+                font-size: 30px;
+            }
+
+            .payment-card {
+                padding: 20px;
             }
 
         }
@@ -353,15 +425,11 @@
 <div class="payment-container">
 
 
-    <!-- ==========================================
-         TITLE
-    =========================================== -->
+    <!-- PAGE TITLE -->
 
     <div class="payment-title">
 
-        <p>
-            SECURE CHECKOUT
-        </p>
+        <p>SECURE CHECKOUT</p>
 
         <h1>
             Complete your purchase
@@ -374,18 +442,17 @@
     </div>
 
 
-    <!-- ==========================================
-         PAYMENT CARD
-    =========================================== -->
+    <!-- PAYMENT CARD -->
 
     <div class="payment-card">
 
 
-        <!-- ======================================
-             BOOK INFORMATION
-        ======================================= -->
+        <!-- ==========================
+             BOOK SECTION
+        =========================== -->
 
         <section class="book-section">
+
 
             <img
                 id="bookCover"
@@ -414,8 +481,7 @@
                     id="originalPrice"
                     class="original-price"
                     style="display:none;"
-                >
-                </span>
+                ></span>
 
                 ₹<span id="bookPrice">0</span>
 
@@ -423,8 +489,7 @@
                     id="discountBadge"
                     class="discount-badge"
                     style="display:none;"
-                >
-                </span>
+                ></span>
 
             </div>
 
@@ -441,9 +506,8 @@
 
                 <strong>Important:</strong>
 
-                Never share your UPI PIN,
-                OTP, password or banking
-                credentials.
+                Never share your UPI PIN, OTP,
+                password or banking credentials.
 
             </div>
 
@@ -459,27 +523,69 @@
         </section>
 
 
-        <!-- ======================================
+
+        <!-- ==========================
              PAYMENT SECTION
-        ======================================= -->
+        =========================== -->
 
         <section class="qr-section">
 
 
             <h2>
-                Scan & Pay
+
+                <span class="desktop-payment-title">
+                    Scan & Pay
+                </span>
+
+                <span class="mobile-payment-title">
+                    Pay with UPI
+                </span>
+
             </h2>
 
 
             <p>
+
                 Pay ₹<span id="qrAmount">0</span>
                 using UPI
+
             </p>
 
 
-            <!-- QR CODE -->
+            <!-- ==========================
+                 DESKTOP QR
+            =========================== -->
 
             <div id="upiQr"></div>
+
+
+
+            <!-- ==========================
+                 MOBILE UPI BUTTON
+            =========================== -->
+
+            <div id="mobileUpiPayment">
+
+                <button
+                    type="button"
+                    id="upiPayButton"
+                    class="upi-pay-button"
+                >
+
+                    💳 Pay with UPI App
+
+                </button>
+
+
+                <p class="mobile-upi-note">
+
+                    Opens a compatible UPI app
+                    installed on your phone.
+
+                </p>
+
+            </div>
+
 
 
             <!-- UPI ID -->
@@ -497,32 +603,56 @@
             </div>
 
 
+
+            <!-- INSTRUCTIONS -->
+
             <div class="instructions">
 
-                Scan the QR code using
-                Google Pay, FamApp or
-                another compatible UPI app.
+                <span class="desktop-instruction">
 
-                <br><br>
+                    Scan the QR code using
+                    Google Pay, FamApp or another
+                    compatible UPI app.
 
-                The amount will be filled
-                automatically.
+                    <br><br>
+
+                    The amount will be filled automatically.
+
+                </span>
+
+
+                <span class="mobile-instruction"
+                      style="display:none;">
+
+                    Tap the button above and choose
+                    your preferred UPI app.
+
+                    <br><br>
+
+                    The amount will be filled automatically.
+
+                </span>
 
             </div>
 
 
-            <!-- ==================================
+
+            <!-- ==========================
                  COUPON
-            =================================== -->
+            =========================== -->
 
             <div class="coupon-box-checkout">
 
+
                 <label for="checkoutCoupon">
+
                     Subscriber coupon
+
                 </label>
 
 
                 <div class="coupon-input-row">
+
 
                     <input
                         id="checkoutCoupon"
@@ -537,8 +667,11 @@
                         id="applyCheckoutCoupon"
                         type="button"
                     >
+
                         Apply
+
                     </button>
+
 
                 </div>
 
@@ -547,17 +680,20 @@
                     id="checkoutCouponMessage"
                 ></div>
 
+
             </div>
 
 
-            <!-- ==================================
+
+            <!-- ==========================
                  PAYMENT FORM
-            =================================== -->
+            =========================== -->
 
             <form
                 id="paymentForm"
                 class="payment-form"
             >
+
 
                 <label for="utr">
 
@@ -581,10 +717,14 @@
                     type="submit"
                     class="pay-button"
                 >
+
                     I Have Paid →
+
                 </button>
 
+
             </form>
+
 
 
             <!-- MESSAGE -->
@@ -595,6 +735,7 @@
             ></div>
 
 
+
             <!-- LIBRARY -->
 
             <a
@@ -602,53 +743,58 @@
                 id="libraryButton"
                 class="library-button"
             >
+
                 📚 Go to My Library
+
             </a>
 
 
         </section>
+
 
     </div>
 
 </div>
 
 
-<!-- ==========================================
-     QR CODE LIBRARY
-=========================================== -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<!-- QR CODE LIBRARY -->
+
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+></script>
 
 
-<!-- ==========================================
-     WEBSITE DATA
-=========================================== -->
+<!-- YOUR CONFIG -->
 
-<script src="js/rewards-config.js"></script>
+<script
+    src="js/rewards-config.js"
+></script>
 
-<script src="js/data.js"></script>
+
+<!-- YOUR BOOK DATA -->
+
+<script
+    src="js/data.js"
+></script>
+
 
 
 <script>
 
 
-
-// ======================================================
-// MONESH EBOOKS PAYMENT + COUPON SYSTEM
-// ======================================================
-
-
-// ------------------------------------------------------
-// CONFIG
-// ------------------------------------------------------
+/* =========================================
+   CONFIG
+========================================= */
 
 const cfg =
     window.MONESH_REWARD_CONFIG || {};
 
 
-// ------------------------------------------------------
-// URL PARAMETERS
-// ------------------------------------------------------
+
+/* =========================================
+   URL
+========================================= */
 
 const urlParams =
     new URLSearchParams(
@@ -656,10 +802,12 @@ const urlParams =
     );
 
 
+
 const bookId =
     Number(
         urlParams.get("id")
     );
+
 
 
 const requestedCoupon =
@@ -674,9 +822,10 @@ const requestedCoupon =
     .toUpperCase();
 
 
-// ------------------------------------------------------
-// FIND BOOK
-// ------------------------------------------------------
+
+/* =========================================
+   BOOK
+========================================= */
 
 const book =
     books.find(
@@ -684,9 +833,10 @@ const book =
     );
 
 
-// ------------------------------------------------------
-// VARIABLES
-// ------------------------------------------------------
+
+/* =========================================
+   PAYMENT VARIABLES
+========================================= */
 
 let finalAmount = 0;
 
@@ -695,9 +845,10 @@ let appliedCoupon = "";
 let appliedDiscount = 0;
 
 
-// ------------------------------------------------------
-// ELEMENTS
-// ------------------------------------------------------
+
+/* =========================================
+   ELEMENTS
+========================================= */
 
 const bookCover =
     document.getElementById(
@@ -789,9 +940,16 @@ const submitButton =
     );
 
 
-// ======================================================
-// MESSAGE
-// ======================================================
+const upiPayButton =
+    document.getElementById(
+        "upiPayButton"
+    );
+
+
+
+/* =========================================
+   COUPON MESSAGE
+========================================= */
 
 function couponMessageShow(
     text,
@@ -809,9 +967,10 @@ function couponMessageShow(
 }
 
 
-// ======================================================
-// JSONP REQUEST
-// ======================================================
+
+/* =========================================
+   JSONP API
+========================================= */
 
 function apiJsonp(
     action,
@@ -821,9 +980,8 @@ function apiJsonp(
     return new Promise(
         (resolve, reject) => {
 
-            if (
-                !cfg.APPS_SCRIPT_URL
-            ) {
+
+            if (!cfg.APPS_SCRIPT_URL) {
 
                 reject(
                     new Error(
@@ -858,15 +1016,12 @@ function apiJsonp(
                 setTimeout(
                     () => {
 
-                        if (
-                            completed
-                        ) return;
-
+                        if (completed)
+                            return;
 
                         completed = true;
 
                         cleanup();
-
 
                         reject(
                             new Error(
@@ -881,9 +1036,7 @@ function apiJsonp(
 
             function cleanup() {
 
-                clearTimeout(
-                    timeout
-                );
+                clearTimeout(timeout);
 
 
                 if (
@@ -904,7 +1057,9 @@ function apiJsonp(
                         callbackName
                     ];
 
-                } catch (error) {
+                }
+
+                catch (error) {
 
                     window[
                         callbackName
@@ -919,9 +1074,8 @@ function apiJsonp(
                 callbackName
             ] = function(data) {
 
-                if (
-                    completed
-                ) return;
+                if (completed)
+                    return;
 
 
                 completed = true;
@@ -936,9 +1090,8 @@ function apiJsonp(
             script.onerror =
                 function() {
 
-                    if (
-                        completed
-                    ) return;
+                    if (completed)
+                        return;
 
 
                     completed = true;
@@ -967,23 +1120,22 @@ function apiJsonp(
                 );
 
 
-            Object.keys(
-                params
-            ).forEach(
-                key => {
+            Object.keys(params)
+                .forEach(
+                    key => {
 
-                    url +=
-                        "&" +
-                        encodeURIComponent(
-                            key
-                        ) +
-                        "=" +
-                        encodeURIComponent(
-                            params[key]
-                        );
+                        url +=
+                            "&" +
+                            encodeURIComponent(
+                                key
+                            ) +
+                            "=" +
+                            encodeURIComponent(
+                                params[key]
+                            );
 
-                }
-            );
+                    }
+                );
 
 
             url +=
@@ -991,8 +1143,7 @@ function apiJsonp(
                 Date.now();
 
 
-            script.src =
-                url;
+            script.src = url;
 
 
             document.body.appendChild(
@@ -1005,38 +1156,73 @@ function apiJsonp(
 }
 
 
-// ======================================================
-// RENDER QR
-// ======================================================
+
+/* =========================================
+   CREATE UPI LINK
+========================================= */
+
+function createUpiLink(
+    amount
+) {
+
+    const upiLink =
+        "upi://pay" +
+
+        "?pa=" +
+        encodeURIComponent(
+            "7338789676@fam"
+        ) +
+
+        "&pn=" +
+        encodeURIComponent(
+            "Monesh Ebooks"
+        ) +
+
+        "&am=" +
+        encodeURIComponent(
+            amount.toFixed(2)
+        ) +
+
+        "&cu=INR";
+
+
+    return upiLink;
+
+}
+
+
+
+/* =========================================
+   RENDER QR + MOBILE UPI
+========================================= */
 
 function renderQr(
     amount
 ) {
 
+
+    /* Create UPI URL */
+
+    const upiLink =
+        createUpiLink(
+            amount
+        );
+
+
+
+    /* Clear old QR */
+
     qrContainer.innerHTML =
         "";
 
 
-    const upiLink =
-        "upi://pay" +
-        "?pa=" +
-        encodeURIComponent(
-            "7338789676@fam"
-        ) +
-        "&pn=" +
-        encodeURIComponent(
-            "Monesh Ebooks"
-        ) +
-        "&am=" +
-        encodeURIComponent(
-            amount.toFixed(2)
-        ) +
-        "&cu=INR";
 
+    /* Desktop QR */
 
     new QRCode(
         qrContainer,
         {
+
             text: upiLink,
 
             width: 280,
@@ -1045,19 +1231,43 @@ function renderQr(
 
             correctLevel:
                 QRCode.CorrectLevel.H
+
         }
     );
+
+
+
+    /* Mobile UPI Button */
+
+    if (upiPayButton) {
+
+        upiPayButton.onclick =
+            function() {
+
+                /*
+                 * Android will attempt to open
+                 * a compatible UPI application.
+                 */
+
+                window.location.href =
+                    upiLink;
+
+            };
+
+    }
 
 }
 
 
-// ======================================================
-// RENDER AMOUNT
-// ======================================================
+
+/* =========================================
+   RENDER AMOUNT
+========================================= */
 
 function renderAmount() {
 
-    if (!book) return;
+    if (!book)
+        return;
 
 
     const original =
@@ -1134,6 +1344,8 @@ function renderAmount() {
     }
 
 
+    /* Update QR + mobile UPI */
+
     renderQr(
         finalAmount
     );
@@ -1141,20 +1353,20 @@ function renderAmount() {
 }
 
 
-// ======================================================
-// VALIDATE + APPLY COUPON
-// ======================================================
+
+/* =========================================
+   VALIDATE COUPON
+========================================= */
 
 async function validateAndApplyCoupon(
     code
 ) {
 
+
     code =
-        String(
-            code || ""
-        )
-        .trim()
-        .toUpperCase();
+        String(code || "")
+            .trim()
+            .toUpperCase();
 
 
     if (!code) {
@@ -1172,6 +1384,7 @@ async function validateAndApplyCoupon(
         return false;
 
     }
+
 
 
     if (
@@ -1193,6 +1406,7 @@ async function validateAndApplyCoupon(
     }
 
 
+
     couponApply.disabled =
         true;
 
@@ -1203,6 +1417,7 @@ async function validateAndApplyCoupon(
 
 
     try {
+
 
         const data =
             await apiJsonp(
@@ -1230,6 +1445,7 @@ async function validateAndApplyCoupon(
 
             renderAmount();
 
+
             couponMessageShow(
                 data &&
                 data.message
@@ -1237,14 +1453,14 @@ async function validateAndApplyCoupon(
                     : "Coupon server error."
             );
 
+
             return false;
 
         }
 
 
-        if (
-            !data.valid
-        ) {
+
+        if (!data.valid) {
 
             appliedCoupon = "";
 
@@ -1252,14 +1468,17 @@ async function validateAndApplyCoupon(
 
             renderAmount();
 
+
             couponMessageShow(
                 data.message ||
                 "Invalid coupon."
             );
 
+
             return false;
 
         }
+
 
 
         appliedCoupon =
@@ -1324,11 +1543,13 @@ async function validateAndApplyCoupon(
 }
 
 
-// ======================================================
-// BOOK LOAD
-// ======================================================
+
+/* =========================================
+   LOAD BOOK
+========================================= */
 
 if (!book) {
+
 
     document.body.innerHTML = `
 
@@ -1356,6 +1577,7 @@ if (!book) {
 
 else {
 
+
     bookCover.src =
         book.cover;
 
@@ -1380,13 +1602,10 @@ else {
     renderAmount();
 
 
-    // ----------------------------------------------
-    // AUTOMATIC COUPON FROM CART
-    // ----------------------------------------------
 
-    if (
-        requestedCoupon
-    ) {
+    /* Auto apply coupon */
+
+    if (requestedCoupon) {
 
         couponInput.value =
             requestedCoupon;
@@ -1401,9 +1620,10 @@ else {
 }
 
 
-// ======================================================
-// APPLY BUTTON
-// ======================================================
+
+/* =========================================
+   APPLY COUPON BUTTON
+========================================= */
 
 couponApply.addEventListener(
     "click",
@@ -1417,9 +1637,10 @@ couponApply.addEventListener(
 );
 
 
-// ======================================================
-// ENTER KEY
-// ======================================================
+
+/* =========================================
+   COUPON ENTER KEY
+========================================= */
 
 couponInput.addEventListener(
     "keydown",
@@ -1441,13 +1662,15 @@ couponInput.addEventListener(
 );
 
 
-// ======================================================
-// PAYMENT SUBMISSION
-// ======================================================
+
+/* =========================================
+   PAYMENT SUBMIT
+========================================= */
 
 paymentForm.addEventListener(
     "submit",
     async function(event) {
+
 
         event.preventDefault();
 
@@ -1482,13 +1705,13 @@ paymentForm.addEventListener(
             Date.now();
 
 
-        // ==================================================
-        // REDEEM COUPON
-        // ==================================================
 
-        if (
-            appliedCoupon
-        ) {
+        /* =================================
+           REDEEM COUPON
+        ================================= */
+
+        if (appliedCoupon) {
+
 
             if (
                 !cfg.APPS_SCRIPT_URL ||
@@ -1519,6 +1742,7 @@ paymentForm.addEventListener(
 
 
             try {
+
 
                 const redemption =
                     await apiJsonp(
@@ -1591,6 +1815,7 @@ paymentForm.addEventListener(
 
             catch (error) {
 
+
                 console.error(
                     "Coupon redemption error:",
                     error
@@ -1617,9 +1842,10 @@ paymentForm.addEventListener(
         }
 
 
-        // ==================================================
-        // ADD BOOK TO LIBRARY
-        // ==================================================
+
+        /* =================================
+           LIBRARY
+        ================================= */
 
         let library =
             JSON.parse(
@@ -1650,9 +1876,10 @@ paymentForm.addEventListener(
         );
 
 
-        // ==================================================
-        // SAVE PAYMENT
-        // ==================================================
+
+        /* =================================
+           PAYMENT RECORD
+        ================================= */
 
         let payments =
             JSON.parse(
@@ -1660,6 +1887,7 @@ paymentForm.addEventListener(
                     "payments"
                 ) || "[]"
             );
+
 
 
         const order = {
@@ -1674,7 +1902,9 @@ paymentForm.addEventListener(
                 book.title,
 
             originalAmount:
-                Number(book.price),
+                Number(
+                    book.price
+                ),
 
             discountPercent:
                 appliedDiscount,
@@ -1702,6 +1932,7 @@ paymentForm.addEventListener(
         };
 
 
+
         payments.push(
             order
         );
@@ -1715,9 +1946,10 @@ paymentForm.addEventListener(
         );
 
 
-        // ==================================================
-        // SUCCESS MESSAGE
-        // ==================================================
+
+        /* =================================
+           SUCCESS MESSAGE
+        ================================= */
 
         document.getElementById(
             "message"
@@ -1755,15 +1987,12 @@ paymentForm.addEventListener(
 
             <br><br>
 
-            📚 Your book has been
-            added to My Library.
+            📚 Your book has been added
+            to My Library.
 
         `;
 
 
-        // ==================================================
-        // SHOW LIBRARY
-        // ==================================================
 
         document.getElementById(
             "libraryButton"
@@ -1793,6 +2022,7 @@ paymentForm.addEventListener(
 
     }
 );
+
 
 </script>
 
