@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Upload Ebook | Monesh Ebooks</title>
+
+<link rel="stylesheet" href="css/seller.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+<aside class="sidebar">
+
+    <div class="side-logo">
+        Monesh <span>Ebooks</span>
+    </div>
+
+    <a href="seller-dashboard.html">🏠 Dashboard</a>
+
+    <a href="seller-upload.html" class="active">
+        ➕ Upload Book
+    </a>
+
+    <a href="seller-books.html">
+        📚 My Books
+    </a>
+
+    <a href="seller-sales.html">
+        🛒 Sales
+    </a>
+
+    <a href="seller-earnings.html">
+        💰 Earnings
+    </a>
+
+    <button onclick="sellerLogout()">
+        🚪 Logout
+    </button>
+
+</aside>
+
+
+<main class="dashboard">
+
+    <div class="dashboard-top">
+
+        <div>
+            <h1>Upload Ebook</h1>
+            <p>Add your ebook to Monesh Ebooks.</p>
+        </div>
+
+    </div>
+
+
+    <div class="form-card">
+
+        <form id="uploadBookForm">
+
+            <label>Book Title</label>
+
+            <input
+                type="text"
+                id="bookTitle"
+                placeholder="Example: Python for Beginners"
+                required
+            >
+
+
+            <label>Author Name</label>
+
+            <input
+                type="text"
+                id="bookAuthor"
+                placeholder="Author name"
+                required
+            >
+
+
+            <label>Category</label>
+
+            <select id="bookCategory" required>
+
+                <option value="">
+                    Select Category
+                </option>
+
+                <option>Programming</option>
+                <option>Technology</option>
+                <option>Education</option>
+                <option>Business</option>
+                <option>Self Development</option>
+                <option>Other</option>
+
+            </select>
+
+
+            <label>Description</label>
+
+            <textarea
+                id="bookDescription"
+                rows="6"
+                placeholder="Describe your ebook..."
+                required
+            ></textarea>
+
+
+            <label>Price ₹</label>
+
+            <input
+                type="number"
+                id="bookPrice"
+                min="1"
+                placeholder="149"
+                required
+            >
+
+
+            <label>Book Cover</label>
+
+            <input
+                type="file"
+                id="bookCover"
+                accept="image/*"
+            >
+
+
+            <label>PDF Ebook</label>
+
+            <input
+                type="file"
+                id="bookPdf"
+                accept="application/pdf"
+                required
+            >
+
+
+            <div class="commission-box">
+
+                <h3>💰 Earnings Preview</h3>
+
+                <p>
+                    Platform commission:
+                    <strong>10%</strong>
+                </p>
+
+                <p>
+                    Your estimated earning:
+                    <strong id="sellerAmount">
+                        ₹0
+                    </strong>
+                </p>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="btn primary"
+            >
+                Submit Ebook for Approval
+            </button>
+
+        </form>
+
+        <div id="uploadMessage"></div>
+
+    </div>
+
+</main>
+
+</div>
+
+<script src="js/seller.js"></script>
+
+</body>
+</html>
