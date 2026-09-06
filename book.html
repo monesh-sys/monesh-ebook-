@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -17,6 +16,103 @@
         rel="stylesheet"
         href="css/style.css"
     >
+
+    <style>
+
+        .book-detail {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 50px;
+            align-items: start;
+            padding: 50px 0;
+        }
+
+        .book-detail-cover {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            background: #f5f5f5;
+        }
+
+        .book-detail-cover img {
+            width: 100%;
+            display: block;
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+        }
+
+        .book-detail-info h1 {
+            font-size: 42px;
+            line-height: 1.1;
+            margin: 10px 0;
+        }
+
+        .book-author {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .book-price {
+            font-size: 30px;
+            font-weight: 800;
+            margin: 20px 0;
+        }
+
+        .book-description {
+            line-height: 1.8;
+            color: #555;
+            margin: 20px 0;
+        }
+
+        .book-meta {
+            color: #777;
+            margin: 20px 0;
+        }
+
+        .book-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .error-box {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .error-box h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .error-box p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 700px) {
+
+            .book-detail {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 30px 0;
+            }
+
+            .book-detail-cover {
+                max-width: 280px;
+                margin: auto;
+            }
+
+            .book-detail-info h1 {
+                font-size: 32px;
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -57,107 +153,175 @@
 
 <main class="page">
 
-<div class="container">
+    <div class="container">
 
-    <div
-        class="book-detail"
-        id="bookDetail"
-    ></div>
+        <div
+            class="book-detail"
+            id="bookDetail"
+        ></div>
 
-</div>
+    </div>
 
 </main>
 
 
 <script src="js/data.js"></script>
-
 <script src="js/app.js"></script>
 
 
 <script>
 
-const params =
-    new URLSearchParams(
+document.addEventListener("DOMContentLoaded", function () {
+
+    const params = new URLSearchParams(
         window.location.search
     );
 
+    const id = params.get("id");
 
-const id =
-    params.get("id") || 1;
-
-
-const book =
-    getBook(id);
+    const container =
+        document.getElementById("bookDetail");
 
 
-const container =
-    document.getElementById(
-        "bookDetail"
-    );
+    if (!id) {
+
+        container.innerHTML = `
+            <div class="error-box">
+
+                <h1>Book Not Found</h1>
+
+                <p>
+                    No book ID was provided.
+                </p>
+
+                <a
+                    href="books.html"
+                    class="btn btn-dark"
+                >
+                    Browse Books
+                </a>
+
+            </div>
+        `;
+
+        return;
+
+    }
 
 
-if (book) {
+    const book = getBook(id);
+
+
+    if (!book) {
+
+        container.innerHTML = `
+            <div class="error-box">
+
+                <h1>Book Not Found</h1>
+
+                <p>
+                    This book may not exist or may not
+                    have been approved yet.
+                </p>
+
+                <a
+                    href="books.html"
+                    class="btn btn-dark"
+                >
+                    Browse Books
+                </a>
+
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    const cover =
+        book.cover || "assets/programming.jpg";
+
+    const pages =
+        book.pages || "Digital";
+
+    const rating =
+        book.rating || "New";
+
 
     container.innerHTML = `
 
-        <div>
+        <div class="book-detail-cover">
 
             <img
-                src="${book.cover}"
+                src="${cover}"
                 alt="${book.title}"
+                onerror="this.src='assets/programming.jpg'"
             >
 
         </div>
 
 
-        <div>
+        <div class="book-detail-info">
 
             <p class="kicker">
-                ${book.category}
+                ${book.category || "Ebook"}
             </p>
+
 
             <h1>
                 ${book.title}
             </h1>
 
-            <p>
-                By ${book.author}
+
+            <p class="book-author">
+                By ${book.author || "Unknown Author"}
             </p>
 
-            <div class="price">
+
+            <div class="book-price">
                 ₹${book.price}
             </div>
 
+
             <p class="book-description">
-                ${book.description}
+                ${book.description || "No description available."}
             </p>
 
-            <p>
-                ${book.pages} pages ·
-                Rating ${book.rating}/5
-            </p>
 
-            <br>
+            <div class="book-meta">
 
-            <a
-                href="payment.html?id=${book.id}"
-                class="btn btn-dark"
-            >
-                Buy Now — ₹${book.price}
-            </a>
+                ${pages} pages
+                ·
+                Rating ${rating}/5
 
-            <button
-                class="btn btn-light"
-                onclick="addToCart(${book.id})"
-            >
-                Add to Cart
-            </button>
+            </div>
+
+
+            <div class="book-actions">
+
+                <a
+                    href="payment.html?id=${encodeURIComponent(String(book.id))}"
+                    class="btn btn-dark"
+                >
+                    Buy Now — ₹${book.price}
+                </a>
+
+
+                <button
+                    class="btn btn-light"
+                    onclick='addToCart(${JSON.stringify(String(book.id))})'
+                >
+                    Add to Cart
+                </button>
+
+            </div>
 
         </div>
 
     `;
 
-}
+});
 
 </script>
 
