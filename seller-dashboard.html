@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Seller Dashboard | Monesh Ebooks</title>
+
+<link rel="stylesheet" href="css/seller.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+<aside class="sidebar">
+
+    <div class="side-logo">
+        Monesh <span>Ebooks</span>
+    </div>
+
+    <a href="seller-dashboard.html" class="active">
+        🏠 Dashboard
+    </a>
+
+    <a href="seller-upload.html">
+        ➕ Upload Book
+    </a>
+
+    <a href="seller-books.html">
+        📚 My Books
+    </a>
+
+    <a href="seller-sales.html">
+        🛒 Sales
+    </a>
+
+    <a href="seller-earnings.html">
+        💰 Earnings
+    </a>
+
+    <button onclick="sellerLogout()">
+        🚪 Logout
+    </button>
+
+</aside>
+
+
+<main class="dashboard">
+
+    <div class="dashboard-top">
+
+        <div>
+            <h1>Seller Dashboard</h1>
+            <p id="welcomeSeller">
+                Welcome back!
+            </p>
+        </div>
+
+        <a
+            href="seller-upload.html"
+            class="btn primary"
+        >
+            + Upload Book
+        </a>
+
+    </div>
+
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <span>📚</span>
+            <h3 id="bookCount">0</h3>
+            <p>Total Books</p>
+        </div>
+
+        <div class="stat-card">
+            <span>🛒</span>
+            <h3 id="saleCount">0</h3>
+            <p>Total Sales</p>
+        </div>
+
+        <div class="stat-card">
+            <span>💰</span>
+            <h3 id="totalEarnings">₹0</h3>
+            <p>Total Earnings</p>
+        </div>
+
+        <div class="stat-card">
+            <span>⏳</span>
+            <h3 id="pendingBooks">0</h3>
+            <p>Pending Books</p>
+        </div>
+
+    </div>
+
+
+    <section class="dashboard-section">
+
+        <h2>Quick Actions</h2>
+
+        <div class="quick-grid">
+
+            <a href="seller-upload.html">
+                <strong>📤 Upload Ebook</strong>
+                <span>Add a new ebook</span>
+            </a>
+
+            <a href="seller-books.html">
+                <strong>📚 My Books</strong>
+                <span>Manage your books</span>
+            </a>
+
+            <a href="seller-sales.html">
+                <strong>🛒 Sales</strong>
+                <span>View your sales</span>
+            </a>
+
+            <a href="seller-earnings.html">
+                <strong>💰 Earnings</strong>
+                <span>Check earnings</span>
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+</div>
+
+<script src="js/seller.js"></script>
+
+</body>
+</html>
