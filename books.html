@@ -18,11 +18,90 @@
         href="css/style.css"
     >
 
+    <style>
+
+        /* =========================================
+           BOOKS PAGE
+        ========================================= */
+
+        .books-header {
+            padding: 50px 0 30px;
+        }
+
+        .books-header h1 {
+            margin: 8px 0 0;
+        }
+
+        .book-grid {
+            margin-top: 25px;
+        }
+
+
+        /* =========================================
+           EMPTY STATE
+        ========================================= */
+
+        .no-books {
+            display: none;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .no-books-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .no-books h2 {
+            margin-bottom: 10px;
+        }
+
+        .no-books p {
+            color: #777;
+            max-width: 500px;
+            margin: 0 auto 25px;
+            line-height: 1.6;
+        }
+
+
+        /* =========================================
+           BOOK COUNT
+        ========================================= */
+
+        .book-count {
+            margin-top: 10px;
+            color: #777;
+            font-size: 15px;
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            .books-header {
+                padding: 35px 0 20px;
+            }
+
+            .books-header h1 {
+                font-size: 32px;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 
 <body>
 
+
+<!-- =========================================
+     HEADER
+========================================= -->
 
 <header class="header">
 
@@ -59,33 +138,92 @@
 </header>
 
 
+<!-- =========================================
+     MAIN
+========================================= -->
+
 <main class="page">
 
-<div class="container">
-
-    <p class="kicker">
-        COLLECTION
-    </p>
-
-    <h1>
-        All books.
-    </h1>
+    <div class="container">
 
 
-    <div
-        class="book-grid"
-        id="bookGrid"
-    ></div>
+        <!-- PAGE TITLE -->
 
-</div>
+        <div class="books-header">
+
+            <p class="kicker">
+                COLLECTION
+            </p>
+
+            <h1>
+                All books.
+            </h1>
+
+            <p
+                class="book-count"
+                id="bookCount"
+            ></p>
+
+        </div>
+
+
+        <!-- BOOK GRID -->
+
+        <div
+            class="book-grid"
+            id="bookGrid"
+        ></div>
+
+
+        <!-- EMPTY STATE -->
+
+        <div
+            class="no-books"
+            id="noBooks"
+        >
+
+            <div class="no-books-icon">
+                📚
+            </div>
+
+            <h2>
+                No books available
+            </h2>
+
+            <p>
+                There are no books available right now.
+                New books will appear here after they are approved.
+            </p>
+
+            <a
+                href="index.html"
+                class="btn btn-dark"
+            >
+                Back to Home
+            </a>
+
+        </div>
+
+
+    </div>
 
 </main>
 
 
+<!-- =========================================
+     FOOTER
+========================================= -->
+
 <footer class="footer">
+
     © 2026 Monesh Ebooks
+
 </footer>
 
+
+<!-- =========================================
+     JAVASCRIPT
+========================================= -->
 
 <script src="js/data.js"></script>
 
@@ -94,18 +232,123 @@
 
 <script>
 
-const grid =
-    document.getElementById(
-        "bookGrid"
-    );
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
 
-books.forEach(book => {
+        /* =====================================
+           ELEMENTS
+        ===================================== */
 
-    grid.innerHTML +=
-        createBookCard(book);
+        const grid =
+            document.getElementById(
+                "bookGrid"
+            );
 
-});
+
+        const noBooks =
+            document.getElementById(
+                "noBooks"
+            );
+
+
+        const bookCount =
+            document.getElementById(
+                "bookCount"
+            );
+
+
+        /* =====================================
+           GET ALL BOOKS
+        ===================================== */
+
+        let allBooks = [];
+
+
+        if (
+            typeof getAllBooks === "function"
+        ) {
+
+            allBooks =
+                getAllBooks();
+
+        }
+        else if (
+            typeof books !== "undefined" &&
+            Array.isArray(books)
+        ) {
+
+            allBooks =
+                books;
+
+        }
+
+
+        /* =====================================
+           CHECK BOOKS
+        ===================================== */
+
+        if (
+            !Array.isArray(allBooks) ||
+            allBooks.length === 0
+        ) {
+
+            grid.style.display =
+                "none";
+
+            noBooks.style.display =
+                "block";
+
+            bookCount.textContent =
+                "";
+
+            return;
+
+        }
+
+
+        /* =====================================
+           BOOK COUNT
+        ===================================== */
+
+        bookCount.textContent =
+            allBooks.length === 1
+                ? "1 book available"
+                : `${allBooks.length} books available`;
+
+
+        /* =====================================
+           CLEAR GRID
+        ===================================== */
+
+        grid.innerHTML = "";
+
+
+        /* =====================================
+           CREATE BOOK CARDS
+        ===================================== */
+
+        allBooks.forEach(
+            function (book) {
+
+                if (
+                    typeof createBookCard ===
+                    "function"
+                ) {
+
+                    grid.innerHTML +=
+                        createBookCard(book);
+
+                }
+
+            }
+        );
+
+
+    }
+
+);
 
 </script>
 
