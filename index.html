@@ -9,9 +9,15 @@
 
     <meta name="theme-color" content="#0b0b0d">
 
+    <meta
+        name="description"
+        content="Monesh Ebooks - Discover books, stories, programming guides and educational ebooks."
+    >
+
     <title>Monesh Ebooks</title>
 
     <link rel="stylesheet" href="css/style.css">
+
 
     <style>
 
@@ -61,13 +67,13 @@
 
             z-index: 1000;
 
-            height: 74px;
+            min-height: 74px;
 
             display: flex;
 
             align-items: center;
 
-            justify-content: space-between;
+            gap: 12px;
 
             padding: 0 5%;
 
@@ -141,10 +147,80 @@
 
 
         /* =========================
+           SEARCH BUTTON
+        ========================= */
+
+        .search-toggle {
+
+            width: 42px;
+
+            height: 42px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: transparent;
+
+            color: #111;
+
+            cursor: pointer;
+
+            transition:
+                background .25s,
+                transform .25s;
+        }
+
+
+        .search-toggle:hover {
+
+            background: #eee;
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        .search-toggle:active {
+
+            transform:
+                scale(.94);
+        }
+
+
+        .search-toggle svg {
+
+            width: 21px;
+
+            height: 21px;
+
+            fill: none;
+
+            stroke: currentColor;
+
+            stroke-width: 2;
+
+            stroke-linecap: round;
+
+            stroke-linejoin: round;
+        }
+
+
+        /* =========================
            NAVIGATION
         ========================= */
 
         .nav {
+
+            margin-left: auto;
 
             display: flex;
 
@@ -210,6 +286,343 @@
         .library-btn:hover {
 
             background: #292929 !important;
+        }
+
+
+        /* =========================
+           SEARCH PANEL
+        ========================= */
+
+        .search-panel {
+
+            position: fixed;
+
+            top: 74px;
+
+            left: 0;
+
+            width: 100%;
+
+            z-index: 999;
+
+            padding: 0 5%;
+
+            background:
+                rgba(245,245,243,.97);
+
+            backdrop-filter:
+                blur(20px);
+
+            -webkit-backdrop-filter:
+                blur(20px);
+
+            border-bottom:
+                1px solid rgba(0,0,0,.08);
+
+            max-height: 0;
+
+            overflow: hidden;
+
+            opacity: 0;
+
+            transition:
+                max-height .35s ease,
+                opacity .25s ease,
+                padding .35s ease;
+        }
+
+
+        .search-panel.active {
+
+            max-height: 650px;
+
+            opacity: 1;
+
+            padding:
+                18px 5% 25px;
+        }
+
+
+        .search-inner {
+
+            width:
+                min(850px, 100%);
+
+            margin: auto;
+        }
+
+
+        /* =========================
+           SEARCH BOX
+        ========================= */
+
+        .search-box {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            background: white;
+
+            border:
+                1px solid #ddd;
+
+            border-radius: 14px;
+
+            padding:
+                0 12px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0,0,0,.06);
+
+            transition:
+                border .2s,
+                box-shadow .2s;
+        }
+
+
+        .search-box:focus-within {
+
+            border-color: #111;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(0,0,0,.06);
+        }
+
+
+        .search-box > svg {
+
+            width: 20px;
+
+            height: 20px;
+
+            flex-shrink: 0;
+
+            fill: none;
+
+            stroke: #777;
+
+            stroke-width: 2;
+
+            stroke-linecap: round;
+
+            stroke-linejoin: round;
+        }
+
+
+        #bookSearchInput {
+
+            flex: 1;
+
+            min-width: 0;
+
+            border: none;
+
+            outline: none;
+
+            background: transparent;
+
+            padding:
+                16px 0;
+
+            font-size: 15px;
+
+            color: #111;
+        }
+
+
+        #bookSearchInput::placeholder {
+            color: #999;
+        }
+
+
+        .search-close {
+
+            width: 35px;
+
+            height: 35px;
+
+            flex-shrink: 0;
+
+            border: none;
+
+            background: #f1f1ef;
+
+            border-radius: 10px;
+
+            font-size: 23px;
+
+            line-height: 1;
+
+            color: #555;
+
+            cursor: pointer;
+
+            transition:
+                .2s;
+        }
+
+
+        .search-close:hover {
+
+            background: #111;
+
+            color: white;
+        }
+
+
+        /* =========================
+           SEARCH RESULTS
+        ========================= */
+
+        .search-results {
+
+            margin-top: 14px;
+
+            max-height: 470px;
+
+            overflow-y: auto;
+
+            padding-right: 3px;
+        }
+
+
+        .search-result {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            margin-bottom: 9px;
+
+            padding: 11px;
+
+            background: white;
+
+            border:
+                1px solid #e8e8e8;
+
+            border-radius: 14px;
+
+            transition:
+                transform .2s,
+                box-shadow .2s;
+        }
+
+
+        .search-result:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 10px 25px
+                rgba(0,0,0,.08);
+        }
+
+
+        .search-result-cover {
+
+            width: 48px;
+
+            height: 68px;
+
+            object-fit: cover;
+
+            border-radius: 7px;
+
+            background: #eee;
+
+            flex-shrink: 0;
+        }
+
+
+        .search-result-info {
+
+            min-width: 0;
+
+            flex: 1;
+        }
+
+
+        .search-result-title {
+
+            font-size: 15px;
+
+            font-weight: 850;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+
+        .search-result-author {
+
+            margin-top: 5px;
+
+            color: #777;
+
+            font-size: 12px;
+        }
+
+
+        .search-result-price {
+
+            margin-top: 6px;
+
+            font-size: 12px;
+
+            font-weight: 800;
+        }
+
+
+        .search-result-arrow {
+
+            width: 32px;
+
+            height: 32px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            border-radius: 9px;
+
+            background: #f2f2f0;
+
+            font-size: 14px;
+        }
+
+
+        .search-message {
+
+            padding: 25px;
+
+            text-align: center;
+
+            background: white;
+
+            border:
+                1px solid #e8e8e8;
+
+            border-radius: 14px;
+
+            color: #777;
+
+            font-size: 14px;
         }
 
 
@@ -584,6 +997,90 @@
 
 
         /* =========================
+           SUBSCRIBER PROMO
+        ========================= */
+
+        .subscriber-promo {
+
+            padding:
+                55px 0;
+
+            background:
+                #111;
+
+            color: white;
+        }
+
+
+        .subscriber-promo-inner {
+
+            width:
+                min(1150px, 90%);
+
+            margin: auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 30px;
+        }
+
+
+        .subscriber-promo .kicker {
+
+            margin-bottom: 12px;
+
+            padding: 7px 12px;
+
+            background: white;
+
+            color: #111;
+
+            box-shadow: none;
+        }
+
+
+        .subscriber-promo h2 {
+
+            font-size:
+                clamp(28px, 4vw, 45px);
+
+            line-height: 1.05;
+
+            letter-spacing: -2px;
+        }
+
+
+        .subscriber-promo h2 span {
+
+            color: #aaa;
+        }
+
+
+        .subscriber-promo-inner > div > p:last-child {
+
+            margin-top: 15px;
+
+            color: #aaa;
+
+            font-size: 14px;
+        }
+
+
+        .subscriber-promo .btn-dark {
+
+            background: white;
+
+            color: #111;
+
+            flex-shrink: 0;
+        }
+
+
+        /* =========================
            FEATURED SECTION
         ========================= */
 
@@ -776,6 +1273,16 @@
                     repeat(2, 1fr);
             }
 
+
+            .subscriber-promo-inner {
+
+                align-items:
+                    flex-start;
+
+                flex-direction:
+                    column;
+            }
+
         }
 
 
@@ -787,14 +1294,14 @@
 
             .header {
 
-                height:
+                min-height:
                     65px;
 
                 padding:
                     0 12px;
 
                 gap:
-                    8px;
+                    6px;
             }
 
 
@@ -821,6 +1328,26 @@
 
                 font-size:
                     17px;
+            }
+
+
+            .search-toggle {
+
+                width:
+                    36px;
+
+                height:
+                    36px;
+            }
+
+
+            .search-toggle svg {
+
+                width:
+                    19px;
+
+                height:
+                    19px;
             }
 
 
@@ -851,6 +1378,80 @@
 
                 padding:
                     8px 10px !important;
+            }
+
+
+            /* SEARCH */
+
+            .search-panel {
+
+                top:
+                    65px;
+
+                padding:
+                    0 12px;
+            }
+
+
+            .search-panel.active {
+
+                padding:
+                    12px 12px 20px;
+            }
+
+
+            .search-box {
+
+                border-radius:
+                    12px;
+            }
+
+
+            #bookSearchInput {
+
+                padding:
+                    14px 0;
+
+                font-size:
+                    14px;
+            }
+
+
+            .search-result {
+
+                gap:
+                    10px;
+            }
+
+
+            .search-result-cover {
+
+                width:
+                    42px;
+
+                height:
+                    60px;
+            }
+
+
+            .search-result-title {
+
+                font-size:
+                    13px;
+            }
+
+
+            .search-result-author {
+
+                font-size:
+                    10px;
+            }
+
+
+            .search-result-price {
+
+                font-size:
+                    10px;
             }
 
 
@@ -999,6 +1600,42 @@
 
                 font-size:
                     7px;
+            }
+
+
+            /* SUBSCRIBER */
+
+            .subscriber-promo {
+
+                padding:
+                    45px 0;
+            }
+
+
+            .subscriber-promo-inner {
+
+                width:
+                    92%;
+
+                gap:
+                    25px;
+            }
+
+
+            .subscriber-promo h2 {
+
+                font-size:
+                    30px;
+            }
+
+
+            .subscriber-promo-inner > div > p:last-child {
+
+                font-size:
+                    12px;
+
+                line-height:
+                    1.6;
             }
 
 
@@ -1154,8 +1791,37 @@
     </a>
 
 
-    <nav class="nav">
+    <!-- SEARCH BUTTON -->
 
+    <button
+        type="button"
+        class="search-toggle"
+        id="searchToggle"
+        aria-label="Search books"
+        title="Search books"
+    >
+
+        <svg viewBox="0 0 24 24">
+
+            <circle
+                cx="11"
+                cy="11"
+                r="7"
+            ></circle>
+
+            <line
+                x1="16"
+                y1="16"
+                x2="21"
+                y2="21"
+            ></line>
+
+        </svg>
+
+    </button>
+
+
+    <nav class="nav">
 
         <a href="index.html">
             Home
@@ -1179,11 +1845,77 @@
             🛒 Cart
         </a>
 
-
     </nav>
 
 
 </header>
+
+
+<!-- =========================
+     SEARCH PANEL
+========================= -->
+
+<div
+    class="search-panel"
+    id="searchPanel"
+    aria-hidden="true"
+>
+
+    <div class="search-inner">
+
+
+        <div class="search-box">
+
+
+            <svg viewBox="0 0 24 24">
+
+                <circle
+                    cx="11"
+                    cy="11"
+                    r="7"
+                ></circle>
+
+                <line
+                    x1="16"
+                    y1="16"
+                    x2="21"
+                    y2="21"
+                ></line>
+
+            </svg>
+
+
+            <input
+                type="search"
+                id="bookSearchInput"
+                placeholder="Search books or authors..."
+                autocomplete="off"
+                spellcheck="false"
+            >
+
+
+            <button
+                type="button"
+                class="search-close"
+                id="searchClose"
+                aria-label="Close search"
+            >
+                ×
+            </button>
+
+
+        </div>
+
+
+        <div
+            class="search-results"
+            id="searchResults"
+        ></div>
+
+
+    </div>
+
+</div>
 
 
 
@@ -1324,16 +2056,55 @@
 <!-- =========================
      TECH BLUEPRINT REWARD
 ========================= -->
+
 <section class="subscriber-promo">
+
+
     <div class="subscriber-promo-inner">
+
+
         <div>
-            <p class="kicker">EXCLUSIVE REWARD</p>
-            <h2>Subscribe to Tech Blueprint.<br><span>Get 50% off an ebook.</span></h2>
-            <p>Verify your YouTube subscription and receive one unique coupon.</p>
+
+            <p class="kicker">
+                EXCLUSIVE REWARD
+            </p>
+
+
+            <h2>
+
+                Subscribe to Tech Blueprint.
+
+                <br>
+
+                <span>
+                    Get 50% off an ebook.
+                </span>
+
+            </h2>
+
+
+            <p>
+                Verify your YouTube subscription
+                and receive one unique coupon.
+            </p>
+
         </div>
-        <a href="subscriber.html" class="btn btn-dark">Get My Coupon →</a>
+
+
+        <a
+            href="subscriber.html"
+            class="btn btn-dark"
+        >
+            Get My Coupon →
+        </a>
+
+
     </div>
+
+
 </section>
+
+
 
 <!-- =========================
      FEATURED BOOKS
@@ -1356,6 +2127,7 @@
                 <p class="kicker">
                     FEATURED BOOKS
                 </p>
+
 
                 <h2>
                     Popular books
@@ -1405,13 +2177,18 @@
 
 
 <!-- =========================
-     JAVASCRIPT
+     DATA + APP
 ========================= -->
 
 <script src="js/data.js"></script>
 
 <script src="js/app.js"></script>
 
+
+
+<!-- =========================
+     FEATURED BOOKS
+========================= -->
 
 <script>
 
@@ -1436,6 +2213,659 @@
             });
 
     }
+
+</script>
+
+
+
+<!-- =========================
+     SEARCH JAVASCRIPT
+========================= -->
+
+<script>
+
+(function () {
+
+
+    const searchToggle =
+        document.getElementById(
+            "searchToggle"
+        );
+
+
+    const searchPanel =
+        document.getElementById(
+            "searchPanel"
+        );
+
+
+    const searchClose =
+        document.getElementById(
+            "searchClose"
+        );
+
+
+    const searchInput =
+        document.getElementById(
+            "bookSearchInput"
+        );
+
+
+    const searchResults =
+        document.getElementById(
+            "searchResults"
+        );
+
+
+    /* =========================
+       GET BOOK DATA
+    ========================= */
+
+    function getBooks() {
+
+        if (
+            typeof books !== "undefined" &&
+            Array.isArray(books)
+        ) {
+
+            return books;
+
+        }
+
+
+        if (
+            Array.isArray(window.books)
+        ) {
+
+            return window.books;
+
+        }
+
+
+        return [];
+
+    }
+
+
+    /* =========================
+       NORMALIZE
+    ========================= */
+
+    function normalize(value) {
+
+        return String(value || "")
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .trim();
+
+    }
+
+
+    /* =========================
+       ESCAPE HTML
+    ========================= */
+
+    function escapeHTML(value) {
+
+        return String(value || "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =========================
+       SEARCH SCORE
+    ========================= */
+
+    function scoreBook(book, query) {
+
+        const title =
+            normalize(book.title);
+
+        const author =
+            normalize(book.author);
+
+        const description =
+            normalize(book.description);
+
+        const category =
+            normalize(
+                book.category ||
+                book.genre ||
+                ""
+            );
+
+
+        const combined =
+            [
+                title,
+                author,
+                description,
+                category
+            ].join(" ");
+
+
+        let score = 0;
+
+
+        /* Exact title */
+
+        if (title === query) {
+
+            score += 1000;
+
+        }
+
+
+        /* Title begins with search */
+
+        if (
+            title.startsWith(query)
+        ) {
+
+            score += 500;
+
+        }
+
+
+        /* Title contains search */
+
+        if (
+            title.includes(query)
+        ) {
+
+            score += 350;
+
+        }
+
+
+        /* Author */
+
+        if (
+            author.includes(query)
+        ) {
+
+            score += 250;
+
+        }
+
+
+        /* Category */
+
+        if (
+            category.includes(query)
+        ) {
+
+            score += 150;
+
+        }
+
+
+        /* Description */
+
+        if (
+            description.includes(query)
+        ) {
+
+            score += 80;
+
+        }
+
+
+        /* Individual words */
+
+        const words =
+            query.split(/\s+/)
+                .filter(Boolean);
+
+
+        words.forEach(word => {
+
+            if (
+                title.includes(word)
+            ) {
+
+                score += 100;
+
+            }
+
+
+            if (
+                author.includes(word)
+            ) {
+
+                score += 70;
+
+            }
+
+
+            if (
+                category.includes(word)
+            ) {
+
+                score += 40;
+
+            }
+
+
+            if (
+                description.includes(word)
+            ) {
+
+                score += 20;
+
+            }
+
+        });
+
+
+        /* Any match */
+
+        if (
+            combined.includes(query)
+        ) {
+
+            score += 25;
+
+        }
+
+
+        return score;
+
+    }
+
+
+    /* =========================
+       OPEN SEARCH
+    ========================= */
+
+    function openSearch() {
+
+        searchPanel.classList.add(
+            "active"
+        );
+
+        searchPanel.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+
+        setTimeout(() => {
+
+            searchInput.focus();
+
+        }, 180);
+
+    }
+
+
+    /* =========================
+       CLOSE SEARCH
+    ========================= */
+
+    function closeSearch() {
+
+        searchPanel.classList.remove(
+            "active"
+        );
+
+        searchPanel.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        searchInput.value = "";
+
+        searchResults.innerHTML = "";
+
+    }
+
+
+    /* =========================
+       RENDER RESULTS
+    ========================= */
+
+    function renderResults(results) {
+
+        if (
+            !results.length
+        ) {
+
+            searchResults.innerHTML = `
+
+                <div class="search-message">
+
+                    📚 No books found.
+
+                    <br>
+
+                    <small>
+                        Try another title, author or keyword.
+                    </small>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        searchResults.innerHTML =
+
+            results
+                .slice(0, 10)
+                .map(book => {
+
+
+                    const title =
+                        escapeHTML(
+                            book.title ||
+                            "Untitled Book"
+                        );
+
+
+                    const author =
+                        escapeHTML(
+                            book.author ||
+                            "Unknown Author"
+                        );
+
+
+                    const cover =
+                        escapeHTML(
+                            book.cover ||
+                            ""
+                        );
+
+
+                    const id =
+                        encodeURIComponent(
+                            book.id ?? ""
+                        );
+
+
+                    const numericPrice =
+                        Number(
+                            book.price
+                        );
+
+
+                    const price =
+                        Number.isFinite(
+                            numericPrice
+                        )
+                            ? `₹${numericPrice}`
+                            : "Free";
+
+
+                    return `
+
+                        <a
+                            href="payment.html?id=${id}"
+                            class="search-result"
+                        >
+
+                            <img
+                                src="${cover}"
+                                alt="${title}"
+                                class="search-result-cover"
+                                loading="lazy"
+                            >
+
+
+                            <div class="search-result-info">
+
+                                <div
+                                    class="search-result-title"
+                                >
+                                    ${title}
+                                </div>
+
+
+                                <div
+                                    class="search-result-author"
+                                >
+                                    By ${author}
+                                </div>
+
+
+                                <div
+                                    class="search-result-price"
+                                >
+                                    ${price}
+                                </div>
+
+                            </div>
+
+
+                            <div class="search-result-arrow">
+                                →
+                            </div>
+
+                        </a>
+
+                    `;
+
+                })
+                .join("");
+
+    }
+
+
+    /* =========================
+       PERFORM SEARCH
+    ========================= */
+
+    function performSearch(value) {
+
+        const query =
+            normalize(value);
+
+
+        if (!query) {
+
+            searchResults.innerHTML = "";
+
+            return;
+
+        }
+
+
+        const allBooks =
+            getBooks();
+
+
+        if (!allBooks.length) {
+
+            searchResults.innerHTML = `
+
+                <div class="search-message">
+
+                    Loading books...
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        const results =
+
+            allBooks
+
+                .map(book => ({
+
+                    book: book,
+
+                    score:
+                        scoreBook(
+                            book,
+                            query
+                        )
+
+                }))
+
+                .filter(
+                    item =>
+                        item.score > 0
+                )
+
+                .sort(
+                    (a, b) =>
+                        b.score -
+                        a.score
+                )
+
+                .map(
+                    item =>
+                        item.book
+                );
+
+
+        renderResults(results);
+
+    }
+
+
+    /* =========================
+       EVENTS
+    ========================= */
+
+    searchToggle.addEventListener(
+        "click",
+        function () {
+
+            if (
+                searchPanel.classList.contains(
+                    "active"
+                )
+            ) {
+
+                closeSearch();
+
+            } else {
+
+                openSearch();
+
+            }
+
+        }
+    );
+
+
+    searchClose.addEventListener(
+        "click",
+        closeSearch
+    );
+
+
+    searchInput.addEventListener(
+        "input",
+        function () {
+
+            performSearch(
+                this.value
+            );
+
+        }
+    );
+
+
+    /* =========================
+       ESCAPE
+    ========================= */
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Escape" &&
+                searchPanel.classList.contains(
+                    "active"
+                )
+            ) {
+
+                closeSearch();
+
+            }
+
+
+            /* CTRL + K */
+
+            if (
+                (event.ctrlKey ||
+                 event.metaKey) &&
+
+                event.key.toLowerCase() === "k"
+            ) {
+
+                event.preventDefault();
+
+                openSearch();
+
+            }
+
+        }
+    );
+
+
+    /* =========================
+       CLICK OUTSIDE
+    ========================= */
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                !searchPanel.classList.contains(
+                    "active"
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            const clickedInsideSearch =
+                searchPanel.contains(
+                    event.target
+                );
+
+
+            const clickedButton =
+                searchToggle.contains(
+                    event.target
+                );
+
+
+            if (
+                !clickedInsideSearch &&
+                !clickedButton
+            ) {
+
+                closeSearch();
+
+            }
+
+        }
+    );
+
+
+})();
 
 </script>
 
