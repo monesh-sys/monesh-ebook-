@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Earnings | Monesh Ebooks</title>
+
+<link rel="stylesheet" href="css/seller.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+<aside class="sidebar">
+
+    <div class="side-logo">
+        Monesh <span>Ebooks</span>
+    </div>
+
+    <a href="seller-dashboard.html">🏠 Dashboard</a>
+    <a href="seller-upload.html">➕ Upload Book</a>
+    <a href="seller-books.html">📚 My Books</a>
+    <a href="seller-sales.html">🛒 Sales</a>
+
+    <a href="seller-earnings.html" class="active">
+        💰 Earnings
+    </a>
+
+    <button onclick="sellerLogout()">
+        🚪 Logout
+    </button>
+
+</aside>
+
+
+<main class="dashboard">
+
+    <h1>Earnings</h1>
+
+    <p class="page-description">
+        Your seller earnings overview.
+    </p>
+
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <span>💰</span>
+
+            <h3 id="earningTotal">
+                ₹0
+            </h3>
+
+            <p>Total Earnings</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>⏳</span>
+
+            <h3 id="earningPending">
+                ₹0
+            </h3>
+
+            <p>Pending Payout</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>✅</span>
+
+            <h3 id="earningPaid">
+                ₹0
+            </h3>
+
+            <p>Paid</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="info-box">
+
+        <h2>Platform Commission</h2>
+
+        <p>
+            Monesh Ebooks platform commission:
+            <strong>10%</strong>
+        </p>
+
+        <p>
+            Seller share:
+            <strong>90%</strong>
+        </p>
+
+    </div>
+
+</main>
+
+</div>
+
+<script src="js/seller.js"></script>
+
+</body>
+</html>
